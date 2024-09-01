@@ -1,48 +1,52 @@
 import React, { useEffect, useState } from "react";
 import {
   Container,
-  Row,
   Navbar,
   Offcanvas,
   Nav,
   NavDropdown,
+  Row,
 } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import "./header.css";
 
 const Header = () => {
-  const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setOpen(!open);
-  };
+    const toggleMenu = () => {
+        setOpen(!open);
+    };
 
-  useEffect(()=>{
-    window.addEventListener("scroll", isSticky);
-    return ()=>{
-      window.removeEventListener("scroll", isSticky)
-    }
-  })
+    useEffect(() => {
+        window.addEventListener("scroll", isSticky);
+        return () => {
+            window.removeEventListener("scroll", isSticky);
+        };
+    }, []);
 
-  // sticky Header 
-  const isSticky=(e)=>{
-    const header = document.querySelector('.header-section');
-    const scrollTop = window.scrollY;
-    scrollTop >= 120 ? header.classList.add('is-sticky') :
-    header.classList.remove('is-sticky')
-  }
+    const isSticky = () => {
+        const header = document.querySelector(".header-section");
+        const scrollTop = window.scrollY;
+        if (scrollTop >= 120) {
+            header.classList.add("is-sticky");
+        } else {
+            header.classList.remove("is-sticky");
+        }
+    };
     return (
         <header className="header-section">
             <Container>
                 <Navbar expand="lg" className="p-0">
                     {/* Logo Section  */}
                     <Navbar.Brand>
-                        <NavLink to="/"> Tour du lịch</NavLink>
+                        <NavLink to="/"> 
+                            Tour du lịch 
+                        </NavLink>
                     </Navbar.Brand>
                     {/* End Logo Section  */}
 
                     <Navbar.Offcanvas
-                        id={`offcanvasNavbar-expand-lg`}
+                        id="offcanvasNavbar-expand-lg"
                         aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
                         placement="start"
                         show={open}
@@ -70,7 +74,7 @@ const Header = () => {
 
                                 <NavDropdown
                                     title="DESTINATION"
-                                    id={`offcanvasNavbarDropdown-expand-lg`}
+                                    id="offcanvasNavbarDropdown-expand-lg"
                                 >
                                     <NavLink className="nav-link text-dark" to="/" >
                                     SPAIN TOURS
@@ -96,6 +100,7 @@ const Header = () => {
                         </li>
                     </div>
                 </Navbar>
+
             </Container>
         </header>
     );

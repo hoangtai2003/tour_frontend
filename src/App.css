@@ -1,64 +1,117 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
-@import 'bootstrap/dist/css/bootstrap.min.css';
-:root {
-    --primaryClr: #fe4e37;
-    --secondaryClr: #fffaf9;
-    --bgClr: #f8f9fd;
-    --white: #ffffff;
-    --black: black;
-    --textclr: #4f5e71;
-  
-    --smallText: 12px;
-  
-    --bodyText: 16px;
-    --subTitle: 18px;
-    --heading: 26px;
-    --fontFamily: "Lato", sans-serif;
-    --fontFamily1: "Libre Baskerville", serif;
-    
+.primaryBtn{
+	background: var(--primaryClr);
+	padding: 8px 15px;
+	font-size: var(--bodyText);
+	color:var(--white);
+	text-align: center;
+	position: relative;
+	letter-spacing: 0.5px;
+	transition: all 0.2s ease-in-out;
+	text-decoration: none;
+	font-weight: 500;
+	border-radius: 4px;
+	border: none ;
 }
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-    font-family: var(--fontFamily);
+  
+.primaryBtn:hover{
+	transform: translateY(-3px);
 }
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
+  
+.main_heading{
+	margin-bottom: 30px;
+}
+
+.main_heading h1 {
+	font-size: var(--heading);
+	color:var(--black);
+	font-weight: bold;
+	font-family: var(--fontFamily1);
+
+}
+  
+  
+  
+.slick_slider .slick-arrow  {
+	z-index: 100;
+	position: absolute;
+	top: 45%;
+	width: 55px;
+	height: 55px;
 	display: block;
+	border-radius: 100%;
+	transition: box-shadow 0.3ms;
+	background: var(--primaryClr);
+	opacity: 1;
 }
-body {
-	line-height: 1;
+  
+.slick_slider .slick-arrow:hover {
+	box-shadow: 0 0 0 1rem rgba(255, 255, 255, 0.267);
+	background-color: var(--white);
 }
-ol, ul {
-	list-style: none;
+  
+  
+  
+.slick_slider .slick-arrow::after,
+.slick_slider .slick-arrow::before
+{
+	content: "";
+	position: absolute;
+	left: 43%;
+	background: var(--white);
+	width: 0.4rem;
+	min-width: 3px;
+	border-radius: 3px;
+	height: 34%;
 }
-blockquote, q {
-	quotes: none;
+  
+.slick_slider .slick-arrow:hover{
+	background-color: var(--primaryClr);
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+
+.slick_slider .slick-arrow:focus{
+	background-color: var(--primaryClr);
 }
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+
+.slick_slider .slick-prev {
+	left: -15px;
+}
+
+.slick_slider .slick-prev::before {
+	transform: rotate(45deg);
+	top: 24%;
+}
+
+.slick_slider .slick-prev::after {
+	transform: rotate(-45deg);
+	bottom: 24%;
+}
+
+.slick_slider .slick-next {
+	right: -15px;
+}
+
+.slick_slider .slick-next::before {
+	left: auto;
+	right: 43%;
+	transform: rotate(-45deg);
+	top: 24%;
+}
+
+.slick_slider .slick-next::after {
+	left: auto;
+	right: 43%;
+	transform: rotate(45deg);
+	bottom: 24%;
+}
+
+.slick_slider .slick-prev span,
+.slick_slider .slick-next span {
+	display: none;
+}
+  
+  
+@media only screen and (max-width: 600px){
+	.slick_slider .slick-arrow{
+		display: none !important;
+	}
 }

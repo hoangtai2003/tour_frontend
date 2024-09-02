@@ -32,11 +32,11 @@ const AdvanceSearch = () => {
                                         label="Location"
                                         onSelect={selectedLocation}
                                         options={[
-                                        "USA, Turkish",
-                                        "Tokyo, Japan",
-                                        "Sydney, Australia",
-                                        "Melbourne, Australia",
-                                        "Paris, France",
+                                            "USA, Turkish",
+                                            "Tokyo, Japan",
+                                            "Sydney, Australia",
+                                            "Melbourne, Australia",
+                                            "Paris, France",
                                         ]}
                                     />
                                 </div>
@@ -68,9 +68,9 @@ const AdvanceSearch = () => {
                                         label="Guest"
                                         onSelect={selectedGuest}
                                         options={[
-                                        "2 adults, 1 children",
-                                        "	2 adults, 1 children",
-                                        "2 adults, 3 children",
+                                            "2 adults, 1 children",
+                                            "	2 adults, 1 children",
+                                            "2 adults, 3 children",
                                         ]}
                                     />
                                 </div>

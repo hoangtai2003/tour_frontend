@@ -28,9 +28,7 @@
 	font-family: var(--fontFamily1);
 
 }
-  
-  
-  
+
 .slick_slider .slick-arrow  {
 	z-index: 100;
 	position: absolute;
@@ -48,8 +46,6 @@
 	box-shadow: 0 0 0 1rem rgba(255, 255, 255, 0.267);
 	background-color: var(--white);
 }
-  
-  
   
 .slick_slider .slick-arrow::after,
 .slick_slider .slick-arrow::before

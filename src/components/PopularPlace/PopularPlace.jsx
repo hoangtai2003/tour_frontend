@@ -1,6 +1,5 @@
 import React from 'react'
 import "./popular-place.css"
-import tour4 from "../../assets/images/tour/Tokyo.png";
 import { Container, Row, Col, Card, Stack } from 'react-bootstrap'
 import Anchorage from "../../assets/images/popular/Anchorage To La Paz.jpg";
 import Singapore from "../../assets/images/popular/Discover Singapore.png";

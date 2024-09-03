@@ -17,6 +17,7 @@ import tour9 from "../../assets/images/tour/phuket.png";
 import tour10 from "../../assets/images/tour/paris.png";
 import tour11 from "../../assets/images/tour/malaysia.png";
 import PopularPlace from '../../components/PopularPlace/PopularPlace'
+import Gallery from '../../components/Gallery/Gallery'
 const Home = () => {
     var settings = {
         dots: false,
@@ -193,6 +194,22 @@ const Home = () => {
                     </Row>
                 </Container>
                 <div className="overlay"></div>
+            </section>
+            <section className='gallery'>
+                <Container>
+                    <Row>
+                        <Col md={12}>
+                            <div className="main_heading">
+                                <h1>Photo Gallery</h1>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={12}>
+                            <Gallery />
+                        </Col>
+                    </Row>
+                </Container>
             </section>
         </>
 

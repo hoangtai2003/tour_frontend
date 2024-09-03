@@ -69,7 +69,7 @@ const AdvanceSearch = () => {
                                         onSelect={selectedGuest}
                                         options={[
                                             "2 adults, 1 children",
-                                            "	2 adults, 1 children",
+                                            "2 adults, 1 children",
                                             "2 adults, 3 children",
                                         ]}
                                     />

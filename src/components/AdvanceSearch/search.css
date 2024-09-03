@@ -106,6 +106,7 @@
     display: flex;
     border:none;
     font-weight: bold;
+    background-color: var(--primaryClr) !important;
 }
 .box-search-advance .box-search .item-search .primaryBtn:hover{
     background-color: var(--primaryClr);

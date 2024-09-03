@@ -1,55 +1,57 @@
-.popular{
-    padding: 50px 0px;
+.popular  {
+    padding: 50px 0;
 }
-
-.popular .card{
+.popular .card {
     padding: 5px;
     border: none;
     transition: all 0.5s ease 0s;
     overflow: hidden;
 }
 
-.popular .card:hover{
+.popular .card:hover {
     transform: translateY(-10px);
     transition: 0.2s ease-in;
 }
 
-.popular .card:hover .card-title{
-    color: var(--primaryClr);
+.popular .card:hover .card-title {
+    color:var(--primaryClr)
 }
 
-.popular .card img {
+.popular img {
     transition: all 0.5s ease 0s;
 }
-
-.popular .card .card-body .badge{
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-left: 8px;
-    font-size: var(--bodyText);
-    margin-right: 8px;
+.popular .card:hover img {
+    transform: scale(1.1);
 }
 
-.popular .card  .card-body .River{
+.popular  .card-body .badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.popular  .card-body .River{
     background-color: #ffebf5 !important;
     color:#cf3881 !important;
 }
 
-.popular .card  .card-body .Wildlife{
+.popular  .card-body .Wildlife{
     background-color: #4ba7fc !important;
     color:#e6f7f4 !important;
 }
-.popular .card  .card-body .Escorted{
+
+.popular  .card-body .Escorted{
     background-color: #e8edf1 !important;
     color:#4f5e71 !important;
 }
 
-.popular .card .card-body .Rail{
+.popular  .card-body .Rail{
     background-color: #fc961b !important;
     color:#ffffff !important;
 }
 
-.popular .card .card-body .Tour{
+.popular  .card-body .Tour{
     background-color: #6088c4 !important;
     color:#ffffff !important;
 }

@@ -16,6 +16,7 @@ import tour8 from "../../assets/images/tour/nah-trang.png";
 import tour9 from "../../assets/images/tour/phuket.png";
 import tour10 from "../../assets/images/tour/paris.png";
 import tour11 from "../../assets/images/tour/malaysia.png";
+import PopularPlace from '../../components/PopularPlace/PopularPlace'
 const Home = () => {
     var settings = {
         dots: false,
@@ -164,6 +165,7 @@ const Home = () => {
                     </Row>
                 </Container>
             </section>
+            <PopularPlace />
         </>
 
     )

@@ -1,7 +1,8 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
-import sliderImg from "../../assets/images/slider/1.png";
-import sliderImg1 from "../../assets/images/slider/2.png";
+import sliderImg from "../../assets/images/slider/slider_1.jpg";
+import sliderImg1 from "../../assets/images/slider/slider_2.jpg";
+import sliderImg2 from "../../assets/images/slider/slider_3.jpg";
 import "./banner.css"
 
 const Banner = () => {
@@ -14,12 +15,10 @@ const Banner = () => {
                         <Carousel.Caption>
                         <div className="slider_des">
                             <h5 className="heading">
-                            JOURNEY TO <span>EXPLORE WORLD</span>
+                            Khám phá địa điểm <span>yêu thích của bạn với chúng tôi</span>
                             </h5>
                             <p className="sub_text">
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the industry's
-                            standard dummy text ever since the 1500s,
+                                Du lịch đến bất cứ nơi nào bạn chỉ cần liên hệ với chúng tôi!
                             </p>
                         </div>
                         </Carousel.Caption>
@@ -30,12 +29,23 @@ const Banner = () => {
                         <Carousel.Caption>
                         <div className="slider_des">
                             <h5 className="heading">
-                            BEAUTIFUL PLACE <span>TO VISIT</span>
+                            Với chúng tôi, <span>mỗi hành trình là một câu chuyện </span>
                             </h5>
                             <p className="sub_text">
-                            Lorem Ipsum is simply dummy text of the printing and
-                            typesetting industry. Lorem Ipsum has been the industry's
-                            standard dummy text ever since the 1500s,
+                            Bắt đầu viết nên câu chuyện của bạn hôm nay!
+                            </p>
+                        </div>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img src={sliderImg2} className="d-block w-100" alt="First slide" />
+                        <Carousel.Caption>
+                        <div className="slider_des">
+                            <h5 className="heading">
+                            Bước vào thế giới kỳ diệu <span>cùng những chuyến đi tuyệt vời</span>
+                            </h5>
+                            <p className="sub_text">
+                            Khám phá, thư giãn, và tận hưởng mỗi khoảnh khắc!
                             </p>
                         </div>
                         </Carousel.Caption>

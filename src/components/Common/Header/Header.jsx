@@ -4,8 +4,6 @@ import {
   Navbar,
   Offcanvas,
   Nav,
-  NavDropdown,
-  Row,
 } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import "./header.css";
@@ -40,7 +38,7 @@ const Header = () => {
                     {/* Logo Section  */}
                     <Navbar.Brand>
                         <NavLink to="/"> 
-                            Tour du lịch 
+                            Tour du lịch
                         </NavLink>
                     </Navbar.Brand>
                     {/* End Logo Section  */}
@@ -53,7 +51,7 @@ const Header = () => {
                     >
                         {/*mobile Logo Section  */}
                         <Offcanvas.Header>
-                            <h1 className="logo">Weekendmonks</h1>
+                            <h1 className="logo">Tour du lịch</h1>
                             <span className="navbar-toggler ms-auto"  onClick={toggleMenu}>
                                 <i className="bi bi-x-lg"></i>
                             </span>
@@ -66,39 +64,38 @@ const Header = () => {
                                     Trang chủ
                                 </NavLink>
                                 <NavLink className="nav-link" to="/" >
-                                    ABOUT US
+                                    Giới thiệu
                                 </NavLink>
                                 <NavLink className="nav-link" to="/" >
                                     TOURS
                                 </NavLink>
 
-                                <NavDropdown
-                                    title="DESTINATION"
-                                    id="offcanvasNavbarDropdown-expand-lg"
-                                >
-                                    <NavLink className="nav-link text-dark" to="/" >
-                                    SPAIN TOURS
-                                </NavLink>
-                                
-                                
-                                </NavDropdown>
                                 <NavLink className="nav-link" to="/" >
-                                    GALLERY
+                                    Tin tức
+                                </NavLink>
+                                <NavLink className="nav-link" to="/" >
+                                   Khách sạn
                                 </NavLink>
                                 <NavLink className="nav-link" to="/" >
                                     Liên hệ
                                 </NavLink>
+                                <NavLink className="nav-link" to="/" >
+                                    Đăng ký
+                                </NavLink>
+                                <NavLink className="nav-link" to="/" >
+                                    Đăng nhập
+                                </NavLink>
                             </Nav>
                         </Offcanvas.Body>
                     </Navbar.Offcanvas>
-                    <div className="ms-md-4 ms-2">
+                    {/* <div className="ms-md-4 ms-2">
                         <NavLink className="primaryBtn d-none d-sm-inline-block">
                             Book Now
                         </NavLink>
                         <li className="d-inline-block d-lg-none ms-3 toggle_btn">
                             <i className={open ? "bi bi-x-lg" : "bi bi-list"}  onClick={toggleMenu}></i>
                         </li>
-                    </div>
+                    </div> */}
                 </Navbar>
 
             </Container>

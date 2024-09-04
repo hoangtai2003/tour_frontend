@@ -18,6 +18,7 @@ import tour10 from "../../assets/images/tour/paris.png";
 import tour11 from "../../assets/images/tour/malaysia.png";
 import PopularPlace from '../../components/PopularPlace/PopularPlace'
 import Gallery from '../../components/Gallery/Gallery'
+import video from '../../assets/images/video.mp4'
 const Home = () => {
     var settings = {
         dots: false,
@@ -138,7 +139,7 @@ const Home = () => {
                     <Row>
                         <Col md={12}>
                             <div className="main_heading">
-                                <h1>Top Destination For Your Next Vacation</h1>
+                                <h1>Điểm đến hàng đầu dành cho bạn</h1>
                             </div>
                         </Col>
                     </Row>
@@ -167,34 +168,16 @@ const Home = () => {
                 </Container>
             </section>
             <PopularPlace />
-            <section className="call_us">
-                <Container>
-                    <Row className="align-items-center">
-                        <Col md="8">
-                        <h5 className="title">CALL TO ACTION</h5>
-                        <h2 className="heading">
-                            READY FOR UNFORGATABLE TRAVEL. REMEMBER US!
-                        </h2>
-                        <p className="text">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's standard dummy
-                            text ever since the 1500s,{" "}
-                        </p>
-                        </Col>
-                        <Col md="4" className="text-center mt-3 mt-md-0">
-                        <a
-                            href="tel:6398312365"
-                            className="secondary_btn bounce"
-                            rel="no"
-                        >
-                            {" "}
-                            Contact Us !
-                        </a>
-                        </Col>
-                    </Row>
-                </Container>
-                <div className="overlay"></div>
+            <section className="video_introduct">
+                <video src={video} muted autoPlay loop type="video/mp4"></video>
+                <div className="animated_text_container">
+                    <h2 className="animated_text">Khám phá thế giới <span>cùng chúng tôi</span></h2>
+                    <p className="description">Những hành trình kỳ diệu đang chờ đợi bạn, hãy sẵn sàng cho chuyến phiêu lưu tiếp theo!</p>
+                    <button className="cta_button">Khởi Hành Ngay</button>
+                </div>
             </section>
+
+
             <section className='gallery'>
                 <Container>
                     <Row>

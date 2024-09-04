@@ -60,7 +60,7 @@
 }
 
 .call_us {
-    background: url("../../assets/images/slider/1.jpg") no-repeat;
+    background: url("../../assets/images/slider/slider_1.jpg") no-repeat;
     padding: 88px 0px;
     background-size: cover;
     background-position: center center;
@@ -102,15 +102,99 @@
 .bounce {
     animation: bounce 2s infinite;
 }
-.overlay {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
+.video_introduct {
+    position: relative;
     width: 100%;
-    background: #00000054;
-    z-index: -1;
+    height: 70vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
 }
+
+.video_introduct video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    filter: brightness(60%);
+}
+
+.animated_text_container {
+    position: relative;
+    z-index: 3;
+    animation: fadeInUp 1.5s ease-out;
+}
+
+.animated_text {
+    font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.animated_text span {
+    display: inline-block;
+    background: linear-gradient(45deg, #f093fb 30%, #f5576c 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientSlide 3s ease-in-out infinite;
+}
+
+.description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.85;
+}
+
+.cta_button {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    color: #fff;
+    background: linear-gradient(45deg, #ff6b6b, #f093fb);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cta_button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 40px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes gradientSlide {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+
 
 @keyframes bounce {
     0%,

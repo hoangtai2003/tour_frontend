@@ -70,7 +70,9 @@ header .navbar .offcanvas-body .dropdown-menu {
 header .navbar .offcanvas-body .dropdown-menu .dropdown-item {
     color: var(--black) !important;
 }
-
+.offcanvas-body .nav-link {
+    margin-right: 15px;
+}
 @media only screen and (max-width: 991px) {
     header .navbar .toggle_btn {
         font-size: var(--bodyText);

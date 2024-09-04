@@ -1,107 +1,91 @@
-.popular  {
+.popular {
     padding: 50px 0;
 }
-.popular .card {
-    padding: 5px;
+
+.popular .tour-card {
     border: none;
     transition: all 0.5s ease 0s;
     overflow: hidden;
+    position: relative;
 }
 
-.popular .card:hover {
+.popular .tour-card .price-section {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    z-index: 10;
+}
+
+.popular .tour-card .sale-tag {
+    background-color: red;
+    color: white;
+    padding: 3px 7px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.popular .tour-card .price-info {
+    text-align: right;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.popular .tour-card .price-info .discounted-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--primaryClr);
+    display: block;
+}
+
+.popular .tour-card .price-info .original-price {
+    font-size: 14px;
+    text-decoration: line-through;
+    color: #888;
+}
+
+.popular .tour-card .price-info .only-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--primaryClr);
+}
+
+.popular .tour-card:hover {
     transform: translateY(-10px);
     transition: 0.2s ease-in;
 }
 
-.popular .card:hover .card-title {
-    color:var(--primaryClr)
-}
-
-.popular img {
+.popular .tour-card img {
     transition: all 0.5s ease 0s;
 }
-.popular .card:hover img {
+
+.popular .tour-card:hover img {
     transform: scale(1.1);
 }
 
-.popular  .card-body .badge {
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-right: 8px;
+.popular .tour-card .days {
     font-size: 14px;
-}
-
-.popular  .card-body .River{
-    background-color: #ffebf5 !important;
-    color:#cf3881 !important;
-}
-
-.popular  .card-body .Wildlife{
-    background-color: #4ba7fc !important;
-    color:#e6f7f4 !important;
-}
-
-.popular  .card-body .Escorted{
-    background-color: #e8edf1 !important;
-    color:#4f5e71 !important;
-}
-
-.popular  .card-body .Rail{
-    background-color: #fc961b !important;
-    color:#ffffff !important;
-}
-
-.popular  .card-body .Tour{
-    background-color: #6088c4 !important;
-    color:#ffffff !important;
-}
-
-.popular .card .card-body .card-title{
-    font-size: var(--bodyText);
     font-weight: bold;
-    transition: all 0.5s ease 0s;
+    color: red;
     margin-bottom: 10px;
 }
 
-.popular .card .card-body .card-text {
-    font-size: 13px;
-    padding: 10px 0px;
-    line-height: 1.3em;
-    position: relative;
-    color:#4f5e71;
-}
-
- 
-.popular .card .card-body .card-text i {
-    position: absolute;
-    top: 15px;
-}
-
-
-.popular .card .card-body .text {
-    margin-left: 16px;
-    display: block;
-    font-size: 13px;
-}
-
-.popular .card .card-body .review {
-    margin-bottom: 12px;
-}
-.popular .card .card-body .review i {
-    color:var(--primaryClr)
-}
-
-.popular .card-footer  {
-    background: none;
-}
-
-.popular .card-footer p  {
+.popular .tour-card .card-title {
     font-size: var(--bodyText);
-    color:#4f5e71
-}
-
-.popular .card-footer p strong {
-    font-size: var(--bodyText);
-    color:black;
     font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.popular .tour-card .card-text {
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.popular .tour-card .card-text i {
+    margin-right: 8px;
 }

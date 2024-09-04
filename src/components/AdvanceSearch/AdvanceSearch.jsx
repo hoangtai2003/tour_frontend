@@ -29,7 +29,7 @@ const AdvanceSearch = () => {
                                 <div className="item-search">
                                 {/*  Using Props to Pass Data */}
                                     <CustomDropdown
-                                        label="Location"
+                                        label="Bạn muốn đi đâu ?"
                                         onSelect={selectedLocation}
                                         options={[
                                             "USA, Turkish",
@@ -41,7 +41,7 @@ const AdvanceSearch = () => {
                                     />
                                 </div>
                                 <div className="item-search item-search-2">
-                                    <label className="item-search-label"> Check in </label>
+                                    <label className="item-search-label"> Ngày khởi hành </label>
                                     <DatePicker
                                         selected={startDate}
                                         onChange={(date) => setStartDate(date)}
@@ -53,7 +53,7 @@ const AdvanceSearch = () => {
                                     />
                                 </div>
                                 <div className="item-search item-search-2">
-                                    <label className="item-search-label"> Check Out </label>
+                                    <label className="item-search-label"> Ngày trở về </label>
                                     <DatePicker
                                         selected={endDate}
                                         onChange={(date) => setEndDate(date)}
@@ -65,18 +65,19 @@ const AdvanceSearch = () => {
                                 </div>
                                 <div className="item-search bd-none">
                                     <CustomDropdown
-                                        label="Guest"
+                                        label="Ngân sách"
                                         onSelect={selectedGuest}
                                         options={[
-                                            "2 adults, 1 children",
-                                            "2 adults, 1 children",
-                                            "2 adults, 3 children",
+                                            "Dưới 5 triệu",
+                                            "Từ 5 - 10 triệu",
+                                            "Từ 10 - 20 triệu",
+                                            "Trên 20 triệu"
                                         ]}
                                     />
                                 </div>
                                 <div className="item-search bd-none">
                                     <Button className="primaryBtn flex-even d-flex justify-content-center">
-                                        <i className="bi bi-search me-2"></i> Search 
+                                        <i className="bi bi-search me-2"></i> Tìm kiếm
                                     </Button>
                                 </div>
                             </div>

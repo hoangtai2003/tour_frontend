@@ -19,6 +19,7 @@ import tour11 from "../../assets/images/tour/malaysia.png";
 import PopularPlace from '../../components/PopularPlace/PopularPlace'
 import Gallery from '../../components/Gallery/Gallery'
 import video from '../../assets/images/video.mp4'
+import MasonryImageGallery from '../../components/Gallery/MasonryImageGallery'
 const Home = () => {
     var settings = {
         dots: false,
@@ -168,30 +169,40 @@ const Home = () => {
                 </Container>
             </section>
             <PopularPlace />
-            <section className="video_introduct">
-                <video src={video} muted autoPlay loop type="video/mp4"></video>
-                <div className="animated_text_container">
-                    <h2 className="animated_text">Khám phá thế giới <span>cùng chúng tôi</span></h2>
-                    <p className="description">Những hành trình kỳ diệu đang chờ đợi bạn, hãy sẵn sàng cho chuyến phiêu lưu tiếp theo!</p>
-                    <button className="cta_button">Khởi Hành Ngay</button>
-                </div>
-            </section>
-
-
             <section className='gallery'>
                 <Container>
                     <Row>
                         <Col md={12}>
                             <div className="main_heading">
-                                <h1>Photo Gallery</h1>
+                                <h1>Thư viện ảnh</h1>
                             </div>
                         </Col>
                     </Row>
                     <Row>
                         <Col md={12}>
-                            <Gallery />
+                            <MasonryImageGallery />
                         </Col>
                     </Row>
+                </Container>
+            </section>
+            <section className="video_introduct">
+                <video src={video} muted autoPlay loop type="video/mp4"></video>
+                <div className="animated_text_container">
+                    <h2 className="animated_text">Khám phá thế giới <span>cùng chúng tôi</span></h2>
+                    <p className="description">Những hành trình kỳ diệu đang chờ đợi bạn, hãy sẵn sàng cho chuyến phiêu lưu tiếp theo!</p>
+                    <button className="cta_button">Liên hệ qua Messager của chúng tôi</button>
+                </div>
+            </section>
+            <section className='gallery'>
+                <Container>
+                    <Row>
+                        <Col md={12}>
+                            <div className="main_heading">
+                                <h1>Bài đăng gần đây</h1>
+                            </div>
+                        </Col>
+                    </Row>
+                    
                 </Container>
             </section>
         </>

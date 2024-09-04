@@ -152,6 +152,7 @@
     font-size: 1.2rem;
     margin-bottom: 2rem;
     opacity: 0.85;
+    color: white;
 }
 
 .cta_button {
@@ -169,7 +170,13 @@
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
+.masonry__img{
+    transition: .3s;
+}
 
+.masonry__img:hover{
+    transform: scale(1.1);
+}
 @keyframes fadeInUp {
     from {
         opacity: 0;

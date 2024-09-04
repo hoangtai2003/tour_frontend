@@ -4,7 +4,12 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 
 
 import Singapore from "../../assets/images/popular/Discover Singapore.png";
-
+import Kiwiana from "../../assets/images/popular/Kiwiana Panorama.jpg";
+import Quito from "../../assets/images/popular/Anchorage To Quito.jpg";
+import Cuzco from "../../assets/images/popular/Cuzco To Anchorage.jpg";
+import Ushuaia from "../../assets/images/popular/Anchorage To Ushuaia.jpg";
+import Santiago from "../../assets/images/popular/Anchorage To Santiago.jpg";
+import Explorer from "../../assets/images/popular/LA Explorer.jpg";
 const PopularPlace = () => {
     const populars = [
         {
@@ -24,7 +29,7 @@ const PopularPlace = () => {
         {
             id: 1,
             title: "Sa Pa - Lào Cai - Bái Đính - Tràng An - Hạ Long - Yên Tử - Hà Nội",
-            image: Singapore,
+            image: Kiwiana,
             location: "TP. Hồ Chí Minh",
             days: "5 days - 4 nights",
             price: 500000,
@@ -38,7 +43,7 @@ const PopularPlace = () => {
         {
             id: 2,
             title: "Sa Pa - Lào Cai - Bái Đính - Tràng An - Hạ Long - Yên Tử - Hà Nội",
-            image: Singapore,
+            image: Quito,
             location: "TP. Hồ Chí Minh",
             days: "5 days - 4 nights",
             price: 500000,
@@ -52,7 +57,7 @@ const PopularPlace = () => {
         {
             id: 3,
             title: "Sa Pa - Lào Cai - Bái Đính - Tràng An - Hạ Long - Yên Tử - Hà Nội",
-            image: Singapore,
+            image: Cuzco,
             location: "TP. Hồ Chí Minh",
             days: "5 days - 4 nights",
             price: 500000,
@@ -66,7 +71,7 @@ const PopularPlace = () => {
         {
             id: 4,
             title: "Sa Pa - Lào Cai - Bái Đính - Tràng An - Hạ Long - Yên Tử - Hà Nội",
-            image: Singapore,
+            image: Ushuaia,
             location: "TP. Hồ Chí Minh",
             days: "5 days - 4 nights",
             price: 500000,
@@ -80,7 +85,7 @@ const PopularPlace = () => {
         {
             id: 5,
             title: "Sa Pa - Lào Cai - Bái Đính - Tràng An - Hạ Long - Yên Tử - Hà Nội",
-            image: Singapore,
+            image: Santiago,
             location: "TP. Hồ Chí Minh",
             days: "5 days - 4 nights",
             price: 500000,
@@ -94,7 +99,7 @@ const PopularPlace = () => {
         {
             id: 6,
             title: "Sa Pa - Lào Cai - Bái Đính - Tràng An - Hạ Long - Yên Tử - Hà Nội",
-            image: Singapore,
+            image: Explorer,
             location: "TP. Hồ Chí Minh",
             days: "5 days - 4 nights",
             price: 500000,
@@ -133,7 +138,7 @@ const PopularPlace = () => {
                     </Col>
                 </Row>
                 <Row>
-                    {populars.map((popular, index) => (
+                    {populars.slice(0,8).map((popular, index) => (
                         <Col md={3} sm={6} xs={12} className='mb-5' key={index}>
                             <Card className='tour-card rounded-2 shadow-sm'>
                                 {popular.afterDiscount ? (

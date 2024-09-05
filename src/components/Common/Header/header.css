@@ -10,6 +10,7 @@
     z-index: 999;
     box-shadow: var(--bs-box-shadow-sm) !important;
 }
+
 @keyframes smothScroll {
     0% {
         transform: translateY(-40px);

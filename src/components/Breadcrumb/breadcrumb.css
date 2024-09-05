@@ -26,6 +26,7 @@
 
 .navbar-link{
     background-color: rgba(0, 0, 0, 0.829);
+    padding: 10px;
 }
 
 .navbar-link .breadcrumb{
@@ -36,6 +37,6 @@
 .navbar-link .breadcrumb .breadcrumb-item,
 .navbar-link .breadcrumb a{
     color: white;
-    font-size: 14px;
+    font-size: 18px;
     text-decoration: none;
 }

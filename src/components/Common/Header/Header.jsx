@@ -63,39 +63,36 @@ const Header = () => {
                                 <NavLink className="nav-link" to="/" >
                                     Trang chủ
                                 </NavLink>
-                                <NavLink className="nav-link" to="/" >
+                                <NavLink className="nav-link" to="/introduct" >
                                     Giới thiệu
                                 </NavLink>
-                                <NavLink className="nav-link" to="/" >
+                                <NavLink className="nav-link" to="/tours" >
                                     TOURS
                                 </NavLink>
 
-                                <NavLink className="nav-link" to="/" >
+                                <NavLink className="nav-link" to="/booking" >
                                     Tin tức
                                 </NavLink>
-                                <NavLink className="nav-link" to="/" >
+                                <NavLink className="nav-link" to="/hotel" >
                                    Khách sạn
                                 </NavLink>
-                                <NavLink className="nav-link" to="/" >
+                                <NavLink className="nav-link" to="/contact" >
                                     Liên hệ
                                 </NavLink>
-                                <NavLink className="nav-link" to="/" >
+                                <NavLink className="nav-link" to="/register" >
                                     Đăng ký
                                 </NavLink>
-                                <NavLink className="nav-link" to="/" >
+                                <NavLink className="nav-link" to="/login" >
                                     Đăng nhập
                                 </NavLink>
                             </Nav>
                         </Offcanvas.Body>
                     </Navbar.Offcanvas>
-                    {/* <div className="ms-md-4 ms-2">
-                        <NavLink className="primaryBtn d-none d-sm-inline-block">
-                            Book Now
-                        </NavLink>
+                    <div className="ms-md-4 ms-2">
                         <li className="d-inline-block d-lg-none ms-3 toggle_btn">
                             <i className={open ? "bi bi-x-lg" : "bi bi-list"}  onClick={toggleMenu}></i>
                         </li>
-                    </div> */}
+                    </div>
                 </Navbar>
 
             </Container>

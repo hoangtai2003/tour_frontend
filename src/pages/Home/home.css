@@ -59,45 +59,6 @@
     transform: translateX(0);
 }
 
-.call_us {
-    background: url("../../assets/images/slider/slider_1.jpg") no-repeat;
-    padding: 88px 0px;
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
-    position: relative;
-    z-index: 1;
-  }
-  
-.call_us .title {
-    color: var(--primaryClr);
-    font-style: italic;
-}
-  
-.call_us .heading {
-    font-size: 50px;
-    color: var(--white);
-    line-height: 58px;
-    text-align: left;
-    font-weight: bold;
-    padding: 5px 0 20px 0;
-}
-
-.call_us p {
-    font-size: var(--subTitle);
-    color: var(--white);
-    line-height: 30px;
-}
-
-.call_us .secondary_btn {
-    background: none;
-    font-size: 18px;
-    color: var(--white);
-    display: inline-block;
-    border: 2px solid var(--white);
-    padding: 12px 8px;
-    text-decoration: none;
-}
 
 .bounce {
     animation: bounce 2s infinite;
@@ -118,12 +79,13 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 100%;
-    height: 100%;
+    width: 60%;
+    height: 86%;
     z-index: 1;
     transform: translate(-50%, -50%);
     object-fit: cover;
     filter: brightness(60%);
+    border-radius: 15px;
 }
 
 .animated_text_container {
@@ -133,7 +95,7 @@
 }
 
 .animated_text {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
     text-transform: uppercase;
     margin-bottom: 1rem;
@@ -149,7 +111,7 @@
 }
 
 .description {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: 2rem;
     opacity: 0.85;
     color: white;
@@ -157,7 +119,7 @@
 
 .cta_button {
     padding: 12px 30px;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #fff;
     background: linear-gradient(45deg, #ff6b6b, #f093fb);
     border: none;

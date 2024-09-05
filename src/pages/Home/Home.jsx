@@ -20,6 +20,7 @@ import PopularPlace from '../../components/PopularPlace/PopularPlace'
 import Gallery from '../../components/Gallery/Gallery'
 import video from '../../assets/images/video.mp4'
 import MasonryImageGallery from '../../components/Gallery/MasonryImageGallery'
+import Testimonials from '../../components/Testimonial/Testimonial'
 const Home = () => {
     var settings = {
         dots: false,
@@ -169,6 +170,22 @@ const Home = () => {
                 </Container>
             </section>
             <PopularPlace />
+            <section className='testimonials'>
+                <Container>
+                    <Row>
+                        <Col md={12}>
+                            <div className="main_heading">
+                                <h1>Đánh giá nổi bật</h1>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={12}>
+                            <Testimonials />
+                        </Col>
+                    </Row>
+                </Container>
+            </section>
             <section className='gallery'>
                 <Container>
                     <Row>
@@ -193,6 +210,7 @@ const Home = () => {
                     <button className="cta_button">Liên hệ qua Messager của chúng tôi</button>
                 </div>
             </section>
+
             <section className='gallery'>
                 <Container>
                     <Row>

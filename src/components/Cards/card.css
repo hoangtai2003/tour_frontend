@@ -1,3 +1,58 @@
+.img-box{
+    padding: 0px 12px;
+}
+
+.img-box .card{
+    border: none;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.img-box .card a{
+    padding: 0;
+}
+
+.img-box .card img{
+    transition: all 0.5s ease 0s;
+    display: block;
+    filter: brightness(0.8);
+}
+.img-box .card .card-title{
+    position: absolute;
+    top: 5%;
+    left: 3%;
+    font-size: 16px;
+    color: var(--white);
+    line-height: 150%;
+    font-weight: bold;
+    width: 100%;
+}
+.img-box .card .tours{
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+    font-size: 16px;
+    color: var(--primaryClr);
+    line-height: 18px;
+    font-weight: 600;
+    padding: 6px 15px;
+    background: var(--white);
+    border-radius: 15px;
+    transform: translateX(120%);
+    transition: 0.2s ease-in;
+}
+.img-box .card:hover{
+    transition: 0.2s ease-in;
+}
+
+.img-box .card:hover img{
+    filter: brightness(1);
+    transform: scale(1.1);
+}
+.img-box .card:hover .tours{
+    transform: translateX(0);
+}
 .popular {
     padding: 50px 0;
 }

@@ -7,20 +7,12 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./home.css"
-
-import tour4 from "../../assets/images/tour/Tokyo.png";
-import tour5 from "../../assets/images/tour/bali-1.png";
-import tour6 from "../../assets/images/tour/bangkok.png";
-import tour7 from "../../assets/images/tour/cancun.png";
-import tour8 from "../../assets/images/tour/nah-trang.png";
-import tour9 from "../../assets/images/tour/phuket.png";
-import tour10 from "../../assets/images/tour/paris.png";
-import tour11 from "../../assets/images/tour/malaysia.png";
-import PopularPlace from '../../components/PopularPlace/PopularPlace'
-import Gallery from '../../components/Gallery/Gallery'
 import video from '../../assets/images/video.mp4'
 import MasonryImageGallery from '../../components/Gallery/MasonryImageGallery'
 import Testimonials from '../../components/Testimonial/Testimonial'
+import Cards from '../../components/Cards/Cards'
+import { destinationsData, popularsData } from '../../utils/data'
+import PopularCard from '../../components/Cards/PopularCard'
 const Home = () => {
     var settings = {
         dots: false,
@@ -70,67 +62,6 @@ const Home = () => {
             },
         ],
     };
-    const destinations = [
-        {
-            id: 0,
-            name: "Bali",
-            tours: "5 tours and activities",
-            image: tour5,
-            link: "tour-name",
-            shortDes: "",
-        },
-        {
-            id: 1,
-            name: "Tokyo",
-            tours: "9 tours and activities",
-            image: tour4,
-            link: "tour-name",
-        },
-        
-        {
-            id: 2,
-            name: "Bangkok",
-            tours: "5 tours and activities",
-            image: tour6,
-            link: "tour-name",
-        },
-        
-        {
-            id: 3,
-            name: "Cancun",
-            tours: "4 tours and activities",
-            image: tour7,
-            link: "tour-name",
-        },
-        {
-            id: 4,
-            name: "Nha Trang",
-            tours: "9 tours and activities ",
-            image: tour8,
-            link: "tour-name",
-        },
-        {
-            id: 5,
-            name: "Phuket",
-            tours: "4 tours and activities",
-            image: tour9,
-            link: "tour-name",
-        },
-        {
-            id: 6,
-            name: "Paris",
-            tours: "6 tours and activities",
-            image: tour10,
-            link: "tour-name",
-        },
-        {
-            id: 7,
-            name: "Malaysia",
-            tours: "4 tours and activities",
-            image: tour11,
-            link: "tour-name",
-        },
-    ]
     return (
         <>
             <Banner />
@@ -148,20 +79,9 @@ const Home = () => {
                     <Row>
                         <Col md={12}>
                             <Slider {... settings}>
-                                {destinations.map((destination, index) => {
+                                {destinationsData.map((destination, index) => {
                                         return (
-                                            <div className="img-box" key={index}>
-                                                <Card>
-                                                    <Card.Img
-                                                        variant='top'
-                                                        src={destination.image}
-                                                        className="img-fluid"
-                                                        alt={destination.name}
-                                                    />
-                                                    <Card.Title>{destination.name}</Card.Title>
-                                                    <span className='tours'>{destination.tours}</span>
-                                                </Card>
-                                            </div>
+                                            <Cards destination={destination}  key={index}/>
                                         )
                                     })}
                             </Slider>
@@ -169,7 +89,24 @@ const Home = () => {
                     </Row>
                 </Container>
             </section>
-            <PopularPlace />
+            <section className='popular'>
+            <Container>
+                <Row>
+                    <Col md={12}>
+                        <div className="main_heading">
+                            <h1>Tour du lịch mới nhất của chúng tôi</h1>
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    {popularsData.slice(0,8).map((popular, index) => (
+                        <Col md={3} sm={6} xs={12} className='mb-5' key={index}>
+                            <PopularCard popular={popular} />
+                        </Col>
+                    ))}
+                </Row>
+            </Container>
+        </section>
             <section className='testimonials'>
                 <Container>
                     <Row>

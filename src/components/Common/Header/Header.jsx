@@ -60,23 +60,23 @@ const Header = () => {
 
                         <Offcanvas.Body>
                             <Nav className="justify-content-end flex-grow-1 pe-3">
-                                <NavLink className="nav-link" to="/" >
+                                <NavLink className="nav-link" to="/home" >
                                     Trang chủ
                                 </NavLink>
-                                <NavLink className="nav-link" to="/introduct" >
+                                <NavLink className="nav-link" to="/about-us" >
                                     Giới thiệu
                                 </NavLink>
                                 <NavLink className="nav-link" to="/tours" >
                                     TOURS
                                 </NavLink>
 
-                                <NavLink className="nav-link" to="/booking" >
+                                <NavLink className="nav-link" to="/news" >
                                     Tin tức
                                 </NavLink>
                                 <NavLink className="nav-link" to="/hotel" >
                                    Khách sạn
                                 </NavLink>
-                                <NavLink className="nav-link" to="/contact" >
+                                <NavLink className="nav-link" to="/contact-us" >
                                     Liên hệ
                                 </NavLink>
                                 <NavLink className="nav-link" to="/register" >

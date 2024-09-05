@@ -53,18 +53,18 @@
 .img-box .card:hover .tours{
     transform: translateX(0);
 }
-.popular {
+.tour_list {
     padding: 50px 0;
 }
 
-.popular .tour-card {
+.tour_list .tour-card {
     border: none;
     transition: all 0.5s ease 0s;
     overflow: hidden;
     position: relative;
 }
 
-.popular .tour-card .price-section {
+.tour_list .tour-card .price-section {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -74,7 +74,7 @@
     z-index: 10;
 }
 
-.popular .tour-card .sale-tag {
+.tour_list .tour-card .sale-tag {
     background-color: red;
     color: white;
     padding: 3px 7px;
@@ -84,63 +84,63 @@
     margin-bottom: 5px;
 }
 
-.popular .tour-card .price-info {
+.tour_list .tour-card .price-info {
     text-align: right;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 5px 10px;
     border-radius: 5px;
 }
 
-.popular .tour-card .price-info .discounted-price {
+.tour_list .tour-card .price-info .discounted-price {
     font-size: 18px;
     font-weight: bold;
     color: var(--primaryClr);
     display: block;
 }
 
-.popular .tour-card .price-info .original-price {
+.tour_list .tour-card .price-info .original-price {
     font-size: 14px;
     text-decoration: line-through;
     color: #888;
 }
 
-.popular .tour-card .price-info .only-price {
+.tour_list .tour-card .price-info .only-price {
     font-size: 18px;
     font-weight: bold;
     color: var(--primaryClr);
 }
 
-.popular .tour-card:hover {
+.tour_list .tour-card:hover {
     transform: translateY(-10px);
     transition: 0.2s ease-in;
 }
 
-.popular .tour-card img {
+.tour_list .tour-card img {
     transition: all 0.5s ease 0s;
 }
 
-.popular .tour-card:hover img {
+.tour_list .tour-card:hover img {
     transform: scale(1.1);
 }
 
-.popular .tour-card .days {
+.tour_list .tour-card .days {
     font-size: 14px;
     font-weight: bold;
     color: red;
     margin-bottom: 10px;
 }
 
-.popular .tour-card .card-title {
+.tour_list .tour-card .card-title {
     font-size: var(--bodyText);
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.popular .tour-card .card-text {
+.tour_list .tour-card .card-text {
     font-size: 13px;
     margin-bottom: 10px;
 }
 
-.popular .tour-card .card-text i {
+.tour_list .tour-card .card-text i {
     margin-right: 8px;
 }

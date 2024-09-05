@@ -20,7 +20,7 @@ const Breadcrumbs = (props) => {
                     <Row>
                         <Breadcrumb>
                             <Breadcrumb.Item active>
-                                <NavLink to="/"><i className='bi bi-house-door-fill me-1'></i>Home / {props.pagename}</NavLink>
+                                <NavLink to="/"><i className='bi bi-house-door-fill me-1'></i>Trang chủ / {props.pagename}</NavLink>
                             </Breadcrumb.Item>
                         </Breadcrumb> 
                     </Row>

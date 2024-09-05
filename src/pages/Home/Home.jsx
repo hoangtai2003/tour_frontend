@@ -89,7 +89,7 @@ const Home = () => {
                     </Row>
                 </Container>
             </section>
-            <section className='popular'>
+            <section className='tour_list'>
             <Container>
                 <Row>
                     <Col md={12}>

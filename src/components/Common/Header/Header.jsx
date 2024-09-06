@@ -31,6 +31,11 @@ const Header = () => {
             header.classList.remove("is-sticky");
         }
     };
+    const closeMenu = () => {
+        if (window.innerWidth <= 991){
+            setOpen(false)
+        }
+    }
     return (
         <header className="header-section">
             <Container>
@@ -60,29 +65,29 @@ const Header = () => {
 
                         <Offcanvas.Body>
                             <Nav className="justify-content-end flex-grow-1 pe-3">
-                                <NavLink className="nav-link" to="/home" >
+                                <NavLink className="nav-link" to="/home" onClick={closeMenu}>
                                     Trang chủ
                                 </NavLink>
-                                <NavLink className="nav-link" to="/about-us" >
+                                <NavLink className="nav-link" to="/about-us" onClick={closeMenu}>
                                     Giới thiệu
                                 </NavLink>
-                                <NavLink className="nav-link" to="/tours" >
+                                <NavLink className="nav-link" to="/tours" onClick={closeMenu}>
                                     TOURS
                                 </NavLink>
 
-                                <NavLink className="nav-link" to="/news" >
+                                <NavLink className="nav-link" to="/news" onClick={closeMenu}>
                                     Tin tức
                                 </NavLink>
-                                <NavLink className="nav-link" to="/hotel" >
+                                <NavLink className="nav-link" to="/hotel" onClick={closeMenu}>
                                    Khách sạn
                                 </NavLink>
-                                <NavLink className="nav-link" to="/contact-us" >
+                                <NavLink className="nav-link" to="/contact-us" onClick={closeMenu}>
                                     Liên hệ
                                 </NavLink>
-                                <NavLink className="nav-link" to="/register" >
+                                <NavLink className="nav-link" to="/register" onClick={closeMenu}>
                                     Đăng ký
                                 </NavLink>
-                                <NavLink className="nav-link" to="/login" >
+                                <NavLink className="nav-link" to="/login" onClick={closeMenu}>
                                     Đăng nhập
                                 </NavLink>
                             </Nav>

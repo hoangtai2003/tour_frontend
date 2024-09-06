@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import Breadcrumbs from '../../components/Breadcrumb/Breadcrumbs'
 import { Container, Row, Col, Offcanvas } from 'react-bootstrap'
 import { popularsData } from '../../utils/data'
@@ -10,6 +10,10 @@ const Tours = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    useEffect(() => {
+        document.title = "Tour"
+        window.scroll(0,0)
+    }, [])
     return (
         <>
             <Breadcrumbs title="Tours" pagename="Tours" />

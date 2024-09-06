@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./about.css"
 import Breadcrumbs from '../../components/Breadcrumb/Breadcrumbs'
 import { Container, Row, Col, Card } from 'react-bootstrap'
@@ -7,6 +7,10 @@ import icons1 from "../../assets/images/icons/destination.png"
 import icons2 from "../../assets/images/icons/best-price.png"
 import icons3 from "../../assets/images/icons/quick.png"
 const About = () => {
+    useEffect(() => {
+        document.title = "About us"
+        window.scroll(0,0)
+    }, [])
   return (
     <>
         <Breadcrumbs title="Giới thiệu" pagename="Giới thiệu" />

@@ -1,6 +1,7 @@
 import React from 'react'
 import "./card.css"
 import { Card } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
 const  PopularCard = ({popular}) => {
   return (
     <>
@@ -34,7 +35,7 @@ const  PopularCard = ({popular}) => {
             />
             <Card.Body>
                 <h5 className="days">{popular.days}</h5>
-                <Card.Title>{popular.title}</Card.Title>
+                <Card.Title><NavLink className="body-text text-dark text-decoration-none" to="tour-details">{popular.title}</NavLink></Card.Title>
                 <Card.Text>
                     <i className="bi bi-geo-alt"></i>
                     <span className="text">Từ : {popular.location}</span>

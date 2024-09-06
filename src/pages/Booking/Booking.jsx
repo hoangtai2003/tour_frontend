@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Breadcrumbs from '../../components/Breadcrumb/Breadcrumbs'
 import { Container, Row, Col, Form, Card, ListGroup } from 'react-bootstrap'
 import DatePicker from "react-datepicker";
@@ -7,6 +7,10 @@ import "./booking.css"
 const Booking = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
+    useEffect(() => {
+        document.title = "Booking"
+        window.scroll(0,0)
+    }, [])
   return (
     <>
        <Breadcrumbs title="Booking" pagename="Booking" /> 

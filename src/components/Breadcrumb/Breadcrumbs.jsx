@@ -15,13 +15,18 @@ const Breadcrumbs = (props) => {
                 </Container>
             </div>
         </div>
-        <div className="navbar-link">
+        <div className="navbar-link py-1">
                 <Container>
                     <Row>
                         <Breadcrumb>
                             <Breadcrumb.Item active>
-                                <NavLink to="/"><i className='bi bi-house-door-fill me-1'></i>Trang chủ / {props.pagename}</NavLink>
+                                <NavLink to="/"><i className='bi bi-house-door-fill me-1'></i>Trang chủ</NavLink>
                             </Breadcrumb.Item>
+
+                            <Breadcrumb.Item active>{props.pagename}</Breadcrumb.Item>
+                            {props.childpagename ? (
+                                <Breadcrumb.Item active>{props.childpagename}</Breadcrumb.Item>
+                            ) : ("")}
                         </Breadcrumb> 
                     </Row>
                 </Container>

@@ -17,16 +17,16 @@ const App = () =>  {
     <>
         <Header />
         <Routes>
-            <Route path='/' element={<Navigate to='/home' />} />
-            <Route path='/home' element={<Home />} />
-            <Route path='/tours' element={<Tours />} />
-            <Route path='/tour-details' element={<TourDetails />} />
-            <Route path='/news' element={<News />} />
-            <Route path='/hotel' element={<Hotel />} />
-            <Route path='/contact-us' element={<Contact />} />
-            <Route path='/booking' element={<Booking />} />
-            <Route path='/about-us' element={<About />} />
-            <Route path="/login" element={<Login />} />
+            <Route path='/' element={<Navigate to='home' />} />
+            <Route path='home' element={<Home />} />
+            <Route path='tours' element={<Tours />} />
+            <Route path='tour-details' element={<TourDetails />} />
+            <Route path='news' element={<News />} />
+            <Route path='hotel' element={<Hotel />} />
+            <Route path='contact-us' element={<Contact />} />
+            <Route path='booking' element={<Booking />} />
+            <Route path='about-us' element={<About />} />
+            <Route path="login" element={<Login />} />
         </Routes>
         <Footer />
     </>

@@ -124,27 +124,36 @@
     }
 }
 
-@media only screen and (max-width: 1199px) {
-    .call_us {
-        overflow: hidden;
+@media only screen and (max-width: 450px) {
+    .video_introduct video{
+        width: 100%;
+        padding: 10px;
     }
-
-    .call_us .heading {
-        font-size: 28px;
-        line-height: 38px;
-        padding: 5px 0 10px 0;
+    .animated_text_container .animated_text{
+        font-size: 20px;
     }
-}
-
-@media only screen and (max-width: 420px) {
-    .call_us {
-        overflow: hidden;
+    .animated_text_container .description{
+        font-size: 13px;
     }
-    .call_us .heading {
-        font-size: 22px;
+    .animated_text_container .cta_button{
+        font-size: 13px;
     }
 }
-
+@media only screen and (max-width: 600px) {
+    .video_introduct video{
+        width: 100%;
+        padding: 10px;
+    }
+    .animated_text_container .animated_text{
+        font-size: 25px;
+    }
+    .animated_text_container .description{
+        font-size: 15px;
+    }
+    .animated_text_container .cta_button{
+        font-size: 15px;
+    }
+}
 .gallery {
     background-color: #fffaf9;
     overflow: hidden;

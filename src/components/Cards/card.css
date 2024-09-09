@@ -101,13 +101,13 @@
 .tour_list .tour-card .price-info .original-price {
     font-size: 14px;
     text-decoration: line-through;
-    color: #888;
+    color: rgb(156, 142, 142);
 }
 
 .tour_list .tour-card .price-info .only-price {
     font-size: 18px;
     font-weight: bold;
-    color: #e01600;
+    color: var(--primaryClr);
 }
 
 .tour_list .tour-card:hover {
@@ -126,8 +126,9 @@
 .tour_list .tour-card .days {
     font-size: 14px;
     font-weight: bold;
-    color: red;
+    color: var(--primaryClr);
     margin-bottom: 10px;
+    text-transform: uppercase;
 }
 
 .tour_list .tour-card .card-title {

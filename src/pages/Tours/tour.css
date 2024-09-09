@@ -113,3 +113,37 @@
 .tour_details .card-info i{
     color: var(--primaryClr);
 }
+
+.content-container {
+    max-width: 800px; 
+    margin: 0 auto; 
+    padding: 0 20px;
+    line-height: 1.6; 
+}
+  
+
+.content-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px 0; 
+}
+  
+
+.content-container h3 {
+    font-size: 1.8em;
+    color: #2c3e50;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+.content-container p {
+    text-align: justify; 
+    margin-bottom: 20px;
+}
+
+figure.image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}  

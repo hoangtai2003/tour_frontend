@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Banner from '../../components/Banner/Banner'
 import AdvanceSearch from '../../components/AdvanceSearch/AdvanceSearch'
 import Features from '../../components/Features/Features'
-import { Container, Row, Col, Card } from 'react-bootstrap'
+import { Container, Row, Col} from 'react-bootstrap'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

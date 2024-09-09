@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Breadcrumbs from '../../components/Breadcrumb/Breadcrumbs'
 import { Container, Row, Col, Offcanvas } from 'react-bootstrap'
-import { popularsData } from '../../utils/data'
 import PopularCard from '../../components/Cards/PopularCard'
 import Filters from './Filters'
 import './tour.css'
@@ -19,7 +18,6 @@ const Tours = () => {
     const fetchTour = async() => {
         const response  = await axios.get(`http://localhost:4000/api/v1/tours?page=${currentPage}`)
         setTour(response.data.data)
-        console.log(response.data.data)
     }
     useEffect(() => {
         fetchTour()

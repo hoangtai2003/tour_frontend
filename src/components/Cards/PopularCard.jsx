@@ -3,15 +3,18 @@ import "./card.css"
 import { Card } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 const  PopularCard = ({popular}) => {
+    const afterDiscount = popular.tourChildren[0]?.price_sale
+    ? (popular.price * (100 - popular.tourChildren[0].price_sale)) / 100
+    : "";
   return (
     <>
         <Card className='tour-card rounded-2 shadow-sm'>
-            {popular.afterDiscount ? (
+            {afterDiscount ? (
                 <div className="price-section">
-                    <div className="sale-tag">Sale 20%</div>
+                    <div className="sale-tag">Sale {popular.tourChildren[0].price_sale}%</div>
                     <div className="price-info">
                         <span className="discounted-price">
-                            {popular.afterDiscount.toLocaleString()} vnd / khách
+                            {afterDiscount.toLocaleString()} vnd / khách
                         </span>
                         <span className="original-price">
                             {popular.price.toLocaleString()} đ / khách

@@ -5,15 +5,25 @@ import { popularsData } from '../../utils/data'
 import PopularCard from '../../components/Cards/PopularCard'
 import Filters from './Filters'
 import './tour.css'
+import axios from 'axios'
 const Tours = () => {
     const [show, setShow] = useState(false);
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [tours, setTour] = useState([])
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     useEffect(() => {
         document.title = "Tour"
         window.scroll(0,0)
     }, [])
+    const fetchTour = async() => {
+        const response  = await axios.get(`http://localhost:4000/api/v1/tours?page=${currentPage}`)
+        setTour(response.data.data)
+        console.log(response.data.data)
+    }
+    useEffect(() => {
+        fetchTour()
+    }, [currentPage])
     return (
         <>
             <Breadcrumbs title="Tours" pagename="Tours" />
@@ -31,7 +41,7 @@ const Tours = () => {
                         </Col>
                         <Col xl='9' lg='8' md='12' sm='12'>
                             <Row>
-                                {popularsData.map((popular, index) => (
+                                {tours.map((popular, index) => (
                                     <Col xl={4} lg={6} md={6} sm={6} className='mb-5' key={index}>
                                         <PopularCard popular={popular} />
                                     </Col>

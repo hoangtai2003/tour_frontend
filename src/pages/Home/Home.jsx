@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Banner from '../../components/Banner/Banner'
 import AdvanceSearch from '../../components/AdvanceSearch/AdvanceSearch'
 import Features from '../../components/Features/Features'
@@ -11,9 +11,12 @@ import video from '../../assets/images/video.mp4'
 import MasonryImageGallery from '../../components/Gallery/MasonryImageGallery'
 import Testimonials from '../../components/Testimonial/Testimonial'
 import Cards from '../../components/Cards/Cards'
-import { destinationsData, popularsData } from '../../utils/data'
+import { destinationsData } from '../../utils/data'
 import PopularCard from '../../components/Cards/PopularCard'
+import axios from 'axios'
 const Home = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [tours, setTour] = useState([])
     var settings = {
         dots: false,
         infinite: true,
@@ -62,6 +65,14 @@ const Home = () => {
             },
         ],
     };
+    
+    const fetchTour = async() => {
+        const response  = await axios.get(`http://localhost:4000/api/v1/tours`)
+        setTour(response.data.data)
+    }
+    useEffect(() => {
+        fetchTour()
+    }, [currentPage])
     return (
         <>
             <Banner />
@@ -90,23 +101,23 @@ const Home = () => {
                 </Container>
             </section>
             <section className='tour_list'>
-            <Container>
-                <Row>
-                    <Col md={12}>
-                        <div className="main_heading">
-                            <h1>Tour du lịch mới nhất của chúng tôi</h1>
-                        </div>
-                    </Col>
-                </Row>
-                <Row>
-                    {popularsData.slice(0,8).map((popular, index) => (
-                        <Col md={3} sm={6} xs={12} className='mb-5' key={index}>
-                            <PopularCard popular={popular} />
+                <Container>
+                    <Row>
+                        <Col md={12}>
+                            <div className="main_heading">
+                                <h1>Tour du lịch mới nhất của chúng tôi</h1>
+                            </div>
                         </Col>
-                    ))}
-                </Row>
-            </Container>
-        </section>
+                    </Row>
+                    <Row>
+                        {tours.slice(0,8).map((popular, index) => (
+                            <Col md={3} sm={6} xs={12} className='mb-5' key={index}>
+                                <PopularCard popular={popular} />
+                            </Col>
+                        ))}
+                    </Row>
+                </Container>
+            </section>
             <section className='testimonials'>
                 <Container>
                     <Row>

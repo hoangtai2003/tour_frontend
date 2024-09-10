@@ -205,72 +205,73 @@ export const popularsData = [
     },
 ];
 
-export const tourDetails = {
-  title: "Beautiful Bali with Malaysia",
-  des: ` Bali, also known as the land of gods has plenty to offer to travelers from across the globe. As it so contrasted oh estimating instrument. Size like body some one had.  Are conduct viewing boy minutes warrant the expense?  Tolerably behavior may admit daughters offending her ask own. Praise effect wishes change way and any wanted.  Lively use looked latter regard had. Do he it part more  last in. We understand that theory is important to build a solid foundation, we understand that theory alone isn’t going to get the job done so that’s why this is packed with practical hands-on examples that you can  follow step by step.`,
-  price: "280.00",
-  rating: " 4.5",
-  reviews: "365 reviews",
-  tourInfo: [
-    '<strong className="font-bold"> Place Covered</strong>: Bali - Ubud',
-    ' <strong className="font-bold">Duration:</strong>5 Days, 4 Nights',
-    '<strong className="font-bold">Start Point:</strong> Ngurah International Airport',
-    '<strong className="font-bold">End Point:</strong>  Ngurah International Airport',
-  ],
-
-  highlights: [
-    " Experience a delightful tropical getaway with a luxurious stay and witness the picture-perfect beaches, charming waterfalls and so much more",
-    " Dependent on so extremely delivered by. Yet no jokes  worse her why. Bed one supposing breakfast day fulfilled off depending questions.",
-    " Whatever boy her exertion his extended. Ecstatic  followed handsome drawings entirely Mrs one yet  outweigh.",
-    "Meant balls it if up doubt small purse. Required his  you put the outlived answered position. A pleasure exertion if believed provided to.",
-  ],
-
+export const InformationNote = {
   itinerary: [
     {
-      title: `<span class="me-1 fw-bold">Day 1:</span>  Airport Pick Up `,
-      des: ` Like on all of our trips, we can collect you from the airport when you land and take you directly to your hotel. The first Day is just a check-in Day so you have this freedom to explore the city and get settled in.`,
-    },
-
-    {
-      title: `<span class="me-1 fw-bold">Day 2:</span>  Temples & River Cruise `,
-      des: ` Like on all of our trips, we can collect you from the airport when you land and take you directly to your hotel. The first Day is just a check-in Day so you have this freedom to explore the city and get settled in. `,
-    },
-    {
-      title: `<span class="me-1 fw-bold">Day 3:</span>  Massage & Overnight Train`,
-      des: ` Like on all of our trips, we can collect you from the airport when you land and take you directly to your hotel. The first Day is just a check-in Day so you have this freedom to explore the city and get settled in.`,
-    },
-    {
-      title: `<span class="me-1 fw-bold">Day 4:</span>  Khao Sok National Park `,
-      des: ` Like on all of our trips, we can collect you from the airport when you land and take you directly to your hotel. The first Day is just a check-in Day so you have this freedom to explore the city and get settled in.`,
+      title: `Giá tour bao gồm `,
+      des: `
+        - Xe vận chuyển đời mới theo suốt chương trình (tùy theo số lượng khách)
+        - Khách sạn tiêu chuẩn tại địa phương
+        - Bữa ăn theo chương trình
+        - Hướng dẫn viên chuyên nghiệp, tận tình suốt tuyến
+        - Vé thắng cảnh vào cửa một lần tại các điểm thăm quan
+        - Quà tặng mũ Vietravel
+        - Nước suối trên xe 01 chai/khách/ngày
+        - Bảo hiểm du lịch mức chi trả tối đa 120.000.000đ/vụ
+        - Thuế VAT theo quy định của nhà nước`,
     },
     {
-      title: `<span class="me-1 fw-bold">Day 5:</span>  Travel to Koh Phangan `,
+      title: `Giá tour không bao gồm`,
+      des: ` 
+        - Phụ thu phòng đơn.
+        - Chi phí đồ uống & các chi phí cá nhân phát sinh khác trong chương trình.
+        - Tiền bồi dưỡng cho HDV và LX (không bắt buộc).`,
+    },
+    {
+      title: `Lưu ý giá trẻ em`,
+      des: ` 
+              - Trẻ em từ 0 – dưới 5 tuổi: không thu phí dịch vụ, gia đình tự lo cho bé. Hai người lớn chỉ được kèm 1 trẻ em dưới 5 tuổi, trẻ em thứ 2 phải đóng phí theo quy định dành cho độ tuổi từ 5 đến dưới 12 tuổi và phụ thu giường đơn
+              - Trẻ em từ 5 - dưới 12 tuổi: mua 50% vé dịch vụ, bao gồm phương tiện vận chuyển, ăn uống, vé tham quan, ngủ chung với gia đình, không có giường riêng. Hai người lớn chỉ được kèm 1 trẻ em từ 5 - dưới 12 tuổi, em thứ hai trở lên phải mua 1 suất giường đơn
+              - Trẻ em từ 12 tuổi trở lên: mua một vé như người lớn
+              - Lưu ý: trong trường hợp Quý khách có nhu cầu tự mua vé tham quan, chúng tôi sẵn sàng tư vấn để Quý khách chọn mua tour F&E hoặc tour theo nhóm riêng, theo dạng tour này Quý khách có thể tự chọn các dịch vụ theo nhu cầu.`,
+    },
+    {
+      title: `Điều kiện thanh toán `,
+      des: ` 
+        - Khi đăng ký yêu cầu đặt cọc 50% số tiền tour.
+        - Số tiền còn lại thanh toán hết trước ngày khởi hành 7-10 ngày (áp dụng tour ngày thường), trước ngày khởi hành 20-25 ngày (áp dụng tour Lễ Tết)
+      `,
+    },
+    {
+      title: `Điều kiện đăng ký `,
       des: ` Like on all of our trips, we can collect you from the airport when you land and take you directly to your hotel. The first Day is just a check-in Day so you have this freedom to explore the city and get settled in.
       `,
     },
     {
-      title: `<span class="me-1 fw-bold">Day 6:</span> Morning Chill & Muay Thai Lesson `,
+      title: `Lưu ý về chuyển hoặc hủy tour `,
       des: `Like on all of our trips, we can collect you from the airport when you land and take you directly to your hotel. The first Day is just a check-in Day so you have this freedom to explore the city and get settled in.
       `,
     },
-  ],
-
-  included: [
-    "Comfortable stay for 4 nights in your preferred category Hotels",
-    "Professional English speaking guide to help you explore the cities",
-    "Breakfast is included as mentioned in Itinerary.",
-    "Per Peron rate on twin sharing basis",
-    "Entrance Tickets to Genting Indoor Theme Park    ",
-    "All Tours & Transfers on Seat In Coach Basis ",
-    "Visit Bali Safari & Marine Park with Jungle Hopper Pass    ",
-  ],
-  exclusion: [
-    "Lunch and dinner are not included in CP plans",
-    "Any other services not specifically mentioned in the inclusions",
-    "Medical and Travel insurance",
-    "Airfare is not included ",
-    "Early Check-In & Late Check-Out ",
-    "Anything which is not specified in Inclusions    ",
+    {
+      title: `Điều kiện hủy tour đối với ngày thường`,
+      des: `Like on all of our trips, we can collect you from the airport when you land and take you directly to your hotel. The first Day is just a check-in Day so you have this freedom to explore the city and get settled in.
+      `,
+    },
+    {
+      title: `Điều kiện hủy tour đối với ngày lễ, tết `,
+      des: `Like on all of our trips, we can collect you from the airport when you land and take you directly to your hotel. The first Day is just a check-in Day so you have this freedom to explore the city and get settled in.
+      `,
+    },
+    {
+      title: `Trường hợp lý do bất khả kháng `,
+      des: `Like on all of our trips, we can collect you from the airport when you land and take you directly to your hotel. The first Day is just a check-in Day so you have this freedom to explore the city and get settled in.
+      `,
+    },
+    {
+      title: `Liên hệ `,
+      des: `Like on all of our trips, we can collect you from the airport when you land and take you directly to your hotel. The first Day is just a check-in Day so you have this freedom to explore the city and get settled in.
+      `,
+    },
   ],
 
   images: [

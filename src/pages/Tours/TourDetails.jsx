@@ -13,10 +13,20 @@ const TourDetails = () => {
     const options = {day:'numeric', month:'long', year: 'numeric'}
     const { id } = useParams();
     const [tourDetails, setTourDetails] = useState(null); 
+    const [tourRelated, setTourRelated] = useState([])
     const fetchTourDetail = async () => {
         const response = await axios.get(`http://localhost:4000/api/v1/tours/${id}`)
         setTourDetails(response.data.data)
     }
+    const fetchTourRelated = async () => {
+        try {
+            const response = await axios.get(`http://localhost:4000/api/v1/tours/${id}/related`);
+            setTourRelated(response.data.data);
+        } catch (error) {
+            console.error('Error fetching related tours:', error);
+        }
+    };
+    
     const imageItems = tourDetails?.tourImage.map(image => ({
         original: image.image_url,
         thumbnail: image.image_url,
@@ -26,6 +36,7 @@ const TourDetails = () => {
     : "";
     useEffect(() => {
         fetchTourDetail()
+        fetchTourRelated()
     }, [id])
 
     if (!tourDetails) {
@@ -187,45 +198,97 @@ const TourDetails = () => {
                                             <Card.Body>
                                                 <Stack gap={2} direction="horizontal">
                                                     {afterDiscount ? (
-                                                            <div className="price-container">
-                                                                <div className="price-original">
-                                                                    <h4>Giá:</h4> 
-                                                                    <p>{tourDetails.price.toLocaleString()} vnđ</p>
-                                                                </div>
-                                                                <div className="price-discounted">
-                                                                    <p>{afterDiscount.toLocaleString()} vnđ</p>
-                                                                </div>
-                                                                <h6><AiFillTags className='icon'/> Mã chương trình: <span className='font-bold'>NDSGN891</span></h6>
+                                                        <div className="price-container">
+                                                            <div className="price-original">
+                                                                <h4>Giá:</h4> 
+                                                                <p>{tourDetails.price.toLocaleString()} vnđ</p>
                                                             </div>
-                                                        ): (
-                                                            <div className="price-container">
-                                                                <h4>Giá từ: </h4>
-                                                                <div className="price-discounted">
-                                                                    <p>{tourDetails.price.toLocaleString()} vnđ</p>
-                                                                </div>
-                                                                <h6><AiFillTags /> Mã chương trình: <span className='font-bold'>NDSGN891</span></h6>
+                                                            <div className="price-discounted">
+                                                                <p>{afterDiscount.toLocaleString()} vnđ</p>
                                                             </div>
-                                                        )}
+                                                            <h6><AiFillTags className='icon'/> Mã chương trình: <span className='font-bold'>NDSGN891</span></h6>
+                                                        </div>
+                                                    ): (
+                                                        <div className="price-container">
+                                                            <h4>Giá từ: </h4>
+                                                            <div className="price-discounted">
+                                                                <p>{tourDetails.price.toLocaleString()} vnđ</p>
+                                                            </div>
+                                                            <h6><AiFillTags /> Mã chương trình: <span className='font-bold'>NDSGN891</span></h6>
+                                                        </div>
+                                                    )}
                                                 </Stack>
-                                                <NavLink className="primaryBtn w-100 d-flex justify-content-center fw-bold p-3 mt-3">Đặt ngay</NavLink>
+                                                <NavLink className="primaryBtn w-100 d-flex justify-content-center fw-bold p-3 mt-3" to="/booking">Đặt ngay</NavLink>
                                             </Card.Body>
                                         </Card>
-                                        <Card className='card-info p-2 shadow-sm'>
-                                            <Card.Body>
-                                                <h1 className="font-bold mb-2 h3">Need Help?</h1>
-                                                <ListGroup>
-                                                    <ListGroup.Item className='border-0'>
-                                                        <i className="bi bi-telephone me-1"></i> Call us on: <strong>+91 123 456 789</strong>
-                                                    </ListGroup.Item>
-                                                    <ListGroup.Item className='border-0'>
-                                                        <i className='bi bi-alarm me-1'></i> Mon to Sat 9.00 am - 6.00 pm
-                                                    </ListGroup.Item>
-                                                    <ListGroup.Item className='border-0'>
-                                                        <i className="bi bi-envelope me-1"></i> Email: <strong>hello@domain.com</strong>
-                                                    </ListGroup.Item>
-                                                </ListGroup>
-                                            </Card.Body>
-                                        </Card>
+                                        <div className="tour_list">
+                                            {tourRelated.length > 0 ? (                                                
+                                                tourRelated.slice(0,2).map((tour, index) => {
+                                                    const discount = tour.tourChildren[0]?.price_sale
+                                                        ? (tour.price * (100 - tour.tourChildren[0].price_sale)) / 100
+                                                        : "";
+
+                                                    return (
+                                                        <Card key={index} className='tour-card rounded-2 shadow-sm mb-4'>
+                                                            {discount ? (
+                                                                <div className="price-section">
+                                                                    <div className="sale-tag">Sale {tour.tourChildren[0].price_sale}%</div>
+                                                                    <div className="price-info">
+                                                                        <span className="discounted-price">
+                                                                            {discount?.toLocaleString()} vnđ/người
+                                                                        </span>
+                                                                        <span className="original-price">
+                                                                            {tour?.price.toLocaleString()} vnđ/người
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            ) : (
+                                                                <div className="price-section">
+                                                                    <div className="price-info">
+                                                                        <span className="only-price">
+                                                                            {tour?.price.toLocaleString()} vnđ/người
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            )}
+                                                            <Card.Img
+                                                                variant='top'
+                                                                src={tour?.tourImage[0]?.image_url}
+                                                                className="img-fluid"
+                                                                alt={tour?.name}
+                                                            />
+                                                            <Card.Body>
+                                                                <h5 className="days">{tour?.duration}</h5>
+                                                                <Card.Title>
+                                                                    <NavLink className="body-text text-dark text-decoration-none" to={`/tours/${tour?.id}`}>
+                                                                        {tour?.name}
+                                                                    </NavLink>
+                                                                </Card.Title>
+                                                                <Card.Text>
+                                                                    <i className="bi bi-geo-alt"></i>
+                                                                    <span className="text">Từ : {tour?.departure_city}</span>
+                                                                </Card.Text>
+                                                                <Card.Text>
+                                                                    <i className="bi bi-calendar"></i>
+                                                                    Khởi hành : {tour?.tourChildren[0].start_date}
+                                                                </Card.Text>
+                                                                <Card.Text>
+                                                                    <i className="bi bi-people-fill"></i>
+                                                                    Số chỗ : {tour?.tourChildren[0].total_seats} - Còn trống : {tour?.availableSeats}
+                                                                </Card.Text>
+                                                                <Card.Text>
+                                                                    <i className="bi bi-check-circle-fill"></i>
+                                                                    Đã xác nhận : {tour?.confirmed}
+                                                                </Card.Text>
+                                                            </Card.Body>
+                                                        </Card>
+                                                    );
+                                                })
+                                            ) : (
+                                                ""
+                                            )}
+                                        </div>
+
                                     </aside>
                                 </Col>
                                 

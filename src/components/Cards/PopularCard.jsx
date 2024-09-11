@@ -33,7 +33,7 @@ const  PopularCard = ({popular}) => {
             )}
             <Card.Img
                 variant='top'
-                src={popular.tour_image}
+                src={popular.tourImage[0]?.image_url}
                 className="img-fluid"
                 alt={popular.name}
             />

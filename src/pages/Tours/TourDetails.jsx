@@ -8,15 +8,19 @@ import axios from 'axios'
 import { Table } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { InformationNote } from '../../utils/data'
+import { AiFillTags } from "react-icons/ai";
 const TourDetails = () => {
     const options = {day:'numeric', month:'long', year: 'numeric'}
     const { id } = useParams();
     const [tourDetails, setTourDetails] = useState(null); 
-
     const fetchTourDetail = async () => {
         const response = await axios.get(`http://localhost:4000/api/v1/tours/${id}`)
         setTourDetails(response.data.data)
     }
+    const imageItems = tourDetails?.tourImage.map(image => ({
+        original: image.image_url,
+        thumbnail: image.image_url,
+      })) || [];
     const afterDiscount = tourDetails && tourDetails.tourChildren && tourDetails.tourChildren[0]?.price_sale
     ? (tourDetails.price * (100 - tourDetails.tourChildren[0].price_sale)) / 100
     : "";
@@ -35,7 +39,7 @@ const TourDetails = () => {
                 <Container>
                     <Row>
                         <h1 className='fs-2 font-bold mb-4'>{tourDetails.title}</h1>
-                        <ImageGallery items={tourDetails.images || []} showNav={false} showBullets={false} showPlayButton={false} />
+                        <ImageGallery items={imageItems} showNav={false} showBullets={false} showPlayButton={false} />
                         <Tab.Container id="left-tabs-example" defaultActiveKey="1">
                             <Row className='py-5'>
                                 <Col md={8} className='mb-3 mb-md-0'>
@@ -114,7 +118,7 @@ const TourDetails = () => {
                                                 return (
                                                 <Accordion.Item eventKey={index} className='mb-4' key={index}>
                                                     <Accordion.Header className='accordion_header' >
-                                                        <h5 dangerouslySetInnerHTML={{ __html: val.title }}></h5>
+                                                        <h6 dangerouslySetInnerHTML={{ __html: val.title }}></h6>
                                                     </Accordion.Header>
                                                     <Accordion.Body>
                                                     <div
@@ -191,7 +195,7 @@ const TourDetails = () => {
                                                                 <div className="price-discounted">
                                                                     <p>{afterDiscount.toLocaleString()} vnđ</p>
                                                                 </div>
-
+                                                                <h6><AiFillTags className='icon'/> Mã chương trình: <span className='font-bold'>NDSGN891</span></h6>
                                                             </div>
                                                         ): (
                                                             <div className="price-container">
@@ -199,26 +203,11 @@ const TourDetails = () => {
                                                                 <div className="price-discounted">
                                                                     <p>{tourDetails.price.toLocaleString()} vnđ</p>
                                                                 </div>
-
+                                                                <h6><AiFillTags /> Mã chương trình: <span className='font-bold'>NDSGN891</span></h6>
                                                             </div>
                                                         )}
                                                 </Stack>
-                                                <div className="d-flex justify-content-between align-items-center mb-3">
-                                                    <ListGroup horizontal>
-                                                        <ListGroup.Item className='border-0 me-2 fw-bold'>{tourDetails.rating}</ListGroup.Item>
-                                                    
-                                                        {[...Array(4)].map((_, i) => (
-                                                            <ListGroup.Item key={i} className='border-0 me-1 text-warning'>
-                                                                <i className='bi bi-star-fill'></i>
-                                                            </ListGroup.Item>
-                                                        ))}
-                                                        <ListGroup.Item className='border-0 me-1 text-warning'>
-                                                            <i className='bi bi-star-half'></i>
-                                                        </ListGroup.Item>
-                                                    </ListGroup>
-                                                    <h5 className="h6"> ({tourDetails.reviews}) </h5>
-                                                </div>
-                                                <NavLink className="primaryBtn w-100 d-flex justify-content-center fw-bold p-3">Đặt ngay</NavLink>
+                                                <NavLink className="primaryBtn w-100 d-flex justify-content-center fw-bold p-3 mt-3">Đặt ngay</NavLink>
                                             </Card.Body>
                                         </Card>
                                         <Card className='card-info p-2 shadow-sm'>

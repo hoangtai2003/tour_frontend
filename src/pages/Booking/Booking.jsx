@@ -9,6 +9,7 @@ import { AiFillTags } from "react-icons/ai";
 import { FaLocationDot } from "react-icons/fa6";
 import { BiSolidTimer } from "react-icons/bi";
 import { PiUsersThreeBold } from "react-icons/pi";
+import QuantityCounter from './QuantityCounter';
 const Booking = () => {
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
@@ -117,24 +118,16 @@ const Booking = () => {
                                         <h3 className='font-bold mt-3 pb-2'>Hành khách</h3>
                                         <div className='container_old'>
                                             <Form.Group className="mb-2">
-                                                <Form.Label>Người lớn <span>*</span></Form.Label>
-                                                <p className='booking_old'>Từ 12 tuổi</p>
-                                                <Form.Control type="number" required />
+                                                <QuantityCounter label={"Người lớn"} description={"Từ 12 tuổi"} initialValue={0} min={0} max={10} />
                                             </Form.Group>
                                             <Form.Group className="mb-2">
-                                                <Form.Label>Trẻ em <span>*</span></Form.Label>
-                                                <p className='booking_old'>Từ 5 - 11 tuổi</p>
-                                                <Form.Control type="number" required />
+                                                <QuantityCounter label={"Trẻ em"} description={"Từ 5 - 11 tuổi"} initialValue={0} min={0} max={10} />
                                             </Form.Group>
                                             <Form.Group className="mb-2">
-                                                <Form.Label>Trẻ nhỏ <span>*</span></Form.Label>
-                                                <p className='booking_old'>Từ 2 - 4 tuổi</p>
-                                                <Form.Control type="number" required />
+                                                <QuantityCounter label={"Trẻ nhỏ "} description={"Từ 2 - 4 tuổi"} initialValue={0} min={0} max={10} />
                                             </Form.Group>
                                             <Form.Group className="mb-2">
-                                                <Form.Label>Em bé <span>*</span></Form.Label>
-                                                <p className='booking_old'>Dưới 2 tuổi</p>
-                                                <Form.Control type="number" required />
+                                                <QuantityCounter label={"Em bé"} description={"Dưới 2 tuổi"} initialValue={0} min={0} max={10} />
                                             </Form.Group>
                                         </div>
                                         <h3 className='font-bold mt-3 pb-2'>Thông tin hành khách</h3>
@@ -187,8 +180,7 @@ const Booking = () => {
                                 </Card.Body>
                                 <Card.Footer className='pb-5'>
                                     <Col md="12">
-                                        <button className='primaryBtn'>Đặt tour</button>
-                                        <button className='primaryBtn pay'>Thanh toán online</button>
+                                        <button className='primaryBtn booking_btn'>Đặt tour</button>
                                     </Col>
                                 </Card.Footer>
                             </Card>

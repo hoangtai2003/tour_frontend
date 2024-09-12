@@ -56,7 +56,64 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
     column-gap: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
     padding: 10px;
 }
+.booking_btn {
+    width: 100%;
+    margin-top: 25px;
+}
+
+.booking-count {
+    border: 1px solid var(--primaryClr);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    column-gap: 20px;
+    padding: 10px;
+}
+
+.booking_number {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 150px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.booking-number span {
+    margin: 0 15px;
+    font-size: 18px;
+}
+
+.booking-plus,
+.booking-minus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: 600;
+}
+.booking-plus:hover,
+.booking-minus:hover {
+    background: var(--primaryClr);
+}
+.booking-information {
+    display: flex;
+    flex-direction: column;
+}
+
+.booking-label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.booking-description {
+    font-size: 14px;
+    color: #555;
+}
+

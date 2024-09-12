@@ -8,7 +8,7 @@ import { FcGoogle } from "react-icons/fc";
 const Login = () => {
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
-        // window.scroll(0,0)
+        window.scroll(0,0)
     }, [])
     const [passwordVisible, setPasswordVisible] = useState(false);
     const togglePasswordVisibility = () => {

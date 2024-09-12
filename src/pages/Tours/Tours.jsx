@@ -12,8 +12,7 @@ const Tours = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     useEffect(() => {
-        document.title = "Tour"
-        window.scroll(0,0)
+        document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
     }, [])
     const fetchTour = async() => {
         const response  = await axios.get(`http://localhost:4000/api/v1/tours?page=${currentPage}`)

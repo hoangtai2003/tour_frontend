@@ -1,15 +1,39 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './auth.css';
 import { Container, Row, Col, Form, FormGroup} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BiShow,BiHide  } from "react-icons/bi";
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import axios from 'axios';
+import { StoreContext } from '../../components/Context/StoreContext';
 const Login = () => {
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
         window.scroll(0,0)
     }, [])
+    const naviagte = useNavigate()
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    })
+    const { url, setToken } = useContext(StoreContext)
+    const handleChange = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+        setFormData(prev => ({...prev, [name]:value}))
+    }
+    const onSubmit = async(e) => {
+        e.preventDefault(e)
+        const response = await axios.post(`${url}/auth/login`, formData)
+        if (response.data.success){
+            setToken(response.data.token)
+            localStorage.setItem("token", response.data.token)
+            naviagte("/home")
+        } else {
+            alert(response.data.message)
+        }
+    }
     const [passwordVisible, setPasswordVisible] = useState(false);
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
@@ -21,10 +45,10 @@ const Login = () => {
                         <Col lg="6" md="8" sm="10">
                             <div className="login-card">
                                 <h2 className="login-title">Đăng nhập</h2>
-                                <Form>
+                                <Form onSubmit={onSubmit}>
                                     <FormGroup className='form-group'>
                                         <label className='font-bold'>Số điện thoại hoặc email <span>*</span></label>
-                                        <input type="text" placeholder="Nhập số điện thoại hoặc email" className="login-input" required />
+                                        <input type="email" placeholder="Nhập số điện thoại hoặc email" className="login-input" name='email' onChange={handleChange}  required />
                                     </FormGroup>
                                     <FormGroup  className='form-group'>
                                         <label className='font-bold'>Nhập mật khẩu <span>*</span></label>
@@ -34,6 +58,8 @@ const Login = () => {
                                                 placeholder="Mật khẩu"
                                                 className="login-input"
                                                 required
+                                                onChange={handleChange}
+                                                name='password'
                                             />
                                                 <span onClick={togglePasswordVisibility} className="show-password-icon">
                                                 {passwordVisible ? <BiHide /> : <BiShow />}

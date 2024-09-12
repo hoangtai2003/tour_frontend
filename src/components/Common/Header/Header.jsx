@@ -1,19 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Container,
   Navbar,
   Offcanvas,
   Nav,
 } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./header.css";
+import { StoreContext } from "../../Context/StoreContext";
+import axios from "axios";
 
 const Header = () => {
     const [open, setOpen] = useState(false);
+    const { token, setToken, url } = useContext(StoreContext);
+    const navigate = useNavigate();
+    const [userInfo, setUserInfo] = useState(null);
 
     const toggleMenu = () => {
         setOpen(!open);
     };
+
+    useEffect(() => {
+        // Lấy token từ localStorage khi component mount
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken); // Cập nhật token vào context nếu tồn tại
+        }
+    }, [setToken]);
 
     useEffect(() => {
         window.addEventListener("scroll", isSticky);
@@ -33,20 +46,46 @@ const Header = () => {
     };
     const closeMenu = () => {
         if (window.innerWidth <= 991){
-            setOpen(false)
+            setOpen(false);
         }
-    }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        setToken(""); 
+        navigate("/home");
+    };
+
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+            try {
+                const response = await axios.get(`${url}/auth/users`, {
+                    headers: {
+                        Authorization: `Bearer ${token}` 
+                    }
+                });
+                setUserInfo(response.data.data);
+            } catch (error) {
+                console.error("Lỗi khi lấy thông tin người dùng", error);
+            }
+        };
+
+        if (token) {
+            fetchUserInfo(); 
+        }
+    }, [token, url]);
+
     return (
         <header className="header-section">
             <Container>
                 <Navbar expand="lg" className="p-0">
-                    {/* Logo Section  */}
+
                     <Navbar.Brand>
                         <NavLink to="/"> 
                             Du lịch Việt
                         </NavLink>
                     </Navbar.Brand>
-                    {/* End Logo Section  */}
+
 
                     <Navbar.Offcanvas
                         id="offcanvasNavbar-expand-lg"
@@ -54,14 +93,14 @@ const Header = () => {
                         placement="start"
                         show={open}
                     >
-                        {/*mobile Logo Section  */}
+
                         <Offcanvas.Header>
                             <h1 className="logo">Du lịch Việt</h1>
                             <span className="navbar-toggler ms-auto"  onClick={toggleMenu}>
                                 <i className="bi bi-x-lg"></i>
                             </span>
                         </Offcanvas.Header>
-                        {/*end mobile Logo Section  */}
+ 
 
                         <Offcanvas.Body>
                             <Nav className="justify-content-end flex-grow-1 pe-3">
@@ -84,12 +123,26 @@ const Header = () => {
                                 <NavLink className="nav-link" to="/contact-us" onClick={closeMenu}>
                                     Liên hệ
                                 </NavLink>
-                                <NavLink className="nav-link" to="/register" onClick={closeMenu}>
-                                    Đăng ký
-                                </NavLink>
-                                <NavLink className="nav-link" to="/login" onClick={closeMenu}>
-                                    Đăng nhập
-                                </NavLink>
+                                {!token ? (
+                                    <>
+                                        <NavLink className="nav-link" to="/register" onClick={closeMenu}>
+                                            Đăng ký
+                                        </NavLink>
+                                        <NavLink className="nav-link" to="/login" onClick={closeMenu}>
+                                            Đăng nhập
+                                        </NavLink>
+                                    </>
+                                ): (
+                                    <>
+                                        <NavLink className="nav-link" to="/home">
+                                            Xin chào, {userInfo?.username}
+                                        </NavLink>
+                                        <NavLink className="nav-link" to="/home" onClick={handleLogout}>
+                                            Đăng xuất
+                                        </NavLink>
+                                    </>
+
+                                )}
                             </Nav>
                         </Offcanvas.Body>
                     </Navbar.Offcanvas>
@@ -99,7 +152,6 @@ const Header = () => {
                         </li>
                     </div>
                 </Navbar>
-
             </Container>
         </header>
     );

@@ -17,3 +17,46 @@
 .react-datepicker-wrapper{
     width: 100%;
 }
+.pay{
+    margin-left: 10px;
+}
+.form-label span{
+    color: red;
+}
+.booking_image{
+    width: 100%;
+    border-radius: 15px;
+}
+.booking_name{
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+.booking_title{
+    color: var(--primaryClr);
+}
+
+.list-group-item span{
+    font-weight: 600;
+}
+.list-group-item svg{
+    margin-right: 8px;
+    color: var(--primaryClr);
+}
+.booking_duration{
+    margin-left: 20px;
+}
+.booking_price{
+    color: var(--primaryClr);
+}
+.booking_old{
+    font-size: 13px;
+}
+.container_old{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    column-gap: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+}

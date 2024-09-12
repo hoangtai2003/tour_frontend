@@ -218,7 +218,7 @@ const TourDetails = () => {
                                                         </div>
                                                     )}
                                                 </Stack>
-                                                <NavLink className="primaryBtn w-100 d-flex justify-content-center fw-bold p-3 mt-3" to="/booking">Đặt ngay</NavLink>
+                                                <NavLink className="primaryBtn w-100 d-flex justify-content-center fw-bold p-3 mt-3" to={`/booking/${id}`}>Đặt ngay</NavLink>
                                             </Card.Body>
                                         </Card>
                                         <div className="tour_list">

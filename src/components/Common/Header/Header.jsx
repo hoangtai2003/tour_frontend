@@ -43,7 +43,7 @@ const Header = () => {
                     {/* Logo Section  */}
                     <Navbar.Brand>
                         <NavLink to="/"> 
-                            Tour du lịch
+                            Du lịch Việt
                         </NavLink>
                     </Navbar.Brand>
                     {/* End Logo Section  */}
@@ -56,7 +56,7 @@ const Header = () => {
                     >
                         {/*mobile Logo Section  */}
                         <Offcanvas.Header>
-                            <h1 className="logo">Tour du lịch</h1>
+                            <h1 className="logo">Du lịch Việt</h1>
                             <span className="navbar-toggler ms-auto"  onClick={toggleMenu}>
                                 <i className="bi bi-x-lg"></i>
                             </span>

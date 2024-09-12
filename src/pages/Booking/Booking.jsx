@@ -11,7 +11,7 @@ import { BiSolidTimer } from "react-icons/bi";
 import { PiUsersThreeBold } from "react-icons/pi";
 const Booking = () => {
     useEffect(() => {
-        document.title = "Booking"
+        document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
     }, [])
     const { id } = useParams()
     const [tourDetails, setTourDetails] = useState(null); 

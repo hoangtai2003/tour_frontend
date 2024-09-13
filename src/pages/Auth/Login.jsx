@@ -53,7 +53,7 @@ const Login = () => {
     return (
         <div className="login-page">
             <Container>
-                <Row className="justify-content-center align-items-center">
+                <Row className="justify-content-center align-items-center login-container">
                     <Col lg="6" md="8" sm="10">
                         <div className="login-card">
                             <h2 className="login-title">Đăng nhập</h2>

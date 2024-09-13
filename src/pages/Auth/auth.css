@@ -1,5 +1,5 @@
-
-.login-page{
+.login-page,
+.register-page{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,12 +29,14 @@
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
 }
 
-.login-card-body{
+.login-card-body,
+.register-card-body{
   padding: 20px;
   text-align: center;
 }
 
-.login-title{
+.login-title,
+.register-title{
   font-size: 2rem;
   color: #59b9da;
   text-align: center;
@@ -66,7 +68,8 @@
   box-shadow: 0 0 5px rgba(0, 114, 255, 0.2);
 }
 
-.login-btn {
+.login-btn,
+.register-btn {
   width: 35%;
   padding: 10px 15px;
   font-size: 1rem;
@@ -79,11 +82,13 @@
   font-size: 20px;
 }
 
-.login-btn:hover {
+.login-btn:hover,
+.register-btn:hover {
   background-color: #48c6ef;
 }
 
-.login-footer {
+.login-footer,
+.register-footer {
   text-align: center;
   margin-top: 1rem;
   font-size: 0.9rem;
@@ -106,26 +111,31 @@
   margin-bottom: 10px;
   margin-top: 30px;
 }
-.login_social{
+.login_social,
+.register_social{
     text-align: center;
 }
-.login_social .facebook-btn{
+.login_social .facebook-btn,
+.register_social .facebook-btn{
     background: #3b589d;
     color: #fff;
     border: #3b589d;
     padding: 10px;
 }
-.login_social .facebook-btn:hover {
+.login_social .facebook-btn:hover,
+.register_social .facebook-btn:hover {
     background-color: #2e4480;
     border-color: #2e4480; 
     color: #fff;
 }
-.login_social .google-btn{
+.login_social .google-btn,
+.register_social .google-btn{
     background: transparent;
     border-color: #e5e5e5;
     padding: 10px;
 }
-.login_social .google-btn:hover{
+.login_social .google-btn:hover
+.register_social .google-btn:hover{
     background: #e5e5e5;
 }
 .social-icon {
@@ -158,4 +168,124 @@
 
 .input-error {
   border-color: red;
+}
+@media only screen and (max-width: 800px){
+    .login-card{
+        padding: 2rem;
+        height: 580px;
+    }
+    .login-card .login-title{
+        margin-bottom: 15px;
+    }
+    .login-btn{
+        font-size: 20px;
+        width: 55%;
+        padding: 8px 16px;
+    }
+    .login-card-body{
+        padding: 0px;
+    }
+    .social-btn{
+        width: 140px;
+    }
+    .login_social .facebook-btn{
+        margin-right: 16px;
+    }
+    .or-text{
+        padding: 10px;
+    }
+}
+@media only screen and (max-width: 2000px){
+    .login-card{
+        padding: 2rem;
+        height: 500px;
+    }
+    .login-card .login-title{
+        margin-bottom: 0px;
+    }
+    .login-btn{
+        font-size: 15px;
+        width: 25%;
+        padding: 8px 16px;
+    }
+    .login-card-body{
+        padding: 0px;
+    }
+    .login-card-body button{
+        bottom: 20px;
+        position: relative;
+    }
+    .social-btn{
+        width: 188px;
+    }
+    .login_social .facebook-btn{
+        margin-right: 16px;
+        padding: 6px;
+        font-size: 12px;
+    }
+    .login_social .google-btn{
+        padding: 6px;
+        font-size: 12px;
+    }
+    .login_social{
+        padding-bottom: 9px;
+    }
+    .login-title{
+        font-size: 30px;
+    }
+    .form-group{
+        padding-bottom: 10px;
+    }
+    .login-footer{
+        margin-top: 0rem;
+    }
+    .register-card{
+        height: 530px;
+    }
+    .register-title{
+        margin-bottom: -0.5rem;
+        font-size: 23px;
+    }
+    .register-footer{
+        bottom: 5px;
+        position: relative;
+    }
+    .form-controller .form-group{
+        padding-bottom: 0;
+    }
+    .form-controller label{
+        margin-top: 20px;
+    }
+    .register-card-body button{
+        position: relative;
+        bottom: 25px;
+    }
+    .register-card-body{
+        padding: 0;
+    }
+    .register-btn{
+        font-size: 15px;
+        width: 22%;
+    }
+    .social-btn{
+        width: 188px;
+    }
+    .register_social .facebook-btn{
+        margin-right: 16px;
+        padding: 6px;
+        font-size: 12px;
+    }
+    .register_social .google-btn{
+        padding: 6px;
+        font-size: 12px;
+    }
+    .register_social{
+        position: relative;
+        bottom: 30px;
+    }
+    .register_social .or-text{
+        position: relative;
+        top: 10px;
+    }
+    
 }

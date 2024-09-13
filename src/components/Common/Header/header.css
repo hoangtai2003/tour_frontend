@@ -130,14 +130,14 @@ header .navbar .offcanvas-body .dropdown-menu .dropdown-item {
     justify-content: center;
     align-items: center;
     gap: 15px; 
-    padding: 20px 0; 
+    padding: 10px 0; 
     margin-left: 200px;
 }
 .header-account {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px 0;
+    padding: 10px 0;
     margin-left: 200px;
     z-index: 1000;
 }

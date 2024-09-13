@@ -56,7 +56,7 @@ const Register = () => {
                 <Row className='justify-content-center align-items-center'>
                     <Col lg="8" className='custom-register-row'>
                         <div className="register-card">
-                            <h2 className="login-title">Đăng ký</h2>
+                            <h2 className="register-title">Đăng ký</h2>
                             <Form onSubmit={onSubmit}>
                                 <div className='form-controller'>
                                     <FormGroup className='form-group'>
@@ -108,14 +108,14 @@ const Register = () => {
                                         </div>
                                     </FormGroup>
                                 </div>
-                                <p className="login-footer">
+                                <p className="register-footer">
                                     Bạn đã có tài khoản? <Link to="/login" className="register-link"><i>Đăng nhập</i></Link>
                                 </p>
-                                <div className="login-card-body">
-                                    <button className="login-btn font-bold" type="submit">Đăng ký</button>
+                                <div className="register-card-body">
+                                    <button className="register-btn font-bold" type="submit">Đăng ký</button>
                                 </div>
                             </Form>
-                            <div className='login_social'>
+                            <div className='register_social'>
                                 <p className="or-text">hoặc</p>
                                 <button className="btn social-btn facebook-btn">
                                     <FaFacebook  className="social-icon" /> Đăng ký với Facebook

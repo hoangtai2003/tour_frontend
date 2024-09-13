@@ -135,7 +135,7 @@ const Header = () => {
                                         </>
                                     ): (
                                         <>
-                                            <NavLink className="account"  to="/logout">
+                                            <NavLink className="account"  to="/home" onClick={handleLogout}>
                                                 <img src={userImg} alt="" />
                                             </NavLink>
                                         </>

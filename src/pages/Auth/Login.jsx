@@ -28,22 +28,30 @@ const Login = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        const response = await axios.post(`${url}/auth/login`, formData);
-        if (response.data.success) {
-            setToken(response.data.token);
-            localStorage.setItem("token", response.data.token);
-            navigate("/home");
-        } else {
+    const onSubmit = async(e) => {
+        e.preventDefault(e)
+        try {
+            const response = await axios.post(`${url}/auth/login`, formData)
+            if (response.data.success){
+                setToken(response.data.token)
+                localStorage.setItem("token", response.data.token)
+                navigate("/home")
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Đăng nhập thất bại',
+                    text: response.data?.message,
+                });
+            }
+        } catch(error){
             Swal.fire({
                 icon: 'error',
                 title: 'Đăng nhập thất bại',
-                text: response.data.message,
+                text: error.response?.data?.message || 'Có lỗi xảy ra trong quá trình đăng nhập.',
             });
-           
         }
-    };
+
+    } 
 
     const [passwordVisible, setPasswordVisible] = useState(false);
     const togglePasswordVisibility = () => {

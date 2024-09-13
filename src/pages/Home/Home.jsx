@@ -17,6 +17,10 @@ import axios from 'axios'
 const Home = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [tours, setTour] = useState([])
+    useEffect(() => {
+        document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
+        window.scroll(0,0)
+    }, [])
     var settings = {
         dots: false,
         infinite: true,

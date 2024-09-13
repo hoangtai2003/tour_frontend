@@ -150,3 +150,12 @@
     color: #888 !important;
     font-size: 20px;
 }
+.error-text {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.input-error {
+  border-color: red;
+}

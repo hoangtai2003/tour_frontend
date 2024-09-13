@@ -10,6 +10,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { InformationNote } from '../../utils/data'
 import { AiFillTags } from "react-icons/ai";
 const TourDetails = () => {
+    useEffect(() => {
+        document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
+        window.scroll(0,0)
+    }, [])
     const options = {day:'numeric', month:'long', year: 'numeric'}
     const { id } = useParams();
     const [tourDetails, setTourDetails] = useState(null); 

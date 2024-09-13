@@ -9,7 +9,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./header.css";
 import { StoreContext } from "../../Context/StoreContext";
 import axios from "axios";
-
+import userImg from "../../../assets/images/ava/user.png"
+import userImg2 from "../../../assets/images/ava/ava-1.jpg"
 const Header = () => {
     const [open, setOpen] = useState(false);
     const { token, setToken, url } = useContext(StoreContext);
@@ -103,46 +104,45 @@ const Header = () => {
  
 
                         <Offcanvas.Body>
-                            <Nav className="justify-content-end flex-grow-1 pe-3">
-                                <NavLink className="nav-link" to="/home" onClick={closeMenu}>
-                                    Trang chủ
-                                </NavLink>
-                                <NavLink className="nav-link" to="/about-us" onClick={closeMenu}>
-                                    Giới thiệu
-                                </NavLink>
-                                <NavLink className="nav-link" to="/tours" onClick={closeMenu}>
-                                    TOURS
-                                </NavLink>
+                            <Nav>
+                                <div className="header-title">
+                                    <NavLink className="nav-link" to="/home" onClick={closeMenu}>
+                                        Trang chủ
+                                    </NavLink>
+                                    <NavLink className="nav-link" to="/about-us" onClick={closeMenu}>
+                                        Giới thiệu
+                                    </NavLink>
+                                    <NavLink className="nav-link" to="/tours" onClick={closeMenu}>
+                                        TOURS
+                                    </NavLink>
 
-                                <NavLink className="nav-link" to="/news" onClick={closeMenu}>
-                                    Tin tức
-                                </NavLink>
-                                <NavLink className="nav-link" to="/hotel" onClick={closeMenu}>
-                                   Khách sạn
-                                </NavLink>
-                                <NavLink className="nav-link" to="/contact-us" onClick={closeMenu}>
-                                    Liên hệ
-                                </NavLink>
-                                {!token ? (
-                                    <>
-                                        <NavLink className="nav-link" to="/register" onClick={closeMenu}>
-                                            Đăng ký
-                                        </NavLink>
-                                        <NavLink className="nav-link" to="/login" onClick={closeMenu}>
-                                            Đăng nhập
-                                        </NavLink>
-                                    </>
-                                ): (
-                                    <>
-                                        <NavLink className="nav-link" to="/home">
-                                            Xin chào, {userInfo?.username}
-                                        </NavLink>
-                                        <NavLink className="nav-link" to="/home" onClick={handleLogout}>
-                                            Đăng xuất
-                                        </NavLink>
-                                    </>
+                                    <NavLink className="nav-link" to="/news" onClick={closeMenu}>
+                                        Tin tức
+                                    </NavLink>
+                                    <NavLink className="nav-link" to="/hotel" onClick={closeMenu}>
+                                    Khách sạn
+                                    </NavLink>
+                                    <NavLink className="nav-link" to="/contact-us" onClick={closeMenu}>
+                                        Liên hệ
+                                    </NavLink>
+                                </div>
+                                <div className="header-account">
+                                    {!token ? (
+                                        <>
+                                            <NavLink className="account"  to="/login">
+                                                <img src={userImg} alt="" />
+                                            </NavLink>
+                                        </>
+                                    ): (
+                                        <>
+                                            <NavLink className="account"  to="/logout">
+                                                <img src={userImg} alt="" />
+                                            </NavLink>
+                                        </>
 
-                                )}
+                                    )}
+                                </div>
+                                
                             </Nav>
                         </Offcanvas.Body>
                     </Navbar.Offcanvas>

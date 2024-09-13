@@ -55,7 +55,6 @@ header .navbar .offcanvas-body a {
     font-weight: bold;
     text-transform: uppercase;
 }
-
 header .navbar .offcanvas-body .dropdown-menu a {
     color:black !important
 }
@@ -80,6 +79,7 @@ header .navbar .offcanvas-body .dropdown-menu .dropdown-item {
         color: var(--white);
         border: 2px solid var(--white);
         padding: 7px 10px;
+        cursor: pointer;
     }
 
     .is-sticky .navbar .toggle_btn {
@@ -89,7 +89,15 @@ header .navbar .offcanvas-body .dropdown-menu .dropdown-item {
     .offcanvas-header {
         border: 1px solid gainsboro;
     }
-
+    .offcanvas-body .header-title {
+        flex-direction: column;
+        font-weight: 600;
+        margin-left: 0px;
+        align-items: normal;
+    }
+    .offcanvas-body .header-account{
+        display: none;
+    }
     .offcanvas-header .logo{
         font-size: 26px;
         color: var(--black) !important;
@@ -107,4 +115,29 @@ header .navbar .offcanvas-body .dropdown-menu .dropdown-item {
         padding: 12px 10px;
         color:var(--black);
     }
+}
+.account{
+    border-radius: 15px;
+    border: 1px solid #e5e5e5;
+    padding: 5px;
+    background: #fff;
+}
+.account img{
+    border-radius: 50%;
+}
+.header-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; 
+    padding: 20px 0; 
+    margin-left: 200px;
+}
+.header-account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    margin-left: 200px;
+    z-index: 1000;
 }

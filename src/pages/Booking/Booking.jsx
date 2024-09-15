@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import Breadcrumbs from '../../components/Breadcrumb/Breadcrumbs'
-import { Container, Row, Col, Form, Card, ListGroup, FloatingLabel } from 'react-bootstrap'
+import { Container, Row, Col, Form, Card, ListGroup, Collapse } from 'react-bootstrap'
 import "react-datepicker/dist/react-datepicker.css";
 import "./booking.css"
 import { useParams } from 'react-router-dom';
@@ -10,16 +10,50 @@ import { FaLocationDot } from "react-icons/fa6";
 import { BiSolidTimer } from "react-icons/bi";
 import { PiUsersThreeBold } from "react-icons/pi";
 import QuantityCounter from './QuantityCounter';
+import InformationCustomer from './InformationCustomer';
+import { BsCash } from "react-icons/bs";
+import { CiBank } from "react-icons/ci";
+import { IoQrCode } from "react-icons/io5"; 
 const Booking = () => {
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
     }, [])
+    const [openCash, setOpenCash] = useState(false);
+    const [openTransfer, setOpenTransfer] = useState(false);
+    const [passengerCount, setPassengerCount] = useState({
+        adults: 1,
+        children: 0,
+        toddlers: 0,
+        babies: 0
+    })
+    const handleUpdateCount = (name, value) => {
+        setPassengerCount(prev => ({
+            ...prev, 
+            [name]: value
+        }))
+    } 
     const { id } = useParams()
     const [tourDetails, setTourDetails] = useState(null); 
     const fetchTourDetail = async () => {
         const response = await axios.get(`http://localhost:4000/api/v1/tours/${id}`)
         setTourDetails(response.data.data)
     }
+    const calculateTotalPrice = () => {
+        const priceAdult = tourDetails?.tourChildren[0].price_adult || 0;
+        const priceChild = tourDetails?.tourChildren[0].price_child || 0;
+
+
+        const totalAdultPrice = passengerCount.adults * priceAdult;
+        const totalChildPrice = passengerCount.children * priceChild;
+        const totalToddlerPrice = passengerCount.toddlers * priceChild;
+        const totalBabyPrice = passengerCount.babies * priceChild;
+
+        const toalPrice = totalAdultPrice + totalChildPrice + totalToddlerPrice + totalBabyPrice
+
+        return toalPrice;
+    };
+
+    const totalPrice = calculateTotalPrice();
     useEffect(() => {
         fetchTourDetail()
     }, [id])
@@ -99,13 +133,13 @@ const Booking = () => {
                                             <Form.Control
                                                 required
                                                 type="text"
-                                                placeholder="Họ và tên"
+                                                placeholder="Nhập họ tên"
                                                 className="mb-2"
                                             />
                                         </Form.Group>
                                         <Form.Group className="mb-2" as={Col} md="6">
                                             <Form.Label>Email <span>*</span></Form.Label>
-                                            <Form.Control type="email" placeholder="name@example.com" required />
+                                            <Form.Control type="email" placeholder="Nhập email" required />
                                         </Form.Group>
                                         <Form.Group className="mb-2" as={Col} md="6">
                                             <Form.Label>Địa chỉ </Form.Label>
@@ -113,28 +147,160 @@ const Booking = () => {
                                         </Form.Group>
                                         <Form.Group className="mb-2" as={Col} md="6">
                                             <Form.Label>Số điện thoại <span>*</span></Form.Label>
-                                            <Form.Control type="text" placeholder="Số điện thoại" required />
+                                            <Form.Control type="text" placeholder="Nhập số điện thoại" required />
                                         </Form.Group>
                                         <h3 className='font-bold mt-3 pb-2'>Hành khách</h3>
                                         <div className='container_old'>
                                             <Form.Group className="mb-2">
-                                                <QuantityCounter label={"Người lớn"} description={"Từ 12 tuổi"} initialValue={0} min={0} max={10} />
+                                            <QuantityCounter
+                                                label="Người lớn"
+                                                description="Từ 12 tuổi"
+                                                initialValue={passengerCount.adults}
+                                                min={1}
+                                                max={10}
+                                                onChange={(value) => handleUpdateCount('adults', value)}
+                                                />
                                             </Form.Group>
                                             <Form.Group className="mb-2">
-                                                <QuantityCounter label={"Trẻ em"} description={"Từ 5 - 11 tuổi"} initialValue={0} min={0} max={10} />
+                                                <QuantityCounter 
+                                                    label={"Trẻ em"} 
+                                                    description={"Từ 5 - 11 tuổi"} 
+                                                    initialValue={passengerCount.children} 
+                                                    min={0} 
+                                                    max={10} 
+                                                    onChange={(value) => handleUpdateCount('children', value)}    
+                                                />
                                             </Form.Group>
                                             <Form.Group className="mb-2">
-                                                <QuantityCounter label={"Trẻ nhỏ "} description={"Từ 2 - 4 tuổi"} initialValue={0} min={0} max={10} />
+                                                <QuantityCounter 
+                                                    label={"Trẻ nhỏ "} 
+                                                    description={"Từ 2 - 4 tuổi"} 
+                                                    initialValue={passengerCount.toddlers} 
+                                                    min={0} 
+                                                    max={10} 
+                                                    onChange={(value) => handleUpdateCount('toddlers', value)}
+                                                />
                                             </Form.Group>
                                             <Form.Group className="mb-2">
-                                                <QuantityCounter label={"Em bé"} description={"Dưới 2 tuổi"} initialValue={0} min={0} max={10} />
+                                                <QuantityCounter 
+                                                    label={"Em bé"} 
+                                                    description={"Dưới 2 tuổi"} 
+                                                    initialValue={passengerCount.babies} 
+                                                    min={0} 
+                                                    max={10} 
+                                                    onChange={(value) => handleUpdateCount('babies', value)}
+                                                />
                                             </Form.Group>
                                         </div>
                                         <h3 className='font-bold mt-3 pb-2'>Thông tin hành khách</h3>
+                                        {passengerCount.adults > 0 && (   
+                                            <div className="form-section">
+                                                <div className="form-title">
+                                                    <h6>Người lớn <span className="age-info">(Từ 12 tuổi)</span></h6>
+                                                </div>
+                                                {[...Array(passengerCount.adults)].map((_, index) => (
+                                                    <InformationCustomer key={`adult-${index}`} />
+                                                ))}
+                                            </div>
+                                        )}
+                                        {passengerCount.children > 0 && (
+                                            <>
+                                                <hr />
+                                                <div className="form-section">
+                                                    <div className="form-title">
+                                                        <h6>Trẻ em <span className="age-info">(Từ 5 - 11 tuổi)</span></h6>
+                                                    </div>
+                                                {[...Array(passengerCount.children)].map((_, index) => (
+                                                        <InformationCustomer  key={`child-${index}`}/>
+                                                    ))}
+                                                </div>
+                                            </>
+                                        )}
+                                        {passengerCount.toddlers > 0 && (
+                                            <>
+                                                <hr />
+                                                <div className="form-section">
+                                                    <div className="form-title">
+                                                        <h6>Trẻ nhỏ <span className="age-info">(Từ 2 - 4 tuổi)</span></h6>
+                                                    </div>
+                                                    {[...Array(passengerCount.toddlers)].map((_, index) => (
+                                                        <InformationCustomer  key={`infant-${index}`}/>
+                                                    ))}
+                                                </div>
+                                            </>
+
+                                        )}
+                                        {passengerCount.babies > 0 && (
+                                            <>
+                                                <hr />
+                                                <div className="form-section" >
+                                                    <div className="form-title">
+                                                        <h6>Em bé <span className="age-info">(Dưới 2 tuổi)</span></h6>
+                                                    </div>
+                                                    {[...Array(passengerCount.babies)].map((_, index) => (
+                                                        <InformationCustomer key={`baby-${index}`}/>
+                                                    ))}
+                                                </div>
+                                            </>
+                                        
+                                        )}
                                         <Form.Group className="mt-4 mb-4" md="6">
                                             <h3 className='font-bold pb-2 mt-3'>Ghi chú</h3>
                                             <Form.Label>Quý khách có ghi chú lưu ý gì, hãy nói với chúng tôi</Form.Label>
                                             <Form.Control style={{ height: '150px' }} as="textarea" placeholder='Vui lòng nhập nội dung lời nhắn bằng tiếng Việt hoặc tiếng Anh' required />
+                                        </Form.Group>
+                                        <Form.Group className="mt-4 mb-4" md="6">
+                                            <h3 className='font-bold pb-2 mt-3'>Các hình thức thanh toán</h3>
+                                            <div className="p-3 border rounded booking-check">
+                                                <Form.Check
+                                                    type="checkbox"
+                                                    id="cash-checkbox"
+                                                    label="Tiền mặt"
+                                                    onChange={() => setOpenCash(!openCash)}
+                                                    aria-controls="cash-info"
+                                                    aria-expanded={openCash}
+                                                /><BsCash className='cash-icon'/>
+                                                <Collapse in={openCash}>
+                                                    <div id="cash-info" className="mt-3">
+                                                        <p>Quý khách vui lòng thanh toán tại bất kỳ văn phòng Vietravel trên toàn quốc và các chi nhánh tại nước ngoài.</p>
+                                                    </div>
+                                                </Collapse>
+                                            </div>
+
+                                            <div className="p-3 border rounded mt-3 booking-check">
+                                                <Form.Check
+                                                    type="checkbox"
+                                                    id="transfer-checkbox"
+                                                    label="Chuyển khoản"
+                                                    onChange={() => setOpenTransfer(!openTransfer)}
+                                                    aria-controls="transfer-info"
+                                                    aria-expanded={openTransfer}
+                                                /><CiBank className='transfer-icon'/>
+                                                <Collapse in={openTransfer}>
+                                                    <div id="transfer-info" className="mt-3">
+                                                        <p>Quý khách sau khi thực hiện việc chuyển khoản vui lòng gửi email đến tructuyen@vietravel.com hoặc gọi tổng đài 19001839 để được xác nhận từ công ty chúng tôi.</p>
+                                                        <p>Tên Tài Khoản : Công ty CP Du lịch và Tiếp thị GTVT Việt Nam – Vietravel</p>
+                                                        <p>Số Tài khoản : 19026166594669</p>
+                                                        <p>Ngân hàng : Techcombank - Chi nhánh Tp.HCM</p>
+                                                        <p>Số Tài khoản : 1116 9772 7979</p>
+                                                        <p>Ngân hàng : Vietinbank - Chi nhánh 7</p>
+                                                    </div>
+                                                </Collapse>
+                                            </div>
+                                            <div className="p-3 border rounded mt-3 booking-check">
+                                                <Form.Check 
+                                                    type="checkbox"
+                                                    id="vnpay-checkbox"
+                                                    label="Thanh toán VNPAY"
+                                                    aria-controls="vnpay-info"
+                                                /><IoQrCode className='vnpay-icon'/>
+                                            </div>
+                                        </Form.Group>
+                                        <Form.Group className="mt-4 mb-4" md="6">
+                                            <h3 className='font-bold pb-2 mt-3'>Điều khoản bắt buộc khi đăng ký Online</h3>
+                                            <div className='booking-clause'>
+
+                                            </div>
                                         </Form.Group>
                                     </Row>
                                 </div>
@@ -161,20 +327,35 @@ const Booking = () => {
                                         <hr />
                                         <ListGroup.Item className='border-0 d-flex justify-content-between h5 pt-0 list-group-item'>
                                             <span><PiUsersThreeBold />Khách hàng</span>
-                                            <strong className='booking_price'>{tourDetails?.price.toLocaleString()} vnđ</strong>
+                                            <strong className='booking_price'>{totalPrice.toLocaleString()} vnđ</strong>
                                         </ListGroup.Item>
                                         <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
                                             <span>Người lớn </span>
-                                            <strong className='booking_price'>{tourDetails?.tourChildren[0].price_adult.toLocaleString()} vnđ</strong>
+                                            <strong className='booking_price'>{passengerCount.adults} x {tourDetails?.tourChildren[0].price_adult.toLocaleString()} vnđ</strong>
                                         </ListGroup.Item>
-                                        <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
-                                            <span>Trẻ em </span>
-                                            <strong className='booking_price'>{tourDetails?.tourChildren[0].price_child.toLocaleString()} vnđ</strong>
-                                        </ListGroup.Item>
+                                        {passengerCount.children > 0 && (
+                                            <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
+                                                <span>Trẻ em </span>
+                                                <strong className='booking_price'>{passengerCount.children} x {tourDetails?.tourChildren[0].price_child.toLocaleString()} vnđ</strong>
+                                            </ListGroup.Item>
+                                        )}
+                                        {passengerCount.toddlers > 0 && (
+                                            <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
+                                                <span>Trẻ nhỏ </span>
+                                                <strong className='booking_price'>{passengerCount.toddlers} x {tourDetails?.tourChildren[0].price_child.toLocaleString()} vnđ</strong>
+                                            </ListGroup.Item>
+                                        )}
+                                        {passengerCount.babies > 0 && (
+                                            <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
+                                                <span>Em bé </span>
+                                                <strong className='booking_price'>{passengerCount.babies} x {tourDetails?.tourChildren[0].price_child.toLocaleString()} vnđ</strong>
+                                            </ListGroup.Item>
+                                        )}
+
                                         <hr />
                                         <ListGroup.Item className='border-0 d-flex justify-content-between h4 pt-0 list-group-item'>
                                             <span className='font-bold'>Tổng tiền </span>
-                                            <strong className='booking_price'>{tourDetails?.tourChildren[0].price_adult.toLocaleString()} vnđ</strong>
+                                            <strong className='booking_price'>{totalPrice.toLocaleString()} vnđ</strong>
                                         </ListGroup.Item>
                                     </ListGroup>
                                 </Card.Body>

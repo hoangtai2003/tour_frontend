@@ -15,10 +15,10 @@ const  PopularCard = ({popular}) => {
                     <div className="sale-tag">Sale {popular.tourChildren[0].price_sale}%</div>
                     <div className="price-info">
                         <span className="discounted-price">
-                            {afterDiscount.toLocaleString()} vnđ/người
+                            {afterDiscount.toLocaleString('vi-VN')} vnđ/người
                         </span>
                         <span className="original-price">
-                            {popular.price.toLocaleString()} vnđ/người
+                            {popular.price.toLocaleString('vi-VN')} vnđ/người
                         </span>
                     </div>
                 </div>
@@ -26,7 +26,7 @@ const  PopularCard = ({popular}) => {
                 <div className="price-section">
                     <div className="price-info">
                         <span className="only-price">
-                            {popular.price.toLocaleString()} vnđ/người
+                            {popular.price.toLocaleString('vi-VN')} vnđ/người
                         </span>
                     </div>
                 </div>

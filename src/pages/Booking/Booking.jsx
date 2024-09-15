@@ -327,35 +327,35 @@ const Booking = () => {
                                         <hr />
                                         <ListGroup.Item className='border-0 d-flex justify-content-between h5 pt-0 list-group-item'>
                                             <span><PiUsersThreeBold />Khách hàng</span>
-                                            <strong className='booking_price'>{totalPrice.toLocaleString()} vnđ</strong>
+                                            <strong className='booking_price'>{totalPrice.toLocaleString('vi-VN')} vnđ</strong>
                                         </ListGroup.Item>
                                         <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
                                             <span>Người lớn </span>
-                                            <strong className='booking_price'>{passengerCount.adults} x {tourDetails?.tourChildren[0].price_adult.toLocaleString()} vnđ</strong>
+                                            <strong className='booking_price'>{passengerCount.adults} x {tourDetails?.tourChildren[0].price_adult.toLocaleString('vi-VN')} vnđ</strong>
                                         </ListGroup.Item>
                                         {passengerCount.children > 0 && (
                                             <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
                                                 <span>Trẻ em </span>
-                                                <strong className='booking_price'>{passengerCount.children} x {tourDetails?.tourChildren[0].price_child.toLocaleString()} vnđ</strong>
+                                                <strong className='booking_price'>{passengerCount.children} x {tourDetails?.tourChildren[0].price_child.toLocaleString('vi-VN')} vnđ</strong>
                                             </ListGroup.Item>
                                         )}
                                         {passengerCount.toddlers > 0 && (
                                             <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
                                                 <span>Trẻ nhỏ </span>
-                                                <strong className='booking_price'>{passengerCount.toddlers} x {tourDetails?.tourChildren[0].price_child.toLocaleString()} vnđ</strong>
+                                                <strong className='booking_price'>{passengerCount.toddlers} x {tourDetails?.tourChildren[0].price_child.toLocaleString('vi-VN')} vnđ</strong>
                                             </ListGroup.Item>
                                         )}
                                         {passengerCount.babies > 0 && (
                                             <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
                                                 <span>Em bé </span>
-                                                <strong className='booking_price'>{passengerCount.babies} x {tourDetails?.tourChildren[0].price_child.toLocaleString()} vnđ</strong>
+                                                <strong className='booking_price'>{passengerCount.babies} x {tourDetails?.tourChildren[0].price_child.toLocaleString('vi-VN')} vnđ</strong>
                                             </ListGroup.Item>
                                         )}
 
                                         <hr />
                                         <ListGroup.Item className='border-0 d-flex justify-content-between h4 pt-0 list-group-item'>
                                             <span className='font-bold'>Tổng tiền </span>
-                                            <strong className='booking_price'>{totalPrice.toLocaleString()} vnđ</strong>
+                                            <strong className='booking_price'>{totalPrice.toLocaleString('vi-VN')} vnđ</strong>
                                         </ListGroup.Item>
                                     </ListGroup>
                                 </Card.Body>

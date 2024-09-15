@@ -263,5 +263,27 @@
     font-size: 25px;
     color: var(--primaryClr);
 }
-
+.calender-departure{
+    font-size: 20px;
+    margin-right: 15px;
+}
+.rbc-event{
+    background-color: #fff !important;
+}
+.rbc-event-content{
+    font-weight: 500;
+}
+.rbc-toolbar-label{
+    text-transform: uppercase;
+}
+.secondaryBtn{
+    color: var(--primaryClr);
+    background-color: #fff;
+    border-color: var(--primaryClr);
+    border-radius: 4px;
+    margin-right: 10px;
+}
+.button-selection{
+    display: flex;
+}
 

@@ -13,10 +13,10 @@ const CustomDropdown = ({ label, options, onSelect }) => {
 
     return (
         <>
-            <label className="item-search-label"> {label}</label>
+            <label className="item-search-label">{label}</label>
             <Dropdown className="dropdown-custom" onSelect={handleClick}>
                 <Dropdown.Toggle id="dropdown-custom-components">
-                <span>{selectedValue ? selectedValue : label}</span> 
+                    <span>{selectedValue ? selectedValue : label}</span> 
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
@@ -31,20 +31,20 @@ const CustomDropdown = ({ label, options, onSelect }) => {
                         {options
                         .filter(
                             (option) =>
-                            !value || option.toLowerCase().startsWith(value.toLowerCase())
+                                !value || option.toLowerCase().startsWith(value.toLowerCase())
                         )
+                        // Hiển thị tối đa 5 kết quả nếu không có tìm kiếm
+                        .slice(0, value ? options.length : 5)
                         .map((option, index) => (
-                            <li  key={index}>
-
-                            <Dropdown.Item eventKey={option}>
-                            {option}
+                            <li key={index}>
+                                <Dropdown.Item eventKey={option}>
+                                    {option}
                                 </Dropdown.Item>
                             </li>
                         ))}
                     </ul>
                 </Dropdown.Menu>
             </Dropdown>
-            
         </>
     );
 };

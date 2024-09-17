@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
 import "./search.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
 // import
 import CustomDropdown from "../CustomDropDown/CustomDropDown";
-
+import { StoreContext } from "../Context/StoreContext"
+import axios from "axios";
 const AdvanceSearch = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-
+    const { url } = useContext(StoreContext)
+    const [locations, setLocations] = useState([])
     const selectedLocation =(value)=>{
         console.log("Location", value)
     }
@@ -18,7 +19,14 @@ const AdvanceSearch = () => {
     const selectedGuest =(value)=>{
         console.log("Guest ", value)
     }
-
+    const fetchLocation = async() => {
+        const response  = await axios.get(`${url}/location/all/getAllLocation`)
+        const filterLocations = response.data.data.filter(location =>  location.parent_id !== 0)
+        setLocations(filterLocations)
+    }
+    useEffect(() => {
+        fetchLocation()
+    }, [])
     return (
         <>
             <section className="box-search-advance">
@@ -27,17 +35,10 @@ const AdvanceSearch = () => {
                         <Col md={12} xs={12}>
                             <div className="box-search shadow-sm">
                                 <div className="item-search">
-                                {/*  Using Props to Pass Data */}
                                     <CustomDropdown
                                         label="Bạn muốn đi đâu ?"
                                         onSelect={selectedLocation}
-                                        options={[
-                                            "USA, Turkish",
-                                            "Tokyo, Japan",
-                                            "Sydney, Australia",
-                                            "Melbourne, Australia",
-                                            "Paris, France",
-                                        ]}
+                                        options={locations.map(location => location.name)}
                                     />
                                 </div>
                                 <div className="item-search item-search-2">
@@ -48,7 +49,6 @@ const AdvanceSearch = () => {
                                         selectsStart
                                         startDate={startDate}
                                         endDate={endDate}
-                                    
                                         dateFormat="dd, MMMM, yyyy"
                                     />
                                 </div>

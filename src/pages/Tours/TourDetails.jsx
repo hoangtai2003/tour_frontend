@@ -20,7 +20,7 @@ moment.locale('vi');
 const TourDetails = () => {
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
-        // window.scroll(0,0)
+        window.scroll(0,0)
     }, [])
     const [selectedDate, setSelectedDate] = useState(null);
     const { url } = useContext(StoreContext)
@@ -28,7 +28,6 @@ const TourDetails = () => {
     const { id } = useParams();
     const [tourDetails, setTourDetails] = useState(null); 
     const [tourRelated, setTourRelated] = useState([])
-    const [displayCalendar, setDisplayCalendar] = useState(false)
     const fetchTourDetail = async () => {
         const response = await axios.get(`${url}/tours/${id}`)
         setTourDetails(response.data.data)
@@ -56,13 +55,16 @@ const TourDetails = () => {
 
     if (!tourDetails) {
         return <div>Loading...</div> 
-    }
-    const 
+    } 
     // Tìm TourChild tương ứng với ngày đã chọn
     const selectedTourChild = tourDetails?.tourChildren?.find(tourChild => {
         const startDate = new Date(tourChild.start_date);
         return moment(startDate).isSame(selectedDate, 'day');
     });
+
+    const handleBackToCalendar = () => {
+        setSelectedDate(null); // Hiển thị lại lịch khi ấn vào nút
+    };
 
     let availableDates = [];
     if (tourDetails?.tourChildren && tourDetails.tourChildren.length > 0) {
@@ -92,8 +94,8 @@ const TourDetails = () => {
     };
     const messages = {
         today: 'Hôm nay',
-        next: 'Tiếp theo',
-        back: 'Quay lại'
+        next: 'Tháng sau',
+        previous: 'Tháng trước'
     }
     return (
         <>
@@ -306,7 +308,7 @@ const TourDetails = () => {
                                                 ): (
                                                     <>
                                                     <div className="button-selection">
-                                                        <button className="secondaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3">Ngày khác</button>
+                                                        <button className="secondaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" onClick={handleBackToCalendar}>Ngày khác</button>
                                                         <NavLink className="primaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" to={`/booking/${id}`}>Đặt ngay</NavLink>
                                                     </div>
 

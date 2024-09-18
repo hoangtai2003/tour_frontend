@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Breadcrumbs from '../../components/Breadcrumb/Breadcrumbs'
-import { Container, Row, Tab, Col, Nav, ListGroup, Card, Stack, Accordion, Form } from 'react-bootstrap'
+import { Container, Row, Tab, Col, Nav, Card, Stack, Accordion } from 'react-bootstrap'
 import { NavLink, useParams } from 'react-router-dom'
 import "./tour.css"
 import ImageGallery from "react-image-gallery";
@@ -15,16 +15,19 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Table } from 'react-bootstrap';
 import 'moment/locale/vi';  
+import { SlLocationPin } from "react-icons/sl";
+import { LuCalendarDays } from "react-icons/lu";
+import { FcAlarmClock } from "react-icons/fc";
+import Reviews from './Reviews'
 const localizer = momentLocalizer(moment);
 moment.locale('vi');
 const TourDetails = () => {
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
-        window.scroll(0,0)
+        // window.scroll(0,0)
     }, [])
     const [selectedDate, setSelectedDate] = useState(null);
     const { url } = useContext(StoreContext)
-    const options = {day:'numeric', month:'long', year: 'numeric'}
     const { id } = useParams();
     const [tourDetails, setTourDetails] = useState(null); 
     const [tourRelated, setTourRelated] = useState([])
@@ -151,45 +154,24 @@ const TourDetails = () => {
                                                         </>
                                                     ) : (
                                                         <>
-                                                            <h1 className="mb-2 h3 pb-2">#1. Điểm nhấn của chương trình</h1>
+                                                            <h1 className="mb-2 h3 pb-2">#1. Mức giá</h1>
                                                             <Table bordered>
                                                                 <tbody>
-                                                                    <tr>
-                                                                        <td>Hành trình</td>
-                                                                        <td>{tourDetails.name}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Thời gian</td>
-                                                                        <td>{tourDetails.duration}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Phương tiện di chuyển</td>
-                                                                        <td>{tourDetails.transportations}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Điểm xuất phát</td>
-                                                                        <td>{tourDetails.departure_city}</td>
-                                                                    </tr>
                                                                     {selectedTourChild && (
                                                                         <>
                                                                             <tr>
-                                                                                <td>Ngày đi</td>
-                                                                                <td>{moment(selectedTourChild.start_date).format('DD-MM-YYYY')}</td>
+                                                                                <td>Loại giá / Độ tuổi</td>
+                                                                                <td>Người lớn (Từ 12 tuổi trở lên)</td>
+                                                                                <td>Trẻ em (Từ 5 - 11 tuổi)</td>
+                                                                                <td>Trẻ nhỏ (Từ 2 - 4 tuổi)</td>
+                                                                                <td>Em bé (Dưới 2 tuổi)</td>
+                                                                                
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>Ngày về</td>
-                                                                                <td>{moment(selectedTourChild.end_date).format('DD-MM-YYYY')}</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Số người tham gia</td>
-                                                                                <td>{selectedTourChild.total_seats}</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Giá người lớn</td>
+                                                                                <td>Giá</td>
                                                                                 <td>{selectedTourChild.price_adult.toLocaleString('vi-VN')} vnd</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>Giá trẻ em</td>
+                                                                                <td>{selectedTourChild.price_child.toLocaleString('vi-VN')} vnd</td>
+                                                                                <td>{selectedTourChild.price_child.toLocaleString('vi-VN')} vnd</td>
                                                                                 <td>{selectedTourChild.price_child.toLocaleString('vi-VN')} vnd</td>
                                                                             </tr>
                                                                         </>
@@ -230,92 +212,77 @@ const TourDetails = () => {
                                         </Tab.Pane>
                                     </Tab.Content>
                                     <hr/>
-                                    <h1 className="h3 pt-5 pb-3 font-bold">Bình luận về Tour du lịch</h1>
-                                    <div className="tour__reviews mt-4">
-                                        <h4>Reviews (2 reviews)</h4>
-                                        <Form>
-                                            <div className="rating__group d-flex align-items-center gap-3 mb-4">
-                                                <span >
-                                                    1 <i className='bi bi-star-fill'></i>
-                                                </span>
-                                                <span>
-                                                    2 <i className='bi bi-star-fill'></i>
-                                                </span>
-                                                <span>
-                                                    3 <i className='bi bi-star-fill'></i>
-                                                </span>
-                                                <span>
-                                                    4 <i className='bi bi-star-fill'></i>
-                                                </span>
-                                                <span>
-                                                    5 <i className='bi bi-star-fill'></i>
-                                                </span>
-                                            </div>
-                                            <div className="review__input">
-                                                <input type='text' placeholder='Chia sẻ suy nghĩ của bạn về chuyến đi' required  />
-                                                <button className="btn primary__btn  text-white" type='submit'>Đánh giá</button>
-                                            </div>
-                                        </Form>
-                                        <ListGroup className="user__review">
-                                            <div className='review__item' >
-                                                <img src="" alt=''/>
-                                                <div className='w-100'>
-                                                    <div className="d-flex align-items-center justify-content-between">
-                                                        <div>
-                                                            <h5>Hoàng Đức Tài</h5>
-                                                            <p>{new Date("1-18-2023").toLocaleDateString('en-US', options)}</p>
-                                                        </div>
-                                                        <span className='d-flex align-items-center'>
-                                                            4 <i className='bi bi-star-fill'></i>
-                                                        </span>
-                                                    </div>
-                                                    <h6>Đẹp lắm</h6>
-                                                </div>
-                                            </div>
-                                        </ListGroup>
-                                    </div>
+                                    <Reviews />
                                 </Col>
                                 <Col md={4}>
                                     <aside>
                                         <Card className='rounded-3 p-2 shadow-sm mb-4 price-info'>
                                             <Card.Body>
-                                                <Stack gap={2} direction="horizontal">
-                                                    {afterDiscount ? (
-                                                        <div className="price-container">
-                                                            <div className="price-original">
-                                                                <h4>Giá:</h4> 
-                                                                <p>{tourDetails.price.toLocaleString('vi-VN')} vnđ</p>
-                                                            </div>
-                                                            <div className="price-discounted">
-                                                                <p>{afterDiscount.toLocaleString('vi-VN')} vnđ</p>
-                                                            </div>
-                                                            <h6><AiFillTags className='icon'/> Mã chương trình: <span className='font-bold'>NDSGN891</span></h6>
-                                                        </div>
-                                                    ): (
-                                                        <div className="price-container">
-                                                            <h4>Giá từ: </h4>
-                                                            <div className="price-discounted">
-                                                                <p>{tourDetails.price.toLocaleString('vi-VN')} vnđ</p>
-                                                            </div>
-                                                            <h6><AiFillTags /> Mã chương trình: <span className='font-bold'>NDSGN891</span></h6>
-                                                        </div>
-                                                    )}
-                                                </Stack>
                                                 {!selectedDate ? (
                                                     <>
+                                                        <Stack gap={2} direction="horizontal">
+                                                            {afterDiscount ? (
+                                                                <div className="price-container">
+                                                                    <div className="price-original">
+                                                                        <h4>Giá:</h4> 
+                                                                        <p>{tourDetails.price.toLocaleString('vi-VN')} vnđ</p>
+                                                                    </div>
+                                                                    <div className="price-discounted">
+                                                                        <p>{afterDiscount.toLocaleString('vi-VN')} vnđ</p>
+                                                                    </div>
+                                                                    <h6><AiFillTags className='icon'/> Mã chương trình: <span className='font-bold'>NDSGN891</span></h6>
+                                                                </div>
+                                                            ): (
+                                                                <div className="price-container">
+                                                                    <h4>Giá từ: </h4>
+                                                                    <div className="price-discounted">
+                                                                        <p>{tourDetails.price.toLocaleString('vi-VN')} vnđ</p>
+                                                                    </div>
+                                                                    <h6><AiFillTags /> Mã chương trình: <span className='font-bold'>NDSGN891</span></h6>
+                                                                </div>
+                                                            )}
+                                                        </Stack>
                                                         <button className="primaryBtn w-100 d-flex justify-content-center fw-bold p-3 mt-3"><SlCalender className='calender-departure' />Chọn ngày khởi hành</button>
-                                                    </>
+                                                    </> 
                                                 ): (
                                                     <>
-                                                    <div className="button-selection">
-                                                        <button className="secondaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" onClick={handleBackToCalendar}>Ngày khác</button>
-                                                        <NavLink className="primaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" to={`/booking/${id}`}>Đặt ngay</NavLink>
-                                                    </div>
-
+                                                        <Stack gap={2} direction="horizontal">
+                                                            {afterDiscount ? (
+                                                                <div className="price-container">
+                                                                    <div className="price-original">
+                                                                        <h4>Giá:</h4> 
+                                                                        <p>{tourDetails.price.toLocaleString('vi-VN')} vnđ</p>
+                                                                    </div>
+                                                                    <div className="price-discounted">
+                                                                        <p>{afterDiscount.toLocaleString('vi-VN')} vnđ</p>
+                                                                    </div>
+                                                                    <h6><AiFillTags className='icon' /> Mã tour: <span className='font-bold'>{selectedTourChild.tour_code}</span></h6>
+                                                                    <h6><SlLocationPin className='icon' style={{marginRight: "5px"}}/>Khởi hành: <span className='font-bold'>{tourDetails.departure_city}</span></h6>
+                                                                    <h6><LuCalendarDays className='icon' style={{marginRight: "5px"}}/>Ngày khởi hành: <span className='font-bold'>{moment(selectedTourChild.start_date).format('DD-MM-YYYY')}</span></h6>
+                                                                    <h6><FcAlarmClock className='icon' style={{marginRight: "5px"}}/>Thời gian: <span className='font-bold'>{tourDetails.duration}</span></h6>
+                                                                    <h6><LuCalendarDays className='icon' style={{marginRight: "5px"}}/>Số chỗ còn: <span className='font-bold'>0</span></h6>
+                                                                </div>
+                                                            ): (
+                                                                <div className="price-container">
+                                                                    <h4>Giá từ: </h4>
+                                                                    <div className="price-discounted">
+                                                                        <p>{tourDetails.price.toLocaleString('vi-VN')} vnđ</p>
+                                                                    </div>
+                                                                    <h6><AiFillTags className='icon' /> Mã tour: <span className='font-bold'>{selectedTourChild.tour_code}</span></h6>
+                                                                    <h6><SlLocationPin className='icon' style={{marginRight: "5px"}}/>Khởi hành: <span className='font-bold'>{tourDetails.departure_city}</span></h6>
+                                                                    <h6><LuCalendarDays className='icon' style={{marginRight: "5px"}}/>Ngày khởi hành: <span className='font-bold'>{moment(selectedTourChild.start_date).format('DD-MM-YYYY')}</span></h6>
+                                                                    <h6><FcAlarmClock className='icon' style={{marginRight: "5px"}}/>Thời gian: <span className='font-bold'>{tourDetails.duration}</span></h6>
+                                                                    <h6><LuCalendarDays className='icon' style={{marginRight: "5px"}}/>Số chỗ còn: <span className='font-bold'>0</span></h6>
+                                                                </div>
+                                                            )}
+                                                        </Stack>
+                                                        <div className="button-selection">
+                                                            <button className="secondaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" onClick={handleBackToCalendar}>Ngày khác</button>
+                                                            <NavLink className="primaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" to={`/booking/${id}`}>Đặt ngay</NavLink>
+                                                        </div>
                                                     </>
-                                                    
                                                 )}
-                                               
+                                                
                                             </Card.Body>
                                         </Card>
 

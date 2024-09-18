@@ -286,4 +286,13 @@
 .button-selection{
     display: flex;
 }
+.image-gallery-image{
+    border-radius: 10px;
+}
+.image-gallery-fullscreen-button {
+    right: 210px;
+}
+.image-gallery-slide .image-gallery-image {
+    width: 70%;
+}
 

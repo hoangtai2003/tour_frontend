@@ -13,7 +13,6 @@ import { StoreContext } from '../../components/Context/StoreContext'
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { Table } from 'react-bootstrap';
 import 'moment/locale/vi';  
 import { SlLocationPin } from "react-icons/sl";
 import { LuCalendarDays } from "react-icons/lu";
@@ -163,16 +162,16 @@ const TourDetails = () => {
                                                                                 <div className="departure">
                                                                                     <span>Ngày đi - {moment(selectedTourChild.start_date).format('DD/MM/YYYY')}</span>
                                                                                     <div className="flight-info">
-                                                                                        <span className="flight-number">VJ302</span>
-                                                                                        <span>07:45 - 09:10</span>
+                                                                                        <span className="flight-number">{selectedTourChild.transportion_start}</span>
+                                                                                        <span className='font-bold'>{selectedTourChild.time_goes_start.slice(0, 5)} - {selectedTourChild.time_comes_start.slice(0, 5)}</span>
                                                                                     </div>
                                                                                    
                                                                                 </div>
                                                                                 <div className="arrival">
                                                                                     <span>Ngày về - {moment(selectedTourChild.end_date).format('DD/MM/YYYY')}</span>
                                                                                     <div className="flight-info">
-                                                                                        <span className="flight-number">VU673</span>
-                                                                                        <span>10:15 - 11:45</span>
+                                                                                        <span className="flight-number">{selectedTourChild.transportion_end}</span>
+                                                                                        <span className='font-bold'>{selectedTourChild.time_goes_end.slice(0, 5)} - {selectedTourChild.time_comes_end.slice(0, 5)}</span>
                                                                                     </div>
                                                                                     
                                                                                 </div>
@@ -201,14 +200,14 @@ const TourDetails = () => {
                                                                                         <label>Trẻ nhỏ </label>
                                                                                         <span>(Từ 2 - 4 tuổi)</span>
                                                                                     </div>
-                                                                                    <p className="price">{selectedTourChild.price_child.toLocaleString('vi-VN')} vnđ</p>
+                                                                                    <p className="price">{selectedTourChild.price_toddler.toLocaleString('vi-VN')} vnđ</p>
                                                                                 </div>
                                                                                 <div className="price-item">
                                                                                     <div>
                                                                                         <label>Em bé </label>
                                                                                         <span>(Dưới 2 tuổi)</span>
                                                                                     </div>
-                                                                                    <p className="price">{selectedTourChild.price_child.toLocaleString('vi-VN')} vnđ</p>
+                                                                                    <p className="price">{selectedTourChild.price_baby.toLocaleString('vi-VN')} vnđ</p>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -316,7 +315,7 @@ const TourDetails = () => {
                                                         </Stack>
                                                         <div className="button-selection">
                                                             <button className="secondaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" onClick={handleBackToCalendar}>Ngày khác</button>
-                                                            <NavLink className="primaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" to={`/booking/${id}`}>Đặt ngay</NavLink>
+                                                            <NavLink className="primaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" to={`/booking/${selectedTourChild.tour_code}`}>Đặt ngay</NavLink>
                                                         </div>
                                                     </>
                                                 )}

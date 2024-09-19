@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import Breadcrumbs from '../../components/Breadcrumb/Breadcrumbs'
 import { Container, Row, Col, Form, Card, ListGroup, Collapse } from 'react-bootstrap'
 import "react-datepicker/dist/react-datepicker.css";
@@ -14,12 +14,14 @@ import InformationCustomer from './InformationCustomer';
 import { BsCash } from "react-icons/bs";
 import { CiBank } from "react-icons/ci";
 import { IoQrCode } from "react-icons/io5"; 
+import { StoreContext } from '../../components/Context/StoreContext';
 const Booking = () => {
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
     }, [])
     const [openCash, setOpenCash] = useState(false);
     const [openTransfer, setOpenTransfer] = useState(false);
+    const { url } = useContext(StoreContext)
     const [passengerCount, setPassengerCount] = useState({
         adults: 1,
         children: 0,
@@ -32,21 +34,24 @@ const Booking = () => {
             [name]: value
         }))
     } 
-    const { id } = useParams()
+    const { tour_code } = useParams()
     const [tourDetails, setTourDetails] = useState(null); 
     const fetchTourDetail = async () => {
-        const response = await axios.get(`http://localhost:4000/api/v1/tours/${id}`)
+        const response = await axios.get(`${url}/tours/${tour_code}/booking`);
         setTourDetails(response.data.data)
+        console.log(response.data.data)
     }
     const calculateTotalPrice = () => {
-        const priceAdult = tourDetails?.tourChildren[0].price_adult || 0;
-        const priceChild = tourDetails?.tourChildren[0].price_child || 0;
+        const priceAdult = tourDetails?.price_adult || 0;
+        const priceChild = tourDetails?.price_child || 0;
+        const priceToddler = tourDetails?.price_toddler || 0;
+        const priceBaby = tourDetails?.price_baby || 0;
 
 
         const totalAdultPrice = passengerCount.adults * priceAdult;
         const totalChildPrice = passengerCount.children * priceChild;
-        const totalToddlerPrice = passengerCount.toddlers * priceChild;
-        const totalBabyPrice = passengerCount.babies * priceChild;
+        const totalToddlerPrice = passengerCount.toddlers * priceToddler;
+        const totalBabyPrice = passengerCount.babies * priceBaby;
 
         const toalPrice = totalAdultPrice + totalChildPrice + totalToddlerPrice + totalBabyPrice
 
@@ -56,7 +61,7 @@ const Booking = () => {
     const totalPrice = calculateTotalPrice();
     useEffect(() => {
         fetchTourDetail()
-    }, [id])
+    }, [tour_code])
   return (
     <>
        <Breadcrumbs title="Booking" pagename="Booking" /> 
@@ -316,13 +321,13 @@ const Booking = () => {
                                 <Card.Body>
                                     <ListGroup >
                                         <ListGroup.Item className='border-0 pt-0 list-group-item'>
-                                            <img src={tourDetails?.tourImage[0].image_url} className='booking_image' alt="" />
-                                            <h2 className='booking_name'>{tourDetails?.name}</h2>
-                                            <AiFillTags />Mã tour: <span>{tourDetails?.tourChildren[0].tour_code}</span>
+                                            <img src={tourDetails?.tour?.tourImage[0].image_url} className='booking_image' alt="" />
+                                            <h2 className='booking_name'>{tourDetails?.tour.name}</h2>
+                                            <AiFillTags />Mã tour: <span>{tourDetails?.tour_code}</span>
                                         </ListGroup.Item>
                                         <ListGroup.Item className='border-0 pt-0 list-group-item'>
-                                            <FaLocationDot />Khởi hành: <span>{tourDetails?.departure_city}</span>
-                                            <BiSolidTimer className='booking_duration'/>Thời gian: <span>{tourDetails?.duration}</span>
+                                            <FaLocationDot />Khởi hành: <span>{tourDetails?.tour.departure_city}</span>
+                                            <BiSolidTimer className='booking_duration'/>Thời gian: <span>{tourDetails?.tour.duration}</span>
                                         </ListGroup.Item>
                                         <hr />
                                         <ListGroup.Item className='border-0 d-flex justify-content-between h5 pt-0 list-group-item'>
@@ -331,24 +336,24 @@ const Booking = () => {
                                         </ListGroup.Item>
                                         <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
                                             <span>Người lớn </span>
-                                            <strong className='booking_price'>{passengerCount.adults} x {tourDetails?.tourChildren[0].price_adult.toLocaleString('vi-VN')} vnđ</strong>
+                                            <strong className='booking_price'>{passengerCount.adults} x {tourDetails?.price_adult.toLocaleString('vi-VN')} vnđ</strong>
                                         </ListGroup.Item>
                                         {passengerCount.children > 0 && (
                                             <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
                                                 <span>Trẻ em </span>
-                                                <strong className='booking_price'>{passengerCount.children} x {tourDetails?.tourChildren[0].price_child.toLocaleString('vi-VN')} vnđ</strong>
+                                                <strong className='booking_price'>{passengerCount.children} x {tourDetails?.price_child.toLocaleString('vi-VN')} vnđ</strong>
                                             </ListGroup.Item>
                                         )}
                                         {passengerCount.toddlers > 0 && (
                                             <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
                                                 <span>Trẻ nhỏ </span>
-                                                <strong className='booking_price'>{passengerCount.toddlers} x {tourDetails?.tourChildren[0].price_child.toLocaleString('vi-VN')} vnđ</strong>
+                                                <strong className='booking_price'>{passengerCount.toddlers} x {tourDetails?.price_toddler.toLocaleString('vi-VN')} vnđ</strong>
                                             </ListGroup.Item>
                                         )}
                                         {passengerCount.babies > 0 && (
                                             <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
                                                 <span>Em bé </span>
-                                                <strong className='booking_price'>{passengerCount.babies} x {tourDetails?.tourChildren[0].price_child.toLocaleString('vi-VN')} vnđ</strong>
+                                                <strong className='booking_price'>{passengerCount.babies} x {tourDetails?.price_baby.toLocaleString('vi-VN')} vnđ</strong>
                                             </ListGroup.Item>
                                         )}
 

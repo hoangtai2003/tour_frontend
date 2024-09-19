@@ -25,7 +25,7 @@ const App = () =>  {
             <Route path='news' element={<News />} />
             <Route path='hotel' element={<Hotel />} />
             <Route path='contact-us' element={<Contact />} />
-            <Route path='/booking/:id' element={<Booking />} />
+            <Route path='/booking/:tour_code' element={<Booking />} />
             <Route path='about-us' element={<About />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />

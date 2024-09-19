@@ -156,22 +156,22 @@ const TourDetails = () => {
                                                         <>
                                                             {selectedTourChild && (
                                                                 <>
-                                                                    <div class="tour-info-container">
-                                                                        <div class="transport-info">
+                                                                    <div className="tour-info-container">
+                                                                        <div className="transport-info">
                                                                             <h3>PHƯƠNG TIỆN DI CHUYỂN</h3>
-                                                                            <div class="transport-details">
-                                                                                <div class="departure">
+                                                                            <div className="transport-details">
+                                                                                <div className="departure">
                                                                                     <span>Ngày đi - {moment(selectedTourChild.start_date).format('DD/MM/YYYY')}</span>
-                                                                                    <div class="flight-info">
-                                                                                        <span class="flight-number">VJ302</span>
+                                                                                    <div className="flight-info">
+                                                                                        <span className="flight-number">VJ302</span>
                                                                                         <span>07:45 - 09:10</span>
                                                                                     </div>
                                                                                    
                                                                                 </div>
-                                                                                <div class="arrival">
+                                                                                <div className="arrival">
                                                                                     <span>Ngày về - {moment(selectedTourChild.end_date).format('DD/MM/YYYY')}</span>
-                                                                                    <div class="flight-info">
-                                                                                        <span class="flight-number">VU673</span>
+                                                                                    <div className="flight-info">
+                                                                                        <span className="flight-number">VU673</span>
                                                                                         <span>10:15 - 11:45</span>
                                                                                     </div>
                                                                                     
@@ -179,36 +179,36 @@ const TourDetails = () => {
                                                                             </div>
                                                                         </div>
                                                                         <hr />
-                                                                        <div class="price-info">
+                                                                        <div className="price_info">
                                                                             <h3>GIÁ TOUR</h3>
-                                                                            <div class="price-details">
-                                                                                <div class="price-item">
+                                                                            <div className="price-details">
+                                                                                <div className="price-item">
                                                                                     <div>
                                                                                         <label>Người lớn </label>
                                                                                         <span>(Từ 12 tuổi trở lên)</span>
                                                                                     </div>
-                                                                                    <p class="price">{selectedTourChild.price_adult.toLocaleString('vi-VN')} vnđ</p>
+                                                                                    <p className="price">{selectedTourChild.price_adult.toLocaleString('vi-VN')} vnđ</p>
                                                                                 </div>
-                                                                                <div class="price-item">
+                                                                                <div className="price-item">
                                                                                     <div>
                                                                                         <label>Trẻ em </label>
                                                                                         <span>(Từ 5 - 11 tuổi)</span>
                                                                                     </div>
-                                                                                    <p class="price">{selectedTourChild.price_child.toLocaleString('vi-VN')} vnđ</p>
+                                                                                    <p className="price">{selectedTourChild.price_child.toLocaleString('vi-VN')} vnđ</p>
                                                                                 </div>
-                                                                                <div class="price-item">
+                                                                                <div className="price-item">
                                                                                     <div>
                                                                                         <label>Trẻ nhỏ </label>
                                                                                         <span>(Từ 2 - 4 tuổi)</span>
                                                                                     </div>
-                                                                                    <p class="price">{selectedTourChild.price_child.toLocaleString('vi-VN')} vnđ</p>
+                                                                                    <p className="price">{selectedTourChild.price_child.toLocaleString('vi-VN')} vnđ</p>
                                                                                 </div>
-                                                                                <div class="price-item">
+                                                                                <div className="price-item">
                                                                                     <div>
                                                                                         <label>Em bé </label>
                                                                                         <span>(Dưới 2 tuổi)</span>
                                                                                     </div>
-                                                                                    <p class="price">{selectedTourChild.price_child.toLocaleString('vi-VN')} vnđ</p>
+                                                                                    <p className="price">{selectedTourChild.price_child.toLocaleString('vi-VN')} vnđ</p>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -316,7 +316,7 @@ const TourDetails = () => {
                                                         </Stack>
                                                         <div className="button-selection">
                                                             <button className="secondaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" onClick={handleBackToCalendar}>Ngày khác</button>
-                                                            <NavLink className="primaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" to={`/booking/${selectedTourChild.tour_code}`}>Đặt ngay</NavLink>
+                                                            <NavLink className="primaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" to={`/booking/${id}`}>Đặt ngay</NavLink>
                                                         </div>
                                                     </>
                                                 )}

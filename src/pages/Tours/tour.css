@@ -295,4 +295,121 @@
 .image-gallery-slide .image-gallery-image {
     width: 70%;
 }
+.tour-info-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
+.transport-info h3, .price-info h3 {
+    font-size: 20px;
+    color: #0b5da7;
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.transport-details {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    position: relative;
+}
+
+.departure, .arrival {
+    text-align: center;
+    width: 45%;
+}
+
+.transport-details::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #ccc;
+    height: 100%;
+    transform: translateX(-50%);
+}
+
+.flight-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.flight-number {
+    color: #0b5da7;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.airline {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #ff0000;
+}
+
+.price-info {
+    margin: 20px 0;
+}
+
+.price-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    position: relative;
+}
+
+.price-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    width: 100%;
+}
+.price-item div{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 40%;
+    margin-left: 10px;
+    gap: .5rem;
+}
+.price-item label{
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    width: 100%;
+}
+.price-item span {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.2rem;
+    color: #5d5d5d;
+}
+.price-item .price {
+    color: var(--primaryClr);
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.price-details::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #ccc;
+    height: 100%;
+    transform: translateX(-50%);
+}

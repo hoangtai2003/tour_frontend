@@ -10,7 +10,6 @@ import "./header.css";
 import { StoreContext } from "../../Context/StoreContext";
 import axios from "axios";
 import userImg from "../../../assets/images/ava/user.png"
-import userImg2 from "../../../assets/images/ava/ava-1.jpg"
 const Header = () => {
     const [open, setOpen] = useState(false);
     const { token, setToken, url } = useContext(StoreContext);

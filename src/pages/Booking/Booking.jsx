@@ -21,7 +21,8 @@ const Booking = () => {
     }, [])
     const [openCash, setOpenCash] = useState(false);
     const [openTransfer, setOpenTransfer] = useState(false);
-    const { url } = useContext(StoreContext)
+    const { url, token, setToken } = useContext(StoreContext)
+    const [userBooking, setUserBooking] = useState(null)
     const [passengerCount, setPassengerCount] = useState({
         adults: 1,
         children: 0,
@@ -34,12 +35,34 @@ const Booking = () => {
             [name]: value
         }))
     } 
+    useEffect(() => {
+        const storedToken = localStorage.getItem("token")
+        if (storedToken) {
+            setToken(storedToken)
+        }
+    })
+    useEffect (() => {
+        const fetchUserInfo = async() => {
+            try {
+                const response = await axios.get(`${url}/auth/users`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                setUserBooking(response.data.data)
+            } catch(error){
+                console.error("Lỗi khi lấy thông tin người dùng", error);
+            }
+        }
+        if (token){
+            fetchUserInfo()
+        }
+    }, [token, url])
     const { tour_code } = useParams()
     const [tourDetails, setTourDetails] = useState(null); 
     const fetchTourDetail = async () => {
         const response = await axios.get(`${url}/tours/${tour_code}/booking`);
         setTourDetails(response.data.data)
-        console.log(response.data.data)
     }
     const calculateTotalPrice = () => {
         const priceAdult = tourDetails?.price_adult || 0;
@@ -133,27 +156,60 @@ const Booking = () => {
                                 <div className="p-4">
                                     <Row>
                                         <h3 className='font-bold mt-2 pb-2'>Thông tin liên lạc</h3>
-                                        <Form.Group as={Col} md="6">
-                                            <Form.Label>Họ và tên <span>*</span></Form.Label>
-                                            <Form.Control
-                                                required
-                                                type="text"
-                                                placeholder="Nhập họ tên"
-                                                className="mb-2"
-                                            />
-                                        </Form.Group>
-                                        <Form.Group className="mb-2" as={Col} md="6">
-                                            <Form.Label>Email <span>*</span></Form.Label>
-                                            <Form.Control type="email" placeholder="Nhập email" required />
-                                        </Form.Group>
-                                        <Form.Group className="mb-2" as={Col} md="6">
-                                            <Form.Label>Địa chỉ </Form.Label>
-                                            <Form.Control type="text" placeholder="Địa chỉ" required />
-                                        </Form.Group>
-                                        <Form.Group className="mb-2" as={Col} md="6">
-                                            <Form.Label>Số điện thoại <span>*</span></Form.Label>
-                                            <Form.Control type="text" placeholder="Nhập số điện thoại" required />
-                                        </Form.Group>
+                                        {!token ? (
+                                            <>
+                                                <Form.Group as={Col} md="6">
+                                                    <Form.Label>Họ và tên <span>*</span></Form.Label>
+                                                    <Form.Control
+                                                        required
+                                                        type="text"
+                                                        placeholder="Nhập họ tên"
+                                                        className="mb-2"
+                                                        name='username'
+
+                                                    />
+                                                </Form.Group>
+                                                <Form.Group className="mb-2" as={Col} md="6">
+                                                    <Form.Label>Email <span>*</span></Form.Label>
+                                                    <Form.Control type="email" placeholder="Nhập email" name='email' required />
+                                                </Form.Group>
+                                                <Form.Group className="mb-2" as={Col} md="6">
+                                                    <Form.Label>Địa chỉ </Form.Label>
+                                                    <Form.Control type="text" placeholder="Địa chỉ" required />
+                                                </Form.Group>
+                                                <Form.Group className="mb-2" as={Col} md="6">
+                                                    <Form.Label>Số điện thoại <span>*</span></Form.Label>
+                                                    <Form.Control type="text" placeholder="Nhập số điện thoại" required />
+                                                </Form.Group>
+                                            </>
+
+                                        ) : (
+                                            <>
+                                                <Form.Group as={Col} md="6">
+                                                    <Form.Label>Họ và tên <span>*</span></Form.Label>
+                                                    <Form.Control
+                                                        required
+                                                        type="text"
+                                                        placeholder="Nhập họ tên"
+                                                        className="mb-2"
+                                                        name='username'
+                                                        value={userBooking?.username || ''}
+                                                    />
+                                                </Form.Group>
+                                                <Form.Group className="mb-2" as={Col} md="6">
+                                                    <Form.Label>Email <span>*</span></Form.Label>
+                                                    <Form.Control type="email" placeholder="Nhập email" required name='email' value={userBooking?.email || ''} />
+                                                </Form.Group>
+                                                <Form.Group className="mb-2" as={Col} md="6">
+                                                    <Form.Label>Địa chỉ </Form.Label>
+                                                    <Form.Control type="text" placeholder="Địa chỉ" required value={userBooking?.address || ''} />
+                                                </Form.Group>
+                                                <Form.Group className="mb-2" as={Col} md="6">
+                                                    <Form.Label>Số điện thoại <span>*</span></Form.Label>
+                                                    <Form.Control type="text" placeholder="Nhập số điện thoại" required value={userBooking?.phone || ''} />
+                                                </Form.Group>
+                                            </>
+                                        )}
                                         <h3 className='font-bold mt-3 pb-2'>Hành khách</h3>
                                         <div className='container_old'>
                                             <Form.Group className="mb-2">

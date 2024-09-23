@@ -120,9 +120,9 @@ const Register = () => {
                                 <button className="btn social-btn facebook-btn">
                                     <FaFacebook  className="social-icon" /> Đăng ký với Facebook
                                 </button>
-                                <button className="btn social-btn google-btn">
-                                    <FcGoogle  className="social-icon" /> Đăng ký với Google
-                                </button>
+                                <a href='http://localhost:4000/api/v1/auth/google' className="btn social-btn google-btn">
+                                    <FcGoogle className="social-icon" /> Đăng ký với Google
+                                </a>
                             </div>
                         </div>  
                     </Col>

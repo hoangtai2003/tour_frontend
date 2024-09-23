@@ -105,9 +105,9 @@ const Login = () => {
                                 <button className="btn social-btn facebook-btn">
                                     <FaFacebook className="social-icon" /> Tiếp tục với Facebook
                                 </button>
-                                <button className="btn social-btn google-btn">
-                                    <FcGoogle className="social-icon" /> Tiếp tục với Google
-                                </button>
+                                <a href='http://localhost:4000/api/v1/auth/google' className="btn social-btn google-btn">
+                                    <FcGoogle className="social-icon" /> Đăng ký với Google
+                                </a>
                             </div>
                         </div>
                     </Col>

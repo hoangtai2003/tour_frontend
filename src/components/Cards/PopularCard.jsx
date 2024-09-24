@@ -2,7 +2,7 @@ import React from 'react'
 import "./card.css"
 import { Card } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
-const  PopularCard = ({popular}) => {
+const  PopularCard = ({popular, countConfirmed}) => {
     const afterDiscount = popular.tourChildren[0]?.price_sale
     ? (popular.price * (100 - popular.tourChildren[0].price_sale)) / 100
     : "";
@@ -50,11 +50,11 @@ const  PopularCard = ({popular}) => {
                 </Card.Text>
                 <Card.Text>
                     <i className="bi bi-people-fill"></i>
-                    Số chỗ : {popular.tourChildren[0].total_seats} - Còn trống : {popular.availableSeats}
+                    Số chỗ : {popular.tourChildren[0].total_seats} - Còn trống : {popular.tourChildren[0].total_seats - popular.tourChildren[0]?.confirmedBookingCount}
                 </Card.Text>
                 <Card.Text>
                     <i className="bi bi-check-circle-fill"></i>
-                    Đã xác nhận : {popular.confirmed}
+                    Đã xác nhận : {popular.tourChildren[0]?.confirmedBookingCount}
                 </Card.Text>
             </Card.Body>
         </Card> 

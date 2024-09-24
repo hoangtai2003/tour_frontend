@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Banner from '../../components/Banner/Banner'
 import AdvanceSearch from '../../components/AdvanceSearch/AdvanceSearch'
 import Features from '../../components/Features/Features'
@@ -14,9 +14,11 @@ import Cards from '../../components/Cards/Cards'
 import { destinationsData } from '../../utils/data'
 import PopularCard from '../../components/Cards/PopularCard'
 import axios from 'axios'
+import { StoreContext } from '../../components/Context/StoreContext'
 const Home = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [tours, setTour] = useState([])
+    const { url } = useContext(StoreContext)
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
         window.scroll(0,0)
@@ -71,7 +73,7 @@ const Home = () => {
     };
     
     const fetchTour = async() => {
-        const response  = await axios.get(`http://localhost:4000/api/v1/tours`)
+        const response  = await axios.get(`${url}/tours`)
         setTour(response.data.data)
     }
     useEffect(() => {

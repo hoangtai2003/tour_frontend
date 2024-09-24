@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const QuantityCounter = ({ label, description, initialValue = 0, min = 0, max = 10, onChange }) => {
   const [value, setValue] = useState(initialValue);
@@ -9,6 +9,9 @@ const QuantityCounter = ({ label, description, initialValue = 0, min = 0, max = 
     onChange(newValue); // Gọi hàm onChange để thông báo sự thay đổi
   };
 
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
   const decrement = () => {
     const newValue = Math.max(value - 1, min);
     setValue(newValue);

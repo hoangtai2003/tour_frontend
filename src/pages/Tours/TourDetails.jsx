@@ -267,7 +267,7 @@ const TourDetails = () => {
                                                                     <div className="price-discounted">
                                                                         <p>{afterDiscount.toLocaleString('vi-VN')} vnđ</p>
                                                                     </div>
-                                                                    <h6><AiFillTags className='icon'/> Mã chương trình: <span className='font-bold'>NDSGN891</span></h6>
+                                                                    <h6><AiFillTags className='icon'/> Mã chương trình: <span className='font-bold'>{tourDetails.program_code}</span></h6>
                                                                 </div>
                                                             ): (
                                                                 <div className="price-container">
@@ -275,7 +275,7 @@ const TourDetails = () => {
                                                                     <div className="price-discounted">
                                                                         <p>{tourDetails.price.toLocaleString('vi-VN')} vnđ</p>
                                                                     </div>
-                                                                    <h6><AiFillTags /> Mã chương trình: <span className='font-bold'>NDSGN891</span></h6>
+                                                                    <h6><AiFillTags /> Mã chương trình: <span className='font-bold'>{tourDetails.program_code}</span></h6>
                                                                 </div>
                                                             )}
                                                         </Stack>
@@ -297,7 +297,7 @@ const TourDetails = () => {
                                                                     <h6><SlLocationPin className='icon' style={{marginRight: "5px"}}/>Khởi hành: <span className='font-bold'>{tourDetails.departure_city}</span></h6>
                                                                     <h6><LuCalendarDays className='icon' style={{marginRight: "5px"}}/>Ngày khởi hành: <span className='font-bold'>{moment(selectedTourChild.start_date).format('DD-MM-YYYY')}</span></h6>
                                                                     <h6><FcAlarmClock className='icon' style={{marginRight: "5px"}}/>Thời gian: <span className='font-bold'>{tourDetails.duration}</span></h6>
-                                                                    <h6><LuCalendarDays className='icon' style={{marginRight: "5px"}}/>Số chỗ còn: <span className='font-bold'>0</span></h6>
+                                                                    <h6><LuCalendarDays className='icon' style={{marginRight: "5px"}}/>Số chỗ còn: <span className='font-bold'>{tourDetails.tourChildren[0].total_seats - tourDetails.tourChildren[0]?.confirmedBookingCount}</span></h6>
                                                                 </div>
                                                             ): (
                                                                 <div className="price-container">

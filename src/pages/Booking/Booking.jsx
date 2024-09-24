@@ -23,6 +23,18 @@ const Booking = () => {
     const [openTransfer, setOpenTransfer] = useState(false);
     const { url, token, setToken } = useContext(StoreContext)
     const [userBooking, setUserBooking] = useState(null)
+    const { tour_code } = useParams()
+    const [tourDetails, setTourDetails] = useState(null); 
+    const [booking, setBooking] = useState({
+        full_name: '',
+        email: '',
+        address: '',
+        phone_number: '',
+        booking_note: '',
+        total_price: '',
+        booking_passenger: [{passenger_name: '', passenger_dateOfBirthday: '', passenger_gender: 'Nam'}]
+
+    })
     const [passengerCount, setPassengerCount] = useState({
         adults: 1,
         children: 0,
@@ -30,11 +42,33 @@ const Booking = () => {
         babies: 0
     })
     const handleUpdateCount = (name, value) => {
-        setPassengerCount(prev => ({
-            ...prev, 
-            [name]: value
-        }))
-    } 
+        setPassengerCount(prev => {
+            const updatedPassengerCount = { ...prev, [name]: value };
+    
+            // Tạo mảng hành khách dựa trên số lượng hành khách cập nhật
+            const passengers = [];
+            for (let i = 0; i < updatedPassengerCount.adults; i++) {
+                passengers.push({ passenger_name: '', passenger_dateOfBirthday: '', passenger_gender: 'Nam' });
+            }
+            for (let i = 0; i < updatedPassengerCount.children; i++) {
+                passengers.push({ passenger_name: '', passenger_dateOfBirthday: '', passenger_gender: 'Nữ' });
+            }
+            for (let i = 0; i < updatedPassengerCount.toddlers; i++) {
+                passengers.push({ passenger_name: '', passenger_dateOfBirthday: '', passenger_gender: 'Nam' });
+            }
+            for (let i = 0; i < updatedPassengerCount.babies; i++) {
+                passengers.push({ passenger_name: '', passenger_dateOfBirthday: '', passenger_gender: 'Nữ' });
+            }
+    
+            setBooking(prevBooking => ({
+                ...prevBooking,
+                booking_passenger: passengers
+            }));
+    
+            return updatedPassengerCount;
+        });
+    };
+    
     useEffect(() => {
         const storedToken = localStorage.getItem("token")
         if (storedToken) {
@@ -58,8 +92,7 @@ const Booking = () => {
             fetchUserInfo()
         }
     }, [token, url])
-    const { tour_code } = useParams()
-    const [tourDetails, setTourDetails] = useState(null); 
+
     const fetchTourDetail = async () => {
         const response = await axios.get(`${url}/tours/${tour_code}/booking`);
         setTourDetails(response.data.data)
@@ -85,6 +118,61 @@ const Booking = () => {
     useEffect(() => {
         fetchTourDetail()
     }, [tour_code])
+
+
+    const handleChange = async(e) => {
+        const name = e.target.name
+        const value = e.target.value
+        setBooking(prev => ({...prev, [name]:value}))
+    }
+    const handlePassengerChange = (index, e) => {
+        const { name, value } = e.target;
+        setBooking(prev => {
+            // Sao chép mảng booking_passenger hiện tại
+            const updatedPassengers = [...prev.booking_passenger];
+            // Cập nhật hành khách theo chỉ số (index)
+            updatedPassengers[index] = {
+                ...updatedPassengers[index],
+                [name]: value
+            };
+            return {
+                ...prev,
+                booking_passenger: updatedPassengers
+            };
+        });
+    };
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('tour_child_id', tourDetails.id)
+        formData.append('user_id', userBooking.id)
+        formData.append('full_name', booking.full_name || userBooking.username);
+        formData.append('email', booking.email || userBooking.email);
+        formData.append('address', booking.address || userBooking.address);
+        formData.append('phone_number', booking.phone_number || userBooking.phone);
+        formData.append('booking_note', booking.booking_note)
+        formData.append('number_of_adults', passengerCount.adults)
+        formData.append('number_of_children', passengerCount.children)
+        formData.append('number_of_toddler', passengerCount.toddlers)
+        formData.append('number_of_baby', passengerCount.babies)
+        formData.append('total_price', totalPrice)
+        formData.append('booking_passenger', JSON.stringify(booking.booking_passenger));
+        try {
+            const response = await axios.post(`${url}/booking`, formData, {
+                headers: {
+                   'Content-Type': 'application/json'
+                }
+            });
+            if (response.status !== 200) {
+                return alert(response.data.message);
+            }
+        } catch (error) {
+            alert(error.response?.data?.message || error.message);
+        }
+    };
+
   return (
     <>
        <Breadcrumbs title="Booking" pagename="Booking" /> 
@@ -149,7 +237,7 @@ const Booking = () => {
                         </Card>
                     </Col>
                 </Row>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <Row>
                         <Col md="7" lg="7">
                             <div className="booking-form-warp border rounded-3">
@@ -165,21 +253,21 @@ const Booking = () => {
                                                         type="text"
                                                         placeholder="Nhập họ tên"
                                                         className="mb-2"
-                                                        name='username'
-
+                                                        name='full_name'
+                                                        onChange={handleChange}
                                                     />
                                                 </Form.Group>
                                                 <Form.Group className="mb-2" as={Col} md="6">
                                                     <Form.Label>Email <span>*</span></Form.Label>
-                                                    <Form.Control type="email" placeholder="Nhập email" name='email' required />
+                                                    <Form.Control type="email" placeholder="Nhập email" name='email' required onChange={handleChange} />
                                                 </Form.Group>
                                                 <Form.Group className="mb-2" as={Col} md="6">
                                                     <Form.Label>Địa chỉ </Form.Label>
-                                                    <Form.Control type="text" placeholder="Địa chỉ" required />
+                                                    <Form.Control type="text" placeholder="Địa chỉ" name='address' required onChange={handleChange} />
                                                 </Form.Group>
                                                 <Form.Group className="mb-2" as={Col} md="6">
                                                     <Form.Label>Số điện thoại <span>*</span></Form.Label>
-                                                    <Form.Control type="text" placeholder="Nhập số điện thoại" required />
+                                                    <Form.Control type="text" placeholder="Nhập số điện thoại" name='phone_number' required onChange={handleChange}/>
                                                 </Form.Group>
                                             </>
 
@@ -192,21 +280,22 @@ const Booking = () => {
                                                         type="text"
                                                         placeholder="Nhập họ tên"
                                                         className="mb-2"
-                                                        name='username'
-                                                        value={userBooking?.username || ''}
+                                                        name='full_name'
+                                                        value={booking.full_name || userBooking?.username || ''}
+                                                        onChange={handleChange}
                                                     />
                                                 </Form.Group>
                                                 <Form.Group className="mb-2" as={Col} md="6">
                                                     <Form.Label>Email <span>*</span></Form.Label>
-                                                    <Form.Control type="email" placeholder="Nhập email" required name='email' value={userBooking?.email || ''} />
+                                                    <Form.Control type="email" placeholder="Nhập email" required name='email' value={booking.email || userBooking?.email || ''} onChange={handleChange}/>
                                                 </Form.Group>
                                                 <Form.Group className="mb-2" as={Col} md="6">
                                                     <Form.Label>Địa chỉ </Form.Label>
-                                                    <Form.Control type="text" placeholder="Địa chỉ" required value={userBooking?.address || ''} />
+                                                    <Form.Control type="text" placeholder="Địa chỉ" name='address' required value={booking.address || userBooking?.address || ''} onChange={handleChange}/>
                                                 </Form.Group>
                                                 <Form.Group className="mb-2" as={Col} md="6">
                                                     <Form.Label>Số điện thoại <span>*</span></Form.Label>
-                                                    <Form.Control type="text" placeholder="Nhập số điện thoại" required value={userBooking?.phone || ''} />
+                                                    <Form.Control type="text" placeholder="Nhập số điện thoại" name='phone_number' required value={booking.phone_number || userBooking?.phone || ''} onChange={handleChange}/>
                                                 </Form.Group>
                                             </>
                                         )}
@@ -254,61 +343,68 @@ const Booking = () => {
                                             </Form.Group>
                                         </div>
                                         <h3 className='font-bold mt-3 pb-2'>Thông tin hành khách</h3>
-                                        {passengerCount.adults > 0 && (   
-                                            <div className="form-section">
-                                                <div className="form-title">
-                                                    <h6>Người lớn <span className="age-info">(Từ 12 tuổi)</span></h6>
-                                                </div>
-                                                {[...Array(passengerCount.adults)].map((_, index) => (
-                                                    <InformationCustomer key={`adult-${index}`} />
-                                                ))}
-                                            </div>
-                                        )}
-                                        {passengerCount.children > 0 && (
-                                            <>
-                                                <hr />
+                                        {
+                                            passengerCount.adults > 0 && (   
                                                 <div className="form-section">
                                                     <div className="form-title">
-                                                        <h6>Trẻ em <span className="age-info">(Từ 5 - 11 tuổi)</span></h6>
+                                                        <h6>Người lớn <span className="age-info">(Từ 12 tuổi)</span></h6>
                                                     </div>
-                                                {[...Array(passengerCount.children)].map((_, index) => (
-                                                        <InformationCustomer  key={`child-${index}`}/>
+                                                    {[...Array(passengerCount.adults)].map((_, index) => (
+                                                        <InformationCustomer key={`adult-${index}`} index={index} handlePassengerChange={handlePassengerChange}/>
                                                     ))}
                                                 </div>
-                                            </>
-                                        )}
-                                        {passengerCount.toddlers > 0 && (
-                                            <>
-                                                <hr />
-                                                <div className="form-section">
-                                                    <div className="form-title">
-                                                        <h6>Trẻ nhỏ <span className="age-info">(Từ 2 - 4 tuổi)</span></h6>
+                                            )
+                                        }
+                                        {
+                                            passengerCount.children > 0 && (
+                                                <>
+                                                    <hr />
+                                                    <div className="form-section">
+                                                        <div className="form-title">
+                                                            <h6>Trẻ em <span className="age-info">(Từ 5 - 11 tuổi)</span></h6>
+                                                        </div>
+                                                        {[...Array(passengerCount.children)].map((_, index) => (
+                                                            <InformationCustomer key={`child-${index}`} index={index + passengerCount.adults} handlePassengerChange={handlePassengerChange}/>
+                                                        ))}
                                                     </div>
-                                                    {[...Array(passengerCount.toddlers)].map((_, index) => (
-                                                        <InformationCustomer  key={`infant-${index}`}/>
-                                                    ))}
-                                                </div>
-                                            </>
+                                                </>
+                                            )
+                                        }
+                                        {
+                                            passengerCount.toddlers > 0 && (
+                                                <>
+                                                    <hr />
+                                                    <div className="form-section">
+                                                        <div className="form-title">
+                                                            <h6>Trẻ nhỏ <span className="age-info">(Từ 2 - 4 tuổi)</span></h6>
+                                                        </div>
+                                                        {[...Array(passengerCount.toddlers)].map((_, index) => (
+                                                            <InformationCustomer key={`infant-${index}`} index={index + passengerCount.adults + passengerCount.children} handlePassengerChange={handlePassengerChange}/>
+                                                        ))}
+                                                    </div>
+                                                </>
+                                            )
+                                        }
+                                        {
+                                            passengerCount.babies > 0 && (
+                                                <>
+                                                    <hr />
+                                                    <div className="form-section" >
+                                                        <div className="form-title">
+                                                            <h6>Em bé <span className="age-info">(Dưới 2 tuổi)</span></h6>
+                                                        </div>
+                                                        {[...Array(passengerCount.babies)].map((_, index) => (
+                                                            <InformationCustomer key={`baby-${index}`} index={index + passengerCount.adults + passengerCount.children + passengerCount.toddlers} handlePassengerChange={handlePassengerChange}/>
+                                                        ))}
+                                                    </div>
+                                                </>
+                                            )
+                                        }
 
-                                        )}
-                                        {passengerCount.babies > 0 && (
-                                            <>
-                                                <hr />
-                                                <div className="form-section" >
-                                                    <div className="form-title">
-                                                        <h6>Em bé <span className="age-info">(Dưới 2 tuổi)</span></h6>
-                                                    </div>
-                                                    {[...Array(passengerCount.babies)].map((_, index) => (
-                                                        <InformationCustomer key={`baby-${index}`}/>
-                                                    ))}
-                                                </div>
-                                            </>
-                                        
-                                        )}
                                         <Form.Group className="mt-4 mb-4" md="6">
                                             <h3 className='font-bold pb-2 mt-3'>Ghi chú</h3>
                                             <Form.Label>Quý khách có ghi chú lưu ý gì, hãy nói với chúng tôi</Form.Label>
-                                            <Form.Control style={{ height: '150px' }} as="textarea" placeholder='Vui lòng nhập nội dung lời nhắn bằng tiếng Việt hoặc tiếng Anh' required />
+                                            <Form.Control style={{ height: '150px' }} as="textarea" name='booking_note' placeholder='Vui lòng nhập nội dung lời nhắn bằng tiếng Việt hoặc tiếng Anh' onChange={handleChange}/>
                                         </Form.Group>
                                         <Form.Group className="mt-4 mb-4" md="6">
                                             <h3 className='font-bold pb-2 mt-3'>Các hình thức thanh toán</h3>
@@ -340,7 +436,7 @@ const Booking = () => {
                                                 <Collapse in={openTransfer}>
                                                     <div id="transfer-info" className="mt-3">
                                                         <p>Quý khách sau khi thực hiện việc chuyển khoản vui lòng gửi email đến tructuyen@vietravel.com hoặc gọi tổng đài 19001839 để được xác nhận từ công ty chúng tôi.</p>
-                                                        <p>Tên Tài Khoản : Công ty CP Du lịch và Tiếp thị GTVT Việt Nam – Vietravel</p>
+                                                        <p>Tên Tài Khoản : Công ty CP Du lịch và Tiếp thị GTVT Việt Nam - Vietravel</p>
                                                         <p>Số Tài khoản : 19026166594669</p>
                                                         <p>Ngân hàng : Techcombank - Chi nhánh Tp.HCM</p>
                                                         <p>Số Tài khoản : 1116 9772 7979</p>

@@ -10,12 +10,12 @@ const  Cards = ({destination}) => {
             <Card>
                 <Card.Img
                     variant='top'
-                    src={destination.image}
+                    src={destination.location.location_img}
                     className="img-fluid"
                     alt={destination.name}
                 />
-                <Card.Title>{destination.name}</Card.Title>
-                <span className='tours'>{destination.tours}</span>
+                <Card.Title>Du lịch {destination.location.name}</Card.Title>
+                <span className='tours'>{destination.tour_count} tours and activities</span>
             </Card>
            </NavLink>
         </div>

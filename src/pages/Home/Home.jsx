@@ -18,6 +18,7 @@ import { StoreContext } from '../../components/Context/StoreContext'
 const Home = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [tours, setTour] = useState([])
+    const [countTourByLocation, setCountTourByLocation] = useState([])
     const { url } = useContext(StoreContext)
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
@@ -76,8 +77,13 @@ const Home = () => {
         const response  = await axios.get(`${url}/tours`)
         setTour(response.data.data)
     }
+    const fetchCountLocation = async() => {
+        const response = await axios.get(`${url}/tours/tourByLocation/countTour`)
+        setCountTourByLocation(response.data.data)
+    }
     useEffect(() => {
-        fetchTour()
+        fetchTour();
+        fetchCountLocation()
     }, [currentPage])
     return (
         <>
@@ -96,7 +102,7 @@ const Home = () => {
                     <Row>
                         <Col md={12}>
                             <Slider {... settings}>
-                                {destinationsData.map((destination, index) => {
+                                {countTourByLocation.map((destination, index) => {
                                         return (
                                             <Cards destination={destination}  key={index}/>
                                         )

@@ -270,4 +270,99 @@
    color: #0b5da7;
    border-bottom: 2px solid #0b5da7;
 }
+.account_right-cards{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+}
+.account-card--bookingDate{
+    font-size: 18px;
+    color: #171717;
+    margin: 0;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+.account-card--wrapper{
+    padding: 1.5rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e5e5;
+    gap: 1.5rem;
+    min-width: 20rem;
+    max-height: 30rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+}
+.account-card--wrapper-content{
+    display: flex;
+    width: 33%;
+    align-items: center;
+    justify-content: center;
+}
+.account-card--wrapper-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    min-height: 15rem;
+    max-height: 18rem;
+}
+.account-card--wrapper-content--info{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
+}
+.account-card--wrapper-content--info label {
+    font-size: 23px;
+}
+.line-clamp-2 {
+    -webkit-line-clamp: 2;
+    font-weight: 700;
+}
+.line-clamp {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.account-card--wrapper-content--tourCode{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+.account-card--wrapper-content--tourCode p{
+    color: #171717;
+}
+.account-card--wrapper-content--tourCode span{
+    font-weight: bold;
+}
+.account-card--wrapper-content--price {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 1rem;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column-start: 4;
+}
+.account-card--wrapper-content--price span{
+    font-size: 18px;
+    font-weight: 600;
+}
+.account-card--wrapper-content--price p{
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    color: #e01600;
+}
+.time-overdue-booking{
+    color: #e01600;
+}
 

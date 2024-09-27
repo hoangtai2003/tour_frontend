@@ -21,8 +21,7 @@ const Booking = () => {
     }, [])
     const [openCash, setOpenCash] = useState(false);
     const [openTransfer, setOpenTransfer] = useState(false);
-    const { url, token, setToken } = useContext(StoreContext)
-    const [userBooking, setUserBooking] = useState(null)
+    const { url, token, user} = useContext(StoreContext)
     const { tour_code } = useParams()
     const [tourDetails, setTourDetails] = useState(null); 
     const [booking, setBooking] = useState({
@@ -68,31 +67,6 @@ const Booking = () => {
             return updatedPassengerCount;
         });
     };
-    
-    useEffect(() => {
-        const storedToken = localStorage.getItem("token")
-        if (storedToken) {
-            setToken(storedToken)
-        }
-    })
-    useEffect (() => {
-        const fetchUserInfo = async() => {
-            try {
-                const response = await axios.get(`${url}/auth/users`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                })
-                setUserBooking(response.data.data)
-            } catch(error){
-                console.error("Lỗi khi lấy thông tin người dùng", error);
-            }
-        }
-        if (token){
-            fetchUserInfo()
-        }
-    }, [token, url])
-
     const fetchTourDetail = async () => {
         const response = await axios.get(`${url}/tours/${tour_code}/booking`);
         setTourDetails(response.data.data)
@@ -147,11 +121,11 @@ const Booking = () => {
 
         const formData = new FormData();
         formData.append('tour_child_id', tourDetails.id)
-        formData.append('user_id', userBooking.id)
-        formData.append('full_name', booking.full_name || userBooking.username);
-        formData.append('email', booking.email || userBooking.email);
-        formData.append('address', booking.address || userBooking.address);
-        formData.append('phone_number', booking.phone_number || userBooking.phone);
+        formData.append('user_id', user.id)
+        formData.append('full_name', booking.full_name || user.username);
+        formData.append('email', booking.email || user.email);
+        formData.append('address', booking.address || user.address);
+        formData.append('phone_number', booking.phone_number || user.phone);
         formData.append('booking_note', booking.booking_note)
         formData.append('number_of_adults', passengerCount.adults)
         formData.append('number_of_children', passengerCount.children)
@@ -281,21 +255,21 @@ const Booking = () => {
                                                         placeholder="Nhập họ tên"
                                                         className="mb-2"
                                                         name='full_name'
-                                                        value={booking.full_name || userBooking?.username || ''}
+                                                        value={booking.full_name || user?.username || ''}
                                                         onChange={handleChange}
                                                     />
                                                 </Form.Group>
                                                 <Form.Group className="mb-2" as={Col} md="6">
                                                     <Form.Label>Email <span>*</span></Form.Label>
-                                                    <Form.Control type="email" placeholder="Nhập email" required name='email' value={booking.email || userBooking?.email || ''} onChange={handleChange}/>
+                                                    <Form.Control type="email" placeholder="Nhập email" required name='email' value={booking.email || user?.email || ''} onChange={handleChange}/>
                                                 </Form.Group>
                                                 <Form.Group className="mb-2" as={Col} md="6">
                                                     <Form.Label>Địa chỉ </Form.Label>
-                                                    <Form.Control type="text" placeholder="Địa chỉ" name='address' required value={booking.address || userBooking?.address || ''} onChange={handleChange}/>
+                                                    <Form.Control type="text" placeholder="Địa chỉ" name='address' required value={booking.address || user?.address || ''} onChange={handleChange}/>
                                                 </Form.Group>
                                                 <Form.Group className="mb-2" as={Col} md="6">
                                                     <Form.Label>Số điện thoại <span>*</span></Form.Label>
-                                                    <Form.Control type="text" placeholder="Nhập số điện thoại" name='phone_number' required value={booking.phone_number || userBooking?.phone || ''} onChange={handleChange}/>
+                                                    <Form.Control type="text" placeholder="Nhập số điện thoại" name='phone_number' required value={booking.phone_number || user?.phone || ''} onChange={handleChange}/>
                                                 </Form.Group>
                                             </>
                                         )}

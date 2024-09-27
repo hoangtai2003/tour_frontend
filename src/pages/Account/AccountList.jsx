@@ -36,6 +36,35 @@ const AccountList = () => {
                             ))}
                         </ul>
                     </div>
+                    <div className="account_right-cards">
+                        <div className="account-card--tours">
+                            <p className="account-card--bookingDate">
+                                Ngày tạo: 21/09/2024 02:09:43
+                            </p>
+                            <div className="account-card--wrapper">
+                                <div className="account-card--wrapper-content">
+                                    <img src="" alt="" className='account-card--wrapper-img' />
+                                </div>
+                                <div className="account-card--wrapper-content">
+                                    <div className="account-card--wrapper-content--info">
+                                        <label className='line-clamp line-clamp-2'>Tây Nam Bộ</label>
+                                        <div className="account-card--wrapper-content--tourCode">
+                                            <p>Số booking: <span>ND00551/0924</span></p>
+                                        </div>
+                                        <div className="account-card--wrapper-content--tourCode">
+                                            <p>Mã tour: <span>ND00551/0924</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="account-card--wrapper-content">
+                                    <div className="account-card--wrapper-content--price time-overdue-booking">
+                                        <span>{status}</span>
+                                        <p>499,000 đ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { MdEdit } from "react-icons/md";
 import { Form, FormGroup, FormLabel } from 'react-bootstrap';
+import { StoreContext } from '../../components/Context/StoreContext';
 const AccountInfo = () => {
     const [isEditingName, setIsEditingName] = useState(false)
     const [isEditingGender, setIsEditingGender] = useState(false)
     const [isEditingBirthday, setIsEditingBirthday] = useState(false)
     const [isEditingPhone, setIsEditingPhone] = useState(false)
     const [isEditingAddress, setIsEditingAddress] = useState(false)
+    const { user } = useContext(StoreContext)
     const handleEditName = async() => {
         setIsEditingName(false)
     }
@@ -41,7 +43,7 @@ const AccountInfo = () => {
                         {isEditingName ? (
                             <>
                                 <div className='info-form'>
-                                    <span>Tài Hoàng </span>
+                                    <span>{user?.username} </span>
                                 </div>
                                 <div className="edit-form">
                                     <FormLabel>Họ và tên</FormLabel>
@@ -57,7 +59,7 @@ const AccountInfo = () => {
                             </>
                         ) : (
                         <div className='info-form'>
-                            <span>Tài Hoàng </span>
+                            <span>{user?.username} </span>
                             <button onClick={() => setIsEditingName(!isEditingName)} className='btn-edit'><MdEdit /></button>
                         </div>
                         )}
@@ -69,15 +71,15 @@ const AccountInfo = () => {
                         {isEditingGender ? (
                             <>
                                 <div className='info-form'>
-                                    <span>Nữ </span>
+                                    <span>{user?.gender}</span>
                                 </div>
                                 <div className="edit-form">
                                     <FormLabel>Giới tính</FormLabel>
                                     <FormGroup>
-                                    <Form.Select>
-                                            <option value="Nam">Nam</option>
-                                            <option value="Nữ">Nữ</option>
-                                    </Form.Select>
+                                        <Form.Select>
+                                                <option value="Nam">Nam</option>
+                                                <option value="Nữ">Nữ</option>
+                                        </Form.Select>
                                     </FormGroup>
                                     <div className="btn-group">
                                         <button className="btn-cancel" onClick={() => setIsEditingGender(!isEditingGender)}>Hủy</button>
@@ -88,7 +90,7 @@ const AccountInfo = () => {
                             </>
                         ) : (
                         <div className='info-form'>
-                            <span>Nữ </span>
+                            <span>{user?.gender}</span>
                             <button onClick={() => setIsEditingGender(!isEditingGender)} className='btn-edit'><MdEdit /></button>
                         </div>
                         )}
@@ -100,7 +102,7 @@ const AccountInfo = () => {
                         {isEditingBirthday ? (
                             <>
                                 <div className='info-form'>
-                                    <span></span>
+                                    <span>{new Date(user?.dateBirthday).toLocaleDateString('vi-VN')}</span>
                                 </div>
                                 <div className="edit-form">
                                     <FormLabel>Ngày sinh</FormLabel>
@@ -116,7 +118,7 @@ const AccountInfo = () => {
                             </>
                         ) : (
                         <div className='info-form'>
-                            <span></span>
+                            <span>{new Date(user?.dateBirthday).toLocaleDateString('vi-VN')}</span>
                             <button onClick={() => setIsEditingBirthday(!isEditingBirthday)} className='btn-edit'><MdEdit /></button>
                         </div>
                         )}
@@ -128,7 +130,7 @@ const AccountInfo = () => {
                         {isEditingPhone ? (
                             <>
                                 <div className='info-form'>
-                                    <span></span>
+                                    <span>{user?.phone}</span>
                                 </div>
                                 <div className="edit-form">
                                     <FormLabel>Số điện thoại</FormLabel>
@@ -144,7 +146,7 @@ const AccountInfo = () => {
                             </>
                         ) : (
                         <div className='info-form'>
-                            <span></span>
+                            <span>{user?.phone}</span>
                             <button onClick={() => setIsEditingPhone(!isEditingPhone)} className='btn-edit'><MdEdit /></button>
                         </div>
                         )}
@@ -154,7 +156,7 @@ const AccountInfo = () => {
                     <div className='left'><span>Email:</span></div>
                     <div className="right">
                         <div className='info-form'>
-                            <span>tai@gmail.com</span>
+                            <span>{user?.email}</span>
                         </div>
                     </div>
                 </div>
@@ -164,7 +166,7 @@ const AccountInfo = () => {
                         {isEditingAddress ? (
                             <>
                                 <div className='info-form'>
-                                    <span></span>
+                                    <span>{user?.address}</span>
                                 </div>
                                 <div className="edit-form">
                                     <FormLabel>Địa chỉ</FormLabel>
@@ -179,7 +181,7 @@ const AccountInfo = () => {
                             </>
                         ) : (
                         <div className='info-form'>
-                            <span></span>
+                            <span>{user?.address}</span>
                             <button onClick={() => setIsEditingAddress(!isEditingAddress)} className='btn-edit'><MdEdit /></button>
                         </div>
                         )}

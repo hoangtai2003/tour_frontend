@@ -1,0 +1,273 @@
+.container_account {
+    max-width: 1350px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-bottom: 70px;
+}
+
+.back-link {
+    margin-bottom: 20px;
+}
+
+.back-link a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.account-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.account_left-sidebar{
+    width: 25%;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e5e5e5;
+}
+
+.profile {
+    text-align: center;
+}
+
+.avatar-img {
+    width: 70px;
+    height: 70px;
+    background-color: #007bff;
+    color: white;
+    font-size: 28px;
+    line-height: 70px;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+}
+
+.account_left-sidebar-body--list ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.account_left-sidebar-body--list ul li {
+    margin: 10px 0;
+}
+
+.account_left-sidebar-body--list ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+}
+
+.account_left-sidebar-body--list ul li a.active {
+    font-weight: bold;
+}
+
+.account_right-sidebar {
+    width: 73%;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 2rem;
+    height: 50%;
+}
+
+.account_right-sidebar h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.account_right-info-top h4 {
+    font-size: 18px;
+}
+
+.account_right-info-top p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.info-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.info-table a {
+    text-decoration: none;
+    color: #007bff;
+}
+.back-link h1{
+    font-size: 2rem;
+    font-weight: 650;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #0b5da7;
+}
+.account_right-info-body{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.account_right-info-body .item{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    gap: 1rem;
+}
+.account_right-info-body .item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.account_right-info-body input,
+.account_right-info-body select {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.account_right-info-body .item .left{
+    flex: 0 0 26%;
+    font-size: 18px;
+    text-wrap: nowrap;
+}
+
+.account_right-info-body .item .right{
+    flex-grow: 3;
+    text-align: left;
+}
+.account_right-info-body .item .right .info-form{
+    position: relative;
+    font-size: 18px;
+}
+.account_right-info-body .item .right .info-form .btn-edit {
+    position: absolute;
+    right: 0; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 20px;
+    font-size: 18px; 
+    width: 50px;
+}
+.info-form span {
+    min-height: 20px;
+    display: inline-block; 
+}
+
+.edit-form{
+    font-size: 15px;
+}
+.edit-form .btn-group{
+   display: flex;
+   justify-content: flex-end;
+   gap: 0.8rem;
+}
+.edit-form .btn-group .btn-cancel,
+.edit-form .btn-group .btn-save
+{
+    font-weight: 500;
+    padding: 10px 20px;
+    border: 1px solid #004476;
+    border-radius: .5rem;
+}
+.edit-form .btn-group .btn-save{
+    color: #fff;
+    background: #004476;
+}
+.edit-form .btn-group .btn-cancel{
+    color: #004476;
+    background: transparent
+}
+.edit-form .form-label{
+    margin-top: 10px;
+}
+.edit-form .form-select{
+    width: 40%;
+    -webkit-appearance: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    color: #333;
+}
+.account_right-info-body .btn-blue{
+    font-size: 13px;
+    border: 1px solid #0b5da7;
+    padding: 0.8rem 3rem;
+    border-radius: 0.5rem;
+    color: #fff;
+    background: #0b5da7;
+    text-transform: uppercase;
+    float: right;
+    width: 40%;
+    height: 75%;
+    font-weight: 600;
+}
+.account_left-sidebar-body--list button {
+    border: none;
+    outline: none;
+    background: transparent;
+    margin-left: -5px;
+}
+.account_left-sidebar-body--list .active-link {
+    color: #e01600;
+    font-weight: 600;
+  }
+  
+.account_left-sidebar-body--list .inactive-link {
+    color: black;
+}
+.account-page--main-content {
+    width: 80%;
+}
+.account-wrapper{
+    width: 100%;
+}
+.account_right-list{
+    margin-left: 20px;
+}
+.account_right-list .account_right-filter{
+    border: 1px solid #e5e5e5;
+    border-radius: 0.5rem;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+}
+.account_right-list .account_right-filter ul{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style-type: none;
+}
+.account_right-list .account_right-filter ul .account-filter-tab{
+    box-sizing: border-box;
+    text-align: center;
+}
+.pointer{
+    cursor: pointer;
+}
+.account_right-list .account_right-filter ul .account-filter-tab--active{
+   font-weight: 500;
+   color: #0b5da7;
+   border-bottom: 2px solid #0b5da7;
+}
+

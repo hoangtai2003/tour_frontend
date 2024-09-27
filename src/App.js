@@ -13,6 +13,11 @@ import Booking from './pages/Booking/Booking';
 import About from './pages/About/About';
 import TourDetails from './pages/Tours/TourDetails';
 import Register from './pages/Auth/Register';
+import Account from './pages/Account/Account';
+import AccountInfo from './pages/Account/AccountInfo';
+import AccountPassword from './pages/Account/AccountPassword';
+import AccountList from './pages/Account/AccountList';
+import AccountReview from './pages/Account/AccountReview';
 const App = () =>  {
   return (
     <>
@@ -29,6 +34,12 @@ const App = () =>  {
             <Route path='about-us' element={<About />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+            <Route path="account" element={<Account />}>
+                <Route path="account-info" element={<AccountInfo />} />
+                <Route path="account-password" element={<AccountPassword />} />
+                <Route path='account-list' element={<AccountList />} />
+                <Route path='account-review' element={<AccountReview />} />
+            </Route>
         </Routes>
         <Footer />
     </>

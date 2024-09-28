@@ -5,6 +5,7 @@ const StoreContextProvider = (props) => {
     const [token, setToken] = useState("")
     const [ user, setUser ] = useState(null)
     const url = "http://localhost:4000/api/v1"
+    const userId = user?.id
     const fetchUserInfo = async() => {
         try {
             const response = await axios.get(`${url}/auth/users`, {
@@ -18,24 +19,28 @@ const StoreContextProvider = (props) => {
         }
     }
     useEffect(() => {
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken);
+        }
+    }, []); 
+    
+    useEffect(() => {
         async function loadData() {
-            if (token){
-                fetchUserInfo()
-            }
-            const storedToken = localStorage.getItem("token")
-            if (storedToken) {
-                setToken(storedToken)
+            if (token) {
+                fetchUserInfo();
             }
         }
-        loadData()
-    }, [token, url])
+        loadData();
+    }, [token]); 
     const contextValue = {
         url,
         token,
         setToken,
         fetchUserInfo,
         user,
-        setUser
+        setUser,
+        userId
     }
     return (
         <StoreContext.Provider value={contextValue}>

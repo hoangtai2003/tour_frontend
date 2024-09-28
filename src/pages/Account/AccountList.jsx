@@ -1,23 +1,46 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
+import { StoreContext } from '../../components/Context/StoreContext';
 
 const AccountList = () => {
-  const [status, setStatus] = useState('Quá hạn thanh toán');
-  const [activeTab, setActiveTab] = useState('Tất cả');
+    const [status, setStatus] = useState('Tất cả');
+    const [activeTab, setActiveTab] = useState('Tất cả');
+    const [listBooking, setListBooking] = useState([])
+    const { url, token, userId } = useContext(StoreContext)
+    const handleStatusChange = (newStatus) => {
+        setStatus(newStatus);
+        setActiveTab(newStatus);
+    };
+    const statusBooking = [
+        'Tất cả',
+        'Chờ thanh toán',
+        'Chờ xác nhận',
+        'Đã thanh toán',
+        'Hủy booking',
+        'Quá hạn thanh toán'
+    ];
+    const fetchListBooking = async () => {
+        try {
+            const response = await axios.get(`${url}/booking/userBooking/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`  
+                }
+            });
+            setListBooking(Array.isArray(response.data.data) ? response.data.data : []);
+        } catch (error) {
+            console.error("Lỗi khi lấy booking", error);
+        }
+    }
+    useEffect(() => {
+        if (token){
+            fetchListBooking()
+        }
+    }, [token])
 
-  const handleStatusChange = (newStatus) => {
-    setStatus(newStatus);
-    setActiveTab(newStatus);
-  };
-
-  const statusBooking = [
-    'Tất cả',
-    'Chờ thanh toán',
-    'Chờ xác nhận',
-    'Đã thanh toán',
-    'Hủy booking',
-    'Quá hạn thanh toán'
-  ];
-
+    const filteredBookings = listBooking.filter((list) => {
+        if (status === "Tất cả") return true
+        return list.status === status;
+    })
     return (
         <>
         <div className="account-page--main-content">
@@ -37,33 +60,35 @@ const AccountList = () => {
                         </ul>
                     </div>
                     <div className="account_right-cards">
-                        <div className="account-card--tours">
-                            <p className="account-card--bookingDate">
-                                Ngày tạo: 21/09/2024 02:09:43
-                            </p>
-                            <div className="account-card--wrapper">
-                                <div className="account-card--wrapper-content">
-                                    <img src="" alt="" className='account-card--wrapper-img' />
-                                </div>
-                                <div className="account-card--wrapper-content">
-                                    <div className="account-card--wrapper-content--info">
-                                        <label className='line-clamp line-clamp-2'>Tây Nam Bộ</label>
-                                        <div className="account-card--wrapper-content--tourCode">
-                                            <p>Số booking: <span>ND00551/0924</span></p>
-                                        </div>
-                                        <div className="account-card--wrapper-content--tourCode">
-                                            <p>Mã tour: <span>ND00551/0924</span></p>
+                        {filteredBookings.map((list, index) => (
+                            <div className="account-card--tours" key={index}>
+                                <p className="account-card--bookingDate">
+                                    Ngày tạo: {new Date(list?.booking_date).toLocaleDateString('vi-VN')}
+                                </p>
+                                <div className="account-card--wrapper">
+                                    <div className="account-card--wrapper-content">
+                                        <img src={list.bookingTourChild.tour.tourImage[0].image_url} alt="" className='account-card--wrapper-img' />
+                                    </div>
+                                    <div className="account-card--wrapper-content">
+                                        <div className="account-card--wrapper-content--info">
+                                            <label className='line-clamp line-clamp-2'>{list?.bookingTourChild.tour.name}</label>
+                                            <div className="account-card--wrapper-content--tourCode">
+                                                <p>Số booking: <span>{list.booking_code}</span></p>
+                                            </div>
+                                            <div className="account-card--wrapper-content--tourCode">
+                                                <p>Mã tour: <span>{list.bookingTourChild.tour_code}</span></p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="account-card--wrapper-content">
-                                    <div className="account-card--wrapper-content--price time-overdue-booking">
-                                        <span>{status}</span>
-                                        <p>499,000 đ</p>
+                                    <div className="account-card--wrapper-content">
+                                        <div className="account-card--wrapper-content--price time-overdue-booking">
+                                            <span>{list.status}</span>
+                                            <p>{list.total_price.toLocaleString('vi-VN')} vnđ</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        ))} 
                     </div>
                 </div>
             </div>

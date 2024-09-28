@@ -12,7 +12,7 @@ const Account = () => {
         // window.scroll(0,0)
     }, [])
     const navigate = useNavigate()
-    const { token, setToken} = useContext(StoreContext);
+    const { setToken, user} = useContext(StoreContext);
     const handleLogout = () => {
         localStorage.removeItem("token");
         setToken(""); 
@@ -27,8 +27,14 @@ const Account = () => {
             </div>
             <div className="account-section">
                 <div className="account_left-sidebar">
-                    <div className="account_left-sidebar-top">
-
+                    <div className="account_left-sidebar-top" style={{overflow: "clip"}}>
+                        <div className="account-main">
+                            <img src="https://lh3.googleusercontent.com/a/ACg8ocKxnDOhdc--JE_qm_My7Jy8SGACD3hS9IggyqmAtnkFwfhr2Q=s96-c" alt="" className="account-img" style={{borderRadius: "50%", width: "50px"}} />
+                            <div className="account-main-info">
+                                <div className="account-id">{user?.username}</div>
+                                <div className="account-email">{user?.email}</div>
+                            </div>
+                        </div>
                     </div>
                     <div className="account_left-sidebar-body">
                         <div className="account_left-sidebar-body--list">

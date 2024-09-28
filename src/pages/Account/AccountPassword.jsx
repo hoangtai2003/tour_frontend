@@ -1,7 +1,46 @@
-import React from 'react'
-import { FormLabel } from 'react-bootstrap'
-
+import React, { useContext, useState } from 'react'
+import { Form, FormLabel } from 'react-bootstrap'
+import { StoreContext } from '../../components/Context/StoreContext'
+import axios from 'axios'
+import Swal from 'sweetalert2'; 
 const AccountPassword = () => {
+    const {url, userId} = useContext(StoreContext)
+    const [editPassword, setEditPassword] = useState({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+    })
+    const handleChange = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+        setEditPassword(prev => ({...prev, [name]:value}))
+    }
+    const editPasswordSubmit = async(e) => {
+        e.preventDefault()
+        try {
+            const response = await axios.put(`${url}/users/${userId}`, editPassword)
+            if (response.data.success){
+                Swal.fire({
+                    text: "Cập nhật thông tin thành công",
+                    icon: "success"
+                });
+                setEditPassword({
+                    currentPassword: '',
+                    newPassword: '',
+                    confirmPassword: ''
+                }) 
+            } else {
+                Swal.fire({
+                    text: response.data.message,
+                    icon: "error"
+                });
+            }
+
+        } catch (error) {
+            alert(error.response?.data?.message || error.message);
+        }
+        
+    }
     return (
         <>
         <div className='account_right-sidebar'>
@@ -10,13 +49,13 @@ const AccountPassword = () => {
                 <p>Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác</p>
                 <hr />
             </div>
-            <div className="account_right-info-body">
+            <Form className="account_right-info-body" onSubmit={editPasswordSubmit}>
                 <div className="row">
                     <div className="left">
                         <FormLabel>Mật khẩu cũ: </FormLabel>
                     </div>
                     <div className="right">
-                        <input placeholder="Nhập mật khẩu cũ" type="password" name="OldPasswordInput" />
+                        <input placeholder="Nhập mật khẩu cũ" type="password" name="currentPassword" value={editPassword.currentPassword} onChange={handleChange}/>
                     </div>
                 </div>
                 <div className="row">
@@ -24,7 +63,7 @@ const AccountPassword = () => {
                         <FormLabel>Mật khẩu mới: </FormLabel>
                     </div>
                     <div className="right">
-                        <input placeholder="Nhập mật khẩu mới" type="password" name="newPasswordInput" />
+                        <input placeholder="Nhập mật khẩu mới" type="password" name="newPassword" value={editPassword.newPassword} onChange={handleChange}/>
                     </div>
                 </div>
                 <div className="row">
@@ -32,11 +71,11 @@ const AccountPassword = () => {
                         <FormLabel>Nhập lại mật khẩu mới: </FormLabel>
                     </div>
                     <div className="right">
-                        <input placeholder="Nhập lại mật khẩu mới" type="password" name="newPasswordPreInput" />
+                        <input placeholder="Nhập lại mật khẩu mới" type="password" name="confirmPassword" value={editPassword.confirmPassword} onChange={handleChange}/>
                     </div>
                 </div>
-                <button className="btn-blue btn-change-password" aria-label="Đổi mật khẩu">ĐỔI MẬT KHẨU</button>
-            </div>
+                <button className="btn-blue btn-change-password" aria-label="Đổi mật khẩu">Đổi mật khẩu</button>
+            </Form>
         </div>
         </>
     )

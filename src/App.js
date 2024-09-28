@@ -18,6 +18,7 @@ import AccountInfo from './pages/Account/AccountInfo';
 import AccountPassword from './pages/Account/AccountPassword';
 import AccountList from './pages/Account/AccountList';
 import AccountReview from './pages/Account/AccountReview';
+import BookingDetails from './pages/Booking/BookingDetails';
 const App = () =>  {
   return (
     <>
@@ -31,6 +32,7 @@ const App = () =>  {
             <Route path='hotel' element={<Hotel />} />
             <Route path='contact-us' element={<Contact />} />
             <Route path='/booking/:tour_code' element={<Booking />} />
+            <Route path='/payment-booking/:booking_code' element={<BookingDetails />} />
             <Route path='about-us' element={<About />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />

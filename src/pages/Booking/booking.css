@@ -154,10 +154,10 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 10px; /* Thêm khoảng cách 10px giữa các .form-group */
+    gap: 10px; 
 }
 .form-row .form-group {
-    flex-basis: calc(33.33% - 10px); /* Chia thành 3 phần và trừ khoảng cách 10px */
+    flex-basis: calc(33.33% - 10px); 
 }
 
 .date-picker-container {
@@ -241,4 +241,124 @@
         flex-basis: 100%;
     }
 }
+.section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.page-order-booking__header--content h1 {
+    font-size: 2.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--primaryClr);
+}
+.section-container{
+    max-width: 134rem;
+}
+.page-order-booking__status--content {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.booking-process {
+    margin: 2rem 0;
+    width: 100%;
+    height: 15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.booking-process__step {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.booking-process__step--number {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+}
+.booking-process__step--number span {
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+}
+.booking-process__step--number-icon {
+    width: 60px;
+    height: 60px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: .5rem;
+}
+.booking-process .step-current .booking-process__step--number-icon {
+    background-color: var(--primaryClr);
+}
+.booking-process .step-current span {
+    color: var(--primaryClr);
+}
+.booking-process__step--number-icon svg {
+    transform: scale(1.3);
+    font-size: 25px;
+    color: #fff;
+}
+.booking-process__step--between {
+    width: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    color: #b1b1b1;
+    font-size: 20px;
+}
+.booking-process .step-uncomplete .booking-process__step--number-icon {
+    background-color: #b1b1b1;
+}
+.booking-process .step-uncomplete span {
+    color: #b1b1b1;
+}
+.transportation_info {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2rem;
+}
 
+.transportation_column {
+    width: 48%;
+    padding-right: 15px;
+    border-right: 1px solid #ddd;
+}
+
+.transportation_column:last-child {
+    border: none;
+    padding-right: 0; 
+}
+
+.transportation_time,
+.transportation_location {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.transportation_time span,
+.transportation_location span {
+    width: 45%;
+}

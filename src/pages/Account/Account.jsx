@@ -9,7 +9,7 @@ import { AiOutlineLike } from "react-icons/ai";
 const Account = () => {
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
-        // window.scroll(0,0)
+        window.scroll(0,0)
     }, [])
     const navigate = useNavigate()
     const { setToken, user} = useContext(StoreContext);

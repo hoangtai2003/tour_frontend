@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import Breadcrumbs from '../../components/Breadcrumb/Breadcrumbs'
-import { Container, Row, Col, Form, Card, ListGroup, Collapse } from 'react-bootstrap'
+import { Container, Row, Col, Form, Card, ListGroup, Collapse} from 'react-bootstrap'
+import { NavLink, useNavigate } from 'react-router-dom';
 import "react-datepicker/dist/react-datepicker.css";
 import "./booking.css"
 import { useParams } from 'react-router-dom';
@@ -15,15 +16,22 @@ import { BsCash } from "react-icons/bs";
 import { CiBank } from "react-icons/ci";
 import { IoQrCode } from "react-icons/io5"; 
 import { StoreContext } from '../../components/Context/StoreContext';
+import { MdOutlineFindInPage } from "react-icons/md";
+import { FaArrowRight } from "react-icons/fa";
+import { MdOutlinePayments } from "react-icons/md";
+import { AiOutlineFileDone } from "react-icons/ai";
+import { MdEmojiTransportation } from "react-icons/md";
 const Booking = () => {
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
+        // window.scroll(0,0)
     }, [])
     const [openCash, setOpenCash] = useState(false);
     const [openTransfer, setOpenTransfer] = useState(false);
     const { url, token, user} = useContext(StoreContext)
     const { tour_code } = useParams()
     const [tourDetails, setTourDetails] = useState(null); 
+    const navigate = useNavigate()
     const [booking, setBooking] = useState({
         full_name: '',
         email: '',
@@ -139,8 +147,10 @@ const Booking = () => {
                    'Content-Type': 'application/json'
                 }
             });
-            if (response.status !== 200) {
-                return alert(response.data.message);
+            if (response.data.success) {
+                const bookingCode = response.data.data.booking_code
+               
+                navigate(`/payment-booking/${bookingCode}`);
             }
         } catch (error) {
             alert(error.response?.data?.message || error.message);
@@ -149,69 +159,47 @@ const Booking = () => {
 
   return (
     <>
-       <Breadcrumbs title="Booking" pagename="Booking" /> 
+       <Breadcrumbs pagename="Booking" /> 
        <section className='booking-section py-5'>
             <Container>
-                <Row className='py-5'>  
-                    <Col lg="4" md="6" className='mb-4 mb-lg-0'>
-                        <Card className='border-0 shadow-sm rounded-3 mb-4 card '>
-                            <Card.Body className='text-center card-body'>
-                                <div className='d-flex justify-content-center align-item-search my-2'>
-                                    <div className="bg-info rounded-circle text-info shadow-sm bg-opacity-10 p-3 mb-2">
-                                        <i className='bi bi-headset h3'></i>
+                <div className='page-order-booking__header section'>
+                    <div className='page-order-booking__header--content section-container'>
+                        <h1>Đặt tour</h1>
+                    </div>
+                </div>
+                <div className='page-order-booking__status section'>
+                    <div className='page-order-booking__status--content'>
+                        <div className="booking-process">
+                            <div className="booking-process__step">
+                                <div className='booking-process__step--number first-step step-current'>
+                                    <div className='booking-process__step--number-icon'>
+                                        <MdOutlineFindInPage />
                                     </div>
+                                    <span>Nhập thông tin</span>
                                 </div>
-                                <Card.Title className='fw-bold h5 card-title h5'>Số điện thoại liên hệ</Card.Title>
-                                <div className="d-block">
-                                <a href="" type='button' className="btn btn-light me-2 btn-sm">
-                                    <i className="bi bi-phone me-1"></i> +12 3456 789
-                                </a>
-                                <a href="" type='button' className="btn btn-light me-2 btn-sm">
-                                    <i className="bi bi-telephone me-1"></i> +12 3456 789
-                                </a>
+                                <div className="booking-process__step--between">
+                                    <FaArrowRight />
+                                </div>
+                                <div className='booking-process__step--number second-step step-uncomplete'>
+                                    <div className="booking-process__step--number-icon">
+                                        <MdOutlinePayments />
+                                    </div>
+                                    <span>Thanh toán</span>
+                                </div>
+                                <div className="booking-process__step--between">
+                                    <FaArrowRight />
+                                </div>
+                                <div className='booking-process__step--number third-step step-uncomplete'>
+                                    <div className="booking-process__step--number-icon">
+                                        <AiOutlineFileDone />
+                                    </div>
+                                    <span>Hoàn tất</span>
+                                </div>
                             </div>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col lg="4" md="6" className='mb-4 mb-lg-0'>
-                        <Card className='border-0 shadow-sm rounded-3 mb-4 card '>
-                            <Card.Body className='text-center card-body'>
-                                <div className='d-flex justify-content-center align-item-search my-2'>
-                                    <div className="bg-danger rounded-circle text-danger shadow-sm bg-opacity-10 p-3 mb-2">
-                                        <i className='bi bi-envelope h3'></i>
-                                    </div>
-                                </div>
-                                <Card.Title className='fw-bold h5 card-title h5'>Địa chỉ Email</Card.Title>
-                                <div className="d-block">
-                                    <a href="" type='button' className="btn btn-light me-2 btn-sm">
-                                        <i className="bi bi-envelope me-2"></i> demo@gmail.com
-                                    </a>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col lg="4" md="12" className='mb-4 mb-lg-0'>
-                        <Card className='border-0 shadow-sm rounded-3 mb-4 card '>
-                            <Card.Body className='text-center card-body'>
-                                <div className='d-flex justify-content-center align-item-search my-2'>
-                                    <div className="bg-warning rounded-circle text-warning shadow-sm bg-opacity-10 p-3 mb-2">
-                                        <i className='bi bi-globe h3'></i>
-                                    </div>
-                                </div>
-                                <Card.Title className='fw-bold h5 card-title h5'>Social Media</Card.Title>
-                                <div className='d-block justify-content-center'>
-                                <ListGroup horizontal className='justify-content-center'>
-                                        <ListGroup.Item className='border-0'><i className='bi bi-youtube'></i></ListGroup.Item>
-                                        <ListGroup.Item className='border-0'><i className='bi bi-instagram'></i></ListGroup.Item>
-                                        <ListGroup.Item className='border-0'><i className='bi bi-twitter'></i></ListGroup.Item>
-                                        <ListGroup.Item className='border-0'><i className='bi bi-youtube'></i></ListGroup.Item>
-                                    </ListGroup>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
-                <Form onSubmit={handleSubmit}>
+                        </div>
+                    </div>
+                </div>
+                <Form onSubmit={handleSubmit} style={{marginTop: '-60px'}}>
                     <Row>
                         <Col md="7" lg="7">
                             <div className="booking-form-warp border rounded-3">
@@ -440,7 +428,7 @@ const Booking = () => {
                         <Col md="5" lg="5">
                             <Card className='card-info p-0 shadow-sm bg-white'>
                                 <Card.Header>
-                                    <h1 className="font-bold h4 mt-2">
+                                    <h1 className="font-bold h4 mt-2" style={{textTransform: 'uppercase'}}>
                                         Tóm tắt chuyến đi
                                     </h1>
                                 </Card.Header>
@@ -455,6 +443,31 @@ const Booking = () => {
                                             <FaLocationDot />Khởi hành: <span>{tourDetails?.tour.departure_city}</span>
                                             <BiSolidTimer className='booking_duration'/>Thời gian: <span>{tourDetails?.tour.duration}</span>
                                         </ListGroup.Item>
+                                        <hr />
+                                        <h5 className='font-bold'><MdEmojiTransportation /> Thông tin chuyến xe</h5>
+                                        <div className='transportation_info'>
+                                            <div className="transportation_column">
+                                                <div className="transportation_date-start">
+                                                    <span className='font-bold'>Ngày đi: {new Date(tourDetails?.start_date).toLocaleDateString("vi-VN")}</span>
+                                                </div>
+                                                <div className="transportation_time">
+                                                    <span>{tourDetails?.time_goes_start.slice(0, 5)}</span>
+                                                    <span>{tourDetails?.time_goes_end.slice(0, 5)}</span>
+                                                </div>
+                                                
+                                            </div>
+                                            <div className="transportation_column">
+                                                <div className="transportation_date-end">
+                                                    <span  className='font-bold'>Ngày về: {new Date(tourDetails?.end_date).toLocaleDateString("vi-VN")}</span>
+                                                </div>
+                                                <div className="transportation_time">
+                                                    <span>{tourDetails?.time_comes_start.slice(0, 5)}</span>
+                                                    <span>{tourDetails?.time_comes_end.slice(0, 5)}</span>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+
                                         <hr />
                                         <ListGroup.Item className='border-0 d-flex justify-content-between h5 pt-0 list-group-item'>
                                             <span><PiUsersThreeBold />Khách hàng</span>
@@ -492,11 +505,10 @@ const Booking = () => {
                                 </Card.Body>
                                 <Card.Footer className='pb-5'>
                                     <Col md="12">
-                                        <button className='primaryBtn booking_btn'>Đặt tour</button>
+                                        <button className='primaryBtn booking_btn'>Đặt tour</button> 
                                     </Col>
                                 </Card.Footer>
                             </Card>
-                            
                         </Col>
                     </Row>
                 </Form>

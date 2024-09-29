@@ -24,7 +24,7 @@ import { MdEmojiTransportation } from "react-icons/md";
 const Booking = () => {
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
-        // window.scroll(0,0)
+        window.scroll(0,0.1)
     }, [])
     const [openCash, setOpenCash] = useState(false);
     const [openTransfer, setOpenTransfer] = useState(false);
@@ -426,7 +426,7 @@ const Booking = () => {
                             </div>
                         </Col>
                         <Col md="5" lg="5">
-                            <Card className='card-info p-0 shadow-sm bg-white'>
+                            <Card style={{position: 'sticky', top: '100px'}}>
                                 <Card.Header>
                                     <h1 className="font-bold h4 mt-2" style={{textTransform: 'uppercase'}}>
                                         Tóm tắt chuyến đi

@@ -1,11 +1,34 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Breadcrumbs from '../../components/Breadcrumb/Breadcrumbs'
 import { MdOutlineFindInPage } from "react-icons/md";
 import { FaArrowRight } from "react-icons/fa";
 import { MdOutlinePayments } from "react-icons/md";
 import { AiOutlineFileDone } from "react-icons/ai";
 import { Accordion, Col, Container, Row } from 'react-bootstrap';
+import { StoreContext } from "../../components/Context/StoreContext"
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 const BookingDetails = () => {
+    const [bookingDetail, setBookingDetail] = useState([])
+    const { url } = useContext(StoreContext)
+    const { bookingCode } = useParams()
+
+    const bookingByBookingCode = async() => {
+        try {
+            const response = await axios.get(`${url}/booking/bookingDetail/${bookingCode}`)
+            setBookingDetail(response.data.data)
+        } catch (error) {
+            alert(error)
+        }
+    }
+    useEffect(() => {
+        bookingByBookingCode()
+    }, [bookingCode])
+    const calculateAge = (birthDate) => {
+        const birthYear = new Date(birthDate).getFullYear(); 
+        const currentYear = new Date().getFullYear(); 
+        return currentYear - birthYear; 
+    };
     return (
         <>
             <Breadcrumbs pagename="Phiếu xác nhận Booking" /> 
@@ -62,25 +85,30 @@ const BookingDetails = () => {
                                                         <div className="page-booking--body--container__block--row">
                                                             <div className="page-booking--body--container__block--content__item">
                                                                 <span>Họ tên</span>
-                                                                <p>Hoàng Đức Tài</p>
+                                                                <p>{bookingDetail.full_name}</p>
                                                             </div>
                                                             <div className="page-booking--body--container__block--content__item">
                                                                 <span>Email</span>
-                                                                <p>Hoàng Đức Tài</p>
+                                                                <p>{bookingDetail.email}</p>
                                                             </div>
                                                             <div className="page-booking--body--container__block--content__item">
                                                                 <span>Điện thoại</span>
-                                                                <p>*******75</p>
+                                                                <p>{bookingDetail.phone_number}</p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="page-booking--body--container__block--content__item">
                                                         <span>Địa chỉ</span>
-                                                        <p>Nam Định</p>
+                                                        <p>{bookingDetail.address}</p>
                                                     </div>
                                                     <div className="page-booking--body--container__block--content__item user-note">
                                                         <span>Ghi chú</span>
-                                                        <p>(Booking từ dulichviet.com)</p>
+                                                        {bookingDetail.booking_note ? (
+                                                            <p>{bookingDetail.booking_note}</p>
+                                                        ): (
+                                                            <p>(Booking từ dulichviet.com)</p>
+                                                        )}
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -92,16 +120,16 @@ const BookingDetails = () => {
                                                         <div className="booking--container__block--content__bookingDetail--item">
                                                             <label>Số booking: </label>
                                                             <p className='booking--container__block--content__bookingDetail--item__note'>
-                                                                <span>24092179LYCQ</span>
+                                                                <span>{bookingDetail.booking_code}</span>
                                                             </p>
                                                         </div>
                                                         <div className="booking--container__block--content__bookingDetail--item">
                                                             <label>Ngày tạo: </label>
-                                                            <p>21/09/2024 14:36</p>
+                                                            <p>{bookingDetail.booking_date}</p>
                                                         </div>
                                                         <div className="booking--container__block--content__bookingDetail--item">
                                                             <label>Trị giá booking: </label>
-                                                            <p>499,000 đ</p>
+                                                            <p>{bookingDetail?.total_price ? bookingDetail.total_price.toLocaleString('vi-VN') : 'Chưa có dữ liệu'} vnđ</p>
                                                         </div>
                                                         <div className="booking--container__block--content__bookingDetail--item">
                                                             <label>Hình thức thanh toán: </label>
@@ -147,16 +175,28 @@ const BookingDetails = () => {
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <td>Hoàng Đức Tài</td>
-                                                                            <td>13/10/2003</td>
-                                                                            <td>Nam</td>
-                                                                            <td>Người lớn (20 tuổi)</td>
-                                                                        </tr>
+                                                                        {bookingDetail.bookingPassenger?.map((passenger, index) => (
+                                                                            <tr key={index}>
+                                                                                <td>{passenger.passenger_name}</td>
+                                                                                <td>{new Date(passenger.passenger_dateOfBirthday).toLocaleDateString('vi-VN')}</td>
+
+                                                                                <td>{passenger.passenger_gender}</td>
+                                                                                {calculateAge(passenger.passenger_dateOfBirthday) >= 12 ? (
+                                                                                    <td>Người lớn ({calculateAge(passenger.passenger_dateOfBirthday)} tuổi)</td>
+                                                                                ) : calculateAge(passenger.passenger_dateOfBirthday) >= 5 && calculateAge(passenger.passenger_dateOfBirthday) <= 8 ? (
+                                                                                    <td>Trẻ em ({calculateAge(passenger.passenger_dateOfBirthday)} tuổi)</td>
+                                                                                ) : calculateAge(passenger.passenger_dateOfBirthday) >= 2 && calculateAge(passenger.passenger_dateOfBirthday) <= 4 ? (
+                                                                                    <td>Trẻ nhỏ ({calculateAge(passenger.passenger_dateOfBirthday)} tuổi)</td>
+                                                                                ) : (
+                                                                                    <td>Em bé ({calculateAge(passenger.passenger_dateOfBirthday)} tuổi)</td>
+                                                                                )}
+                                                                            </tr>
+                                                                        ))}
+                                                                        
                                                                     </tbody>
                                                                 </table>
                                                                 <p className="paxList--mobile--item--total">
-                                                                    Tổng cộng: <span>499,000 đ</span>
+                                                                    Tổng cộng: <span>{bookingDetail?.total_price ? bookingDetail.total_price.toLocaleString('vi-VN') : 'Chưa có dữ liệu'} vnđ</span>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -176,13 +216,13 @@ const BookingDetails = () => {
                                                         <div className='page-booking--body--container__block--divider'></div>
                                                         <div className="page-booking--body--container__block--content__bookingConfirm">
                                                             <div className="page-booking--body--container__block--content__bookingConfirm--title">
-                                                                <img alt='' src='http://localhost:4000/images/tours/1726052473512-laocai.jpg'></img>
+                                                                <img alt='' src={bookingDetail.bookingTourChild?.tour.tourImage[0].image_url}></img>
                                                                 <a href='1'>
-                                                                    <h6>Miền Tây: Bến Tre - Nông Trại Hải Vân - Rừng Nguyên Sinh Vàm Hồ</h6>
+                                                                    <h6>{bookingDetail.bookingTourChild?.tour.name}</h6>
                                                                 </a>
                                                             </div>
                                                             <div className="page-booking--body--container__block--content__bookingConfirm--code">
-                                                                <p>Số booking: <span>24092179LYCQ</span></p>
+                                                                <p>Số booking: <span>{bookingDetail.booking_code}</span></p>
                                                             </div>
                                                         </div>
                                                         <div className="collapse--content__divider"></div>
@@ -194,7 +234,7 @@ const BookingDetails = () => {
                                                                     </div>
                                                                     <label>Mã tour: </label>
                                                                 </div>
-                                                                <p>NDCTH861-011-220924XE-H</p>
+                                                                <p>{bookingDetail.bookingTourChild?.tour_code}</p>
                                                             </div>
                                                         </div>  
                                                     </div>

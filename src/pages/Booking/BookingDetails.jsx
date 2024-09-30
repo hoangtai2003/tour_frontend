@@ -160,7 +160,7 @@ const BookingDetails = () => {
                                             </div>
                                             <Accordion className="custom-accordion">
                                                 <Accordion.Item eventKey="0">
-                                                    <Accordion.Header>Danh sách hành khách</Accordion.Header>
+                                                    <Accordion.Header className='title'>Danh sách hành khách</Accordion.Header>
                                                     <Accordion.Body>
                                                         <div className="collapse--content__divider"></div>
                                                         <div className="collapse--content__body">

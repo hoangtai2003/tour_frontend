@@ -84,8 +84,9 @@ const TourDetails = () => {
             };
         });
     }
-
-    const events = availableDates.map(({ date, price }) => ({
+    const today = new Date();
+    const filteredDates = availableDates.filter(({date}) => date > today)
+    const events = filteredDates.map(({ date, price }) => ({
         start: date,
         end: date,
         title: `${price.toLocaleString('vi-VN')}đ`,

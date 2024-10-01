@@ -3,7 +3,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./search.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
-// import
 import CustomDropdown from "../CustomDropDown/CustomDropDown";
 import { StoreContext } from "../Context/StoreContext"
 import axios from "axios";

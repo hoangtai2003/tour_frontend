@@ -191,7 +191,7 @@ const Tours = () => {
                             {tours.map((tour, index) => (
                                 <div className="card-filter-desktop" key={index}>
                                     <div className="card-filter-desktop__thumbnail">
-                                        <img src={tour.tourImage[0]?.image_url} alt="" />
+                                        <img src={tour.tourImage[0]?.image_url} alt={tour.name} />
                                     </div>
                                     <div className="card-filter-desktop__content">
                                         <div className="card-filter-desktop__content--info">

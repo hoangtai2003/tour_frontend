@@ -18,6 +18,8 @@ import { SlLocationPin } from "react-icons/sl";
 import { LuCalendarDays } from "react-icons/lu";
 import { FcAlarmClock } from "react-icons/fc";
 import Reviews from './Reviews'
+import { MdAirlineSeatReclineNormal } from "react-icons/md";
+
 const localizer = momentLocalizer(moment);
 moment.locale('vi');
 const TourDetails = () => {
@@ -285,7 +287,7 @@ const TourDetails = () => {
                                                                     <h6><SlLocationPin className='icon' style={{marginRight: "5px"}}/>Khởi hành: <span className='font-bold'>{tourDetails.departure_city}</span></h6>
                                                                     <h6><LuCalendarDays className='icon' style={{marginRight: "5px"}}/>Ngày khởi hành: <span className='font-bold'>{moment(selectedTourChild.start_date).format('DD-MM-YYYY')}</span></h6>
                                                                     <h6><FcAlarmClock className='icon' style={{marginRight: "5px"}}/>Thời gian: <span className='font-bold'>{tourDetails.duration}</span></h6>
-                                                                    <h6><LuCalendarDays className='icon' style={{marginRight: "5px"}}/>Số chỗ còn: <span className='font-bold'>{selectedTourChild.total_seats - selectedTourChild.confirmedBookingCount}</span></h6>
+                                                                    <h6><MdAirlineSeatReclineNormal   className='icon' style={{marginRight: "5px"}}/>Số chỗ còn: <span className='font-bold'>{selectedTourChild.total_seats - selectedTourChild.confirmedBookingCount}</span></h6>
                                                                 </div>
                                                             ) : (
                                                                 <div className="price-container">
@@ -297,7 +299,7 @@ const TourDetails = () => {
                                                                     <h6><SlLocationPin className='icon' style={{marginRight: "5px"}}/>Khởi hành: <span className='font-bold'>{tourDetails.departure_city}</span></h6>
                                                                     <h6><LuCalendarDays className='icon' style={{marginRight: "5px"}}/>Ngày khởi hành: <span className='font-bold'>{moment(selectedTourChild.start_date).format('DD-MM-YYYY')}</span></h6>
                                                                     <h6><FcAlarmClock className='icon' style={{marginRight: "5px"}}/>Thời gian: <span className='font-bold'>{tourDetails.duration}</span></h6>
-                                                                    <h6><LuCalendarDays className='icon' style={{marginRight: "5px"}}/>Số chỗ còn: <span className='font-bold'>{selectedTourChild.total_seats - selectedTourChild.confirmedBookingCount}</span></h6>
+                                                                    <h6><MdAirlineSeatReclineNormal   className='icon' style={{marginRight: "5px"}}/>Số chỗ còn: <span className='font-bold'>{selectedTourChild.total_seats - selectedTourChild.confirmedBookingCount}</span></h6>
                                                                 </div>
                                                             )}
                                                         </Stack>

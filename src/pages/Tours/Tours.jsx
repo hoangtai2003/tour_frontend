@@ -27,6 +27,7 @@ const Tours = () => {
     const [selectedStartLocation, setSelectedStartLocation] = useState(null);
     const [selectedEndLocation, setSelectedEndLocation] = useState(null);
     const [selectedSort, setSelectedSort] = useState(null);
+    const [activeFilter, setActiveFilter] = useState(null)
     const { url } = useContext(StoreContext)
 
     useEffect(() => {
@@ -67,15 +68,41 @@ const Tours = () => {
         setSelectedSort(selectedOption);
     };
     const sort = [
-        {value: 'Tất cả', label: 'Tất cả'},
-        {value: 'Giá từ cao đến thấp', label: 'Giá từ cao đến thấp'},
-        {value: 'Giá từ thấp đến cao', label: 'Giá từ thấp đến cao'},
-        {value: 'Ngày khởi hành gần nhất', label: 'Ngày khởi hành gần nhất'},
+        {value: 'tatca', label: 'Tất cả'},
+        {value: 'giatucaodenthap', label: 'Giá từ cao đến thấp'},
+        {value: 'giatuthapdencao', label: 'Giá từ thấp đến cao'},
+        {value: 'ngaykhoihanhgannhat', label: 'Ngày khởi hành gần nhất'},
     ]
     const onPageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPage){
             setCurrentPage(newPage)
         }
+    }
+    const fetchFilteredTours = async (price) => {
+        try {
+            const response = await axios.get(`${url}/tours/price/filter-price`, {
+                params: { price }
+            });
+            
+            setTour(response.data.data);
+        } catch (error) {
+            console.error("Lỗi khi lọc tour theo giá:", error);
+        }
+    };
+
+    const fetchFilteredToursSort = async(sortPrice) => {
+        try {
+            const response = await axios.get(`${url}/tours/price/filter-sortPrice`, {
+                params: { sortPrice }
+            });
+            setTour(response.data.data)
+        } catch (error) {
+            console.error("Lỗi khi lọc tour:", error);
+        }
+    }
+    const handleFilterClick = (price) =>{
+        fetchFilteredTours(price)
+        setActiveFilter(price)
     }
     return (
         <>
@@ -92,16 +119,16 @@ const Tours = () => {
                                     </div>
                                 </div>
                                 <div className="budget-content__list budget-filter-list">
-                                    <div className="budget-content__list--item budget-filter-list--item">
+                                    <div className={`budget-content__list--item budget-filter-list--item ${activeFilter === 'under5' ? 'active' : ''}`} onClick={(() => handleFilterClick('under5'))}>
                                         Dưới 5 triệu
                                     </div>
-                                    <div className="budget-content__list--item budget-filter-list--item">
+                                    <div className={`budget-content__list--item budget-filter-list--item ${activeFilter === '5-10' ? 'active' : ''}`} onClick={(() => handleFilterClick('5-10'))}>
                                         Từ 5 - 10 triệu
                                     </div>
-                                    <div className="budget-content__list--item budget-filter-list--item">
+                                    <div className={`budget-content__list--item budget-filter-list--item ${activeFilter === '10-20' ? 'active' : ''}`} onClick={(() => handleFilterClick('10-20'))}>
                                        Từ 10 - 20 triệu
                                     </div>
-                                    <div className="budget-content__list--item budget-filter-list--item">
+                                    <div className={`budget-content__list--item budget-filter-list--item ${activeFilter === 'bigger20' ? 'active' : ''}`} onClick={(() => handleFilterClick('bigger20'))}>
                                         Trên 20 triệu
                                     </div>
                                 </div>
@@ -178,12 +205,16 @@ const Tours = () => {
                                 <span className="right-sort--label">Sắp xếp theo: </span>
                                 <div className="right-sort--select">
                                     <Select
-                                        options={sort} 
-                                        value={selectedSort} 
-                                        onChange={handleSortChange} 
-                                        isClearable 
+                                        options={sort}
+                                        value={selectedSort}
+                                        onChange={(selectedOption) => {
+                                            handleSortChange(selectedOption); 
+                                            fetchFilteredToursSort(selectedOption.value);
+                                        }}
+                                        isClearable
                                         classNamePrefix="react-select"
                                     />
+
                                 </div>
                             </div>
                         </div>
@@ -191,7 +222,7 @@ const Tours = () => {
                             {tours.map((tour, index) => (
                                 <div className="card-filter-desktop" key={index}>
                                     <div className="card-filter-desktop__thumbnail">
-                                        <img src={tour.tourImage[0]?.image_url} alt={tour.name} />
+                                        <img src={tour.tourImage[0]?.image_url} alt={tour?.name} />
                                     </div>
                                     <div className="card-filter-desktop__content">
                                         <div className="card-filter-desktop__content--info">

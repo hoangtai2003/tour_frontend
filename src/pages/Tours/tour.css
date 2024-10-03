@@ -824,7 +824,17 @@
     background-color: #09508f;
     border: 1px solid #09508f;
 }
-
+.budget-filter-list--item:hover {
+    cursor: pointer;
+    color: #0b5da7;
+    background: #daefff;
+    border: 1px solid #0b5da7;
+}
+.budget-content__list--item.active {
+    background-color: #0b5da7;
+    border: 1px solid #0b5da7;
+    color: #fff;
+}
 
 /* pagination */
 .pagination {

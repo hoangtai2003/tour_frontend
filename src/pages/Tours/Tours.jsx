@@ -28,6 +28,7 @@ const Tours = () => {
     const [selectedEndLocation, setSelectedEndLocation] = useState(null);
     const [selectedSort, setSelectedSort] = useState(null);
     const [activeFilter, setActiveFilter] = useState(null)
+    const [countTour, setCountTour] = useState(0)
     const { url } = useContext(StoreContext)
 
     useEffect(() => {
@@ -37,6 +38,7 @@ const Tours = () => {
         const response  = await axios.get(`${url}/tours?page=${currentPage}`)
         setTour(response.data.data)
         setTotalPage(response.data.totalPages)
+        setCountTour(response.data.count)
     }
     const fetchLocation = async () => {
         try {
@@ -85,6 +87,7 @@ const Tours = () => {
             });
             
             setTour(response.data.data);
+            setCountTour(response.data.count)
         } catch (error) {
             console.error("Lỗi khi lọc tour theo giá:", error);
         }
@@ -96,6 +99,8 @@ const Tours = () => {
                 params: { sortPrice }
             });
             setTour(response.data.data)
+            setCountTour(response.data.count)
+           
         } catch (error) {
             console.error("Lỗi khi lọc tour:", error);
         }
@@ -104,6 +109,10 @@ const Tours = () => {
         fetchFilteredTours(price)
         setActiveFilter(price)
     }
+    const handleClearFilter = () => {
+        setActiveFilter(null); 
+        fetchTour()
+    };
     return (
         <>
             <Breadcrumbs pagename="Tours" />
@@ -117,6 +126,10 @@ const Tours = () => {
                                     <div className="find-tour-content__filter--main-filter--label">
                                         Ngân sách:
                                     </div>
+                                    {activeFilter ? (
+                                        <span className="pointer" onClick={handleClearFilter}>Xóa</span>
+                                    ) : null}
+
                                 </div>
                                 <div className="budget-content__list budget-filter-list">
                                     <div className={`budget-content__list--item budget-filter-list--item ${activeFilter === 'under5' ? 'active' : ''}`} onClick={(() => handleFilterClick('under5'))}>
@@ -200,7 +213,11 @@ const Tours = () => {
                     </div> 
                     <div className="find-tour-content__list">
                         <div className="find-tour-content__list--header-result">
-                            <div className="left-filter"></div>
+
+                            <div className="left-filter">
+                                <p>Chúng tôi tìm thấy <span>{countTour}</span> chương trình tour cho quý khách</p>
+                            </div>
+                         
                             <div className="right-sort">
                                 <span className="right-sort--label">Sắp xếp theo: </span>
                                 <div className="right-sort--select">

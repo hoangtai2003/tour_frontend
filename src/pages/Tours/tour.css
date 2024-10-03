@@ -574,6 +574,28 @@
     gap: 1rem;
     width: 45%;
 }
+.find-tour-content__list--header-result .left-filter {
+    color: #171717;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.find-tour-content__list--header-result .left-filter p {
+    margin: 0;
+    color: #171717;
+    margin: 20px;
+}
+.find-tour-content__list--header-result .left-filter p span {
+    font-size: 20px;
+    font-weight: 650;
+    color: #0b5da7;
+}
+.find-tour-content__filter--main-filter--title span {
+    font-size: 14px;
+    font-weight: 550;
+    color: #0b5da7;
+}
 .card-filter-desktop__content-header-title {
     font-size: 19px;
     line-height: 1.7rem;

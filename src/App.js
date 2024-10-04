@@ -43,7 +43,7 @@ const App = () =>  {
                 <Route path='account-list' element={<AccountList />} />
                 <Route path='account-review' element={<AccountReview />} />
             </Route>
-            <Route path='/test' element={<Test />} />
+            <Route path='/vnpay-payment/:bookingCode' element={<Test />} />
         </Routes>
         <Footer />
     </>

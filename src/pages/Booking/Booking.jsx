@@ -25,8 +25,7 @@ const Booking = () => {
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
     }, [])
-    const [openCash, setOpenCash] = useState(false);
-    const [openTransfer, setOpenTransfer] = useState(false);
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(''); 
     const { url, token, user} = useContext(StoreContext)
     const { tour_code } = useParams()
     const [tourDetails, setTourDetails] = useState(null); 
@@ -122,43 +121,50 @@ const Booking = () => {
             };
         });
     };
-    
+
+    const handlePaymentMethodChange = (method) => {
+        if (selectedPaymentMethod === method) {
+            setSelectedPaymentMethod(''); 
+        } else {
+            setSelectedPaymentMethod(method); 
+        }
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!selectedPaymentMethod) {
+            alert("Vui lòng chọn phương thức thanh toán.");
+            return;
+        }
         const formData = new FormData();
-        formData.append('tour_child_id', tourDetails.id);
-        formData.append('user_id', user.id);
+        formData.append('tour_child_id', tourDetails.id)
+        formData.append('user_id', user.id)
         formData.append('full_name', booking.full_name || user.username);
         formData.append('email', booking.email || user.email);
         formData.append('address', booking.address || user.address);
         formData.append('phone_number', booking.phone_number || user.phone);
-        formData.append('booking_note', booking.booking_note);
-        formData.append('number_of_adults', passengerCount.adults);
-        formData.append('number_of_children', passengerCount.children);
-        formData.append('number_of_toddler', passengerCount.toddlers);
-        formData.append('number_of_baby', passengerCount.babies);
-        formData.append('total_price', totalPrice);
+        formData.append('booking_note', booking.booking_note)
+        formData.append('number_of_adults', passengerCount.adults)
+        formData.append('number_of_children', passengerCount.children)
+        formData.append('number_of_toddler', passengerCount.toddlers)
+        formData.append('number_of_baby', passengerCount.babies)
+        formData.append('total_price', totalPrice)
         formData.append('booking_passenger', JSON.stringify(booking.booking_passenger));
-    
-        // Thêm thông tin phương thức thanh toán
-        const paymentMethod = openCash ? 'cash' : openTransfer ? 'transfer' : 'vnpay';
-        formData.append('payment_method', paymentMethod);
-    
+        formData.append('payment_method', selectedPaymentMethod);
+
         try {
             const response = await axios.post(`${url}/booking`, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data' // Đảm bảo Content-Type phù hợp với FormData
+                   'Content-Type': 'application/json'
                 }
             });
             if (response.data.success) {
-                const bookingCode = response.data.data.booking_code;
-    
-                // Chuyển hướng đến trang thanh toán nếu phương thức thanh toán là VNPAY
-                if (paymentMethod === 'vnpay') {
-                    navigate(`/payment-booking/${bookingCode}`);
+               
+                if (selectedPaymentMethod === "vnpay") {
+                    const vnpayUrl = response.data.url;  
+                    window.location.href = vnpayUrl;    
                 } else {
-                    // Xử lý thông báo đặt tour thành công cho các phương thức khác
-                    alert('Đặt tour thành công!');
+                    const bookingCode = response.data.data.booking_code;
+                    navigate(`/payment-booking/${bookingCode}`);
                 }
             }
         } catch (error) {
@@ -382,45 +388,49 @@ const Booking = () => {
                                                     type="checkbox"
                                                     id="cash-checkbox"
                                                     label="Tiền mặt"
-                                                    onChange={() => setOpenCash(!openCash)}
+                                                    checked={selectedPaymentMethod === 'cash'}
+                                                    onChange={() => handlePaymentMethodChange('cash')}
                                                     aria-controls="cash-info"
-                                                    aria-expanded={openCash}
-                                                /><BsCash className='cash-icon'/>
-                                                <Collapse in={openCash}>
+                                                    aria-expanded={selectedPaymentMethod === 'cash'}
+                                                   
+                                                />
+                                                <BsCash className='cash-icon' />
+                                                <Collapse in={selectedPaymentMethod === 'cash'}>
                                                     <div id="cash-info" className="mt-3">
-                                                        <p>Quý khách vui lòng thanh toán tại bất kỳ văn phòng Vietravel trên toàn quốc và các chi nhánh tại nước ngoài.</p>
+                                                        <p>Quý khách vui lòng thanh toán tại bất kỳ văn phòng dulichviet trên toàn quốc và các chi nhánh tại nước ngoài.</p>
                                                     </div>
                                                 </Collapse>
                                             </div>
-
                                             <div className="p-3 border rounded mt-3 booking-check">
                                                 <Form.Check
                                                     type="checkbox"
                                                     id="transfer-checkbox"
                                                     label="Chuyển khoản"
-                                                    onChange={() => setOpenTransfer(!openTransfer)}
+                                                    checked={selectedPaymentMethod === 'transfer'}
+                                                    onChange={() => handlePaymentMethodChange('transfer')}
                                                     aria-controls="transfer-info"
-                                                    aria-expanded={openTransfer}
-                                                /><CiBank className='transfer-icon'/>
-                                                <Collapse in={openTransfer}>
+                                                    aria-expanded={selectedPaymentMethod === 'transfer'}
+                                                />
+                                                <CiBank className='transfer-icon' />
+                                                <Collapse in={selectedPaymentMethod === 'transfer'}>
                                                     <div id="transfer-info" className="mt-3">
-                                                        <p>Quý khách sau khi thực hiện việc chuyển khoản vui lòng gửi email đến tructuyen@vietravel.com hoặc gọi tổng đài 19001839 để được xác nhận từ công ty chúng tôi.</p>
-                                                        <p>Tên Tài Khoản : Công ty CP Du lịch và Tiếp thị GTVT Việt Nam - Vietravel</p>
-                                                        <p>Số Tài khoản : 19026166594669</p>
-                                                        <p>Ngân hàng : Techcombank - Chi nhánh Tp.HCM</p>
-                                                        <p>Số Tài khoản : 1116 9772 7979</p>
-                                                        <p>Ngân hàng : Vietinbank - Chi nhánh 7</p>
+                                                        <p>Quý khách sau khi thực hiện việc chuyển khoản vui lòng gửi email đến dulichviet@gmail.com hoặc gọi tổng đài 19001839 để được xác nhận từ công ty chúng tôi.</p>
+                                                        <p>Tên Tài Khoản: HOANG DUC TAI</p>
+                                                        <p>Số Tài khoản: 08140034699999</p>
+                                                        <p>Ngân hàng quân đội MB</p>
                                                     </div>
                                                 </Collapse>
                                             </div>
                                             <div className="p-3 border rounded mt-3 booking-check">
-                                                <Form.Check 
+                                                <Form.Check
                                                     type="checkbox"
                                                     id="vnpay-checkbox"
                                                     label="Thanh toán VNPAY"
-                                                    onChange={() => { setOpenCash(false); setOpenTransfer(false); }}
+                                                    checked={selectedPaymentMethod === 'vnpay'}
+                                                    onChange={() => handlePaymentMethodChange('vnpay')}
                                                     aria-controls="vnpay-info"
-                                                /><IoQrCode className='vnpay-icon'/>
+                                                />
+                                                <IoQrCode className='vnpay-icon' />
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mt-4 mb-4" md="6">

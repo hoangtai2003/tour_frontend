@@ -126,29 +126,40 @@ const Booking = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('tour_child_id', tourDetails.id)
-        formData.append('user_id', user.id)
+        formData.append('tour_child_id', tourDetails.id);
+        formData.append('user_id', user.id);
         formData.append('full_name', booking.full_name || user.username);
         formData.append('email', booking.email || user.email);
         formData.append('address', booking.address || user.address);
         formData.append('phone_number', booking.phone_number || user.phone);
-        formData.append('booking_note', booking.booking_note)
-        formData.append('number_of_adults', passengerCount.adults)
-        formData.append('number_of_children', passengerCount.children)
-        formData.append('number_of_toddler', passengerCount.toddlers)
-        formData.append('number_of_baby', passengerCount.babies)
-        formData.append('total_price', totalPrice)
+        formData.append('booking_note', booking.booking_note);
+        formData.append('number_of_adults', passengerCount.adults);
+        formData.append('number_of_children', passengerCount.children);
+        formData.append('number_of_toddler', passengerCount.toddlers);
+        formData.append('number_of_baby', passengerCount.babies);
+        formData.append('total_price', totalPrice);
         formData.append('booking_passenger', JSON.stringify(booking.booking_passenger));
+    
+        // Thêm thông tin phương thức thanh toán
+        const paymentMethod = openCash ? 'cash' : openTransfer ? 'transfer' : 'vnpay';
+        formData.append('payment_method', paymentMethod);
+    
         try {
             const response = await axios.post(`${url}/booking`, formData, {
                 headers: {
-                   'Content-Type': 'application/json'
+                    'Content-Type': 'multipart/form-data' // Đảm bảo Content-Type phù hợp với FormData
                 }
             });
             if (response.data.success) {
-                const bookingCode = response.data.data.booking_code
-               
-                navigate(`/payment-booking/${bookingCode}`);
+                const bookingCode = response.data.data.booking_code;
+    
+                // Chuyển hướng đến trang thanh toán nếu phương thức thanh toán là VNPAY
+                if (paymentMethod === 'vnpay') {
+                    navigate(`/payment-booking/${bookingCode}`);
+                } else {
+                    // Xử lý thông báo đặt tour thành công cho các phương thức khác
+                    alert('Đặt tour thành công!');
+                }
             }
         } catch (error) {
             alert(error.response?.data?.message || error.message);
@@ -209,7 +220,6 @@ const Booking = () => {
                                                 <Form.Group as={Col} md="6">
                                                     <Form.Label>Họ và tên <span>*</span></Form.Label>
                                                     <Form.Control
-                                                        required
                                                         type="text"
                                                         placeholder="Nhập họ tên"
                                                         className="mb-2"
@@ -236,7 +246,6 @@ const Booking = () => {
                                                 <Form.Group as={Col} md="6">
                                                     <Form.Label>Họ và tên <span>*</span></Form.Label>
                                                     <Form.Control
-                                                        required
                                                         type="text"
                                                         placeholder="Nhập họ tên"
                                                         className="mb-2"
@@ -409,6 +418,7 @@ const Booking = () => {
                                                     type="checkbox"
                                                     id="vnpay-checkbox"
                                                     label="Thanh toán VNPAY"
+                                                    onChange={() => { setOpenCash(false); setOpenTransfer(false); }}
                                                     aria-controls="vnpay-info"
                                                 /><IoQrCode className='vnpay-icon'/>
                                             </div>

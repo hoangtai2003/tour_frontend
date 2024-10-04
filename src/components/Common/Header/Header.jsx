@@ -118,7 +118,7 @@ const Header = () => {
                                     <NavLink className="nav-link" to="/news" onClick={closeMenu}>
                                         Tin tức
                                     </NavLink>
-                                    <NavLink className="nav-link" to="/hotel" onClick={closeMenu}>
+                                    <NavLink className="nav-link" to="/test" onClick={closeMenu}>
                                     Khách sạn
                                     </NavLink>
                                     <NavLink className="nav-link" to="/contact-us" onClick={closeMenu}>

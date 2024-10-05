@@ -12,7 +12,7 @@ const BookingDetails = () => {
     const [bookingDetail, setBookingDetail] = useState([])
     const { url } = useContext(StoreContext)
     const { bookingCode } = useParams()
-
+    const [paid, setPaid] = useState(0)
     const bookingByBookingCode = async() => {
         try {
             const response = await axios.get(`${url}/booking/bookingDetail/${bookingCode}`)
@@ -29,6 +29,26 @@ const BookingDetails = () => {
         const currentYear = new Date().getFullYear(); 
         return currentYear - birthYear; 
     };
+    const dateFromDb  = bookingDetail.booking_date
+    // Thời gian tạo booking
+    const localDate = new Date(dateFromDb);  
+    const year = localDate.getFullYear();
+    const month = String(localDate.getMonth() + 1).padStart(2, '0'); 
+    const day = String(localDate.getDate()).padStart(2, '0');
+    const hours = String(localDate.getHours()).padStart(2, '0');  
+    const minutes = String(localDate.getMinutes()).padStart(2, '0');
+
+    const formattedDate = `${year}-${month}-${day} ${hours }:${minutes}`;
+
+    // Thời gian cho phép thanh toán
+    const localHour = new Date(dateFromDb);  
+    localHour.setHours(localHour.getHours() + 1);
+    const yearHour = localHour.getFullYear();
+    const montHour = String(localHour.getMonth() + 1).padStart(2, '0'); 
+    const dayHour = String(localHour.getDate()).padStart(2, '0');
+    const hoursHour = String(localHour.getHours()).padStart(2, '0');  
+    const minutesHour = String(localHour.getMinutes()).padStart(2, '0');
+    const formattedHour = `${yearHour}-${montHour}-${dayHour} ${hoursHour }:${minutesHour}`;
     return (
         <>
             <Breadcrumbs pagename="Phiếu xác nhận Booking" /> 
@@ -125,7 +145,7 @@ const BookingDetails = () => {
                                                         </div>
                                                         <div className="booking--container__block--content__bookingDetail--item">
                                                             <label>Ngày tạo: </label>
-                                                            <p>{bookingDetail.booking_date}</p>
+                                                            <p>{formattedDate}</p>
                                                         </div>
                                                         <div className="booking--container__block--content__bookingDetail--item">
                                                             <label>Trị giá booking: </label>
@@ -134,25 +154,60 @@ const BookingDetails = () => {
                                                         <div className="booking--container__block--content__bookingDetail--item">
                                                             <label>Hình thức thanh toán: </label>
                                                             <div className="booking--container__block--content__bookingDetail--item__button">
-                                                                <p>Thanh toán bằng quét QRCode - Thẻ tín dụng (VISA/MASTER/JCB) Thẻ ATM - Dịch vụ của VNPay</p>
+                                                                {bookingDetail.payment_method === "vnpay" ? (
+                                                                    <p>Thanh toán bằng quét QRCode - Thẻ tín dụng (VISA/MASTER/JCB) Thẻ ATM - Dịch vụ của VNPay</p>
+                                                                ) : bookingDetail.payment_method === "transfer" ? (
+                                                                    <p>Chuyển khoản</p>
+                                                                ) : (
+                                                                    <p>Trực tiếp</p>
+                                                                )
+                                                                }
+                                                               
                                                             </div>
                                                         </div>
-                                                        <div className="booking--container__block--content__bookingDetail--item">
-                                                            <label>Số tiền đã thanh toán: </label>
-                                                            <p>0 đ</p>
-                                                        </div>
-                                                        <div className="booking--container__block--content__bookingDetail--item">
-                                                            <label>Số tiền còn lại: </label>
-                                                            <p>499,000 đ</p>
-                                                        </div>
+                                                        {bookingDetail.status === "Đã thanh toán" ? (
+                                                            <>
+                                                                <div className="booking--container__block--content__bookingDetail--item">
+                                                                    <label>Số tiền đã thanh toán: </label>
+                                                                    <p>{bookingDetail?.total_price ? bookingDetail.total_price.toLocaleString('vi-VN') : ''} vnđ</p>
+                                                                </div>
+                                                                <div className="booking--container__block--content__bookingDetail--item">
+                                                                    <label>Số tiền còn lại: </label>
+                                                                    <p>{paid} vnđ</p>
+                                                                </div>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <div className="booking--container__block--content__bookingDetail--item">
+                                                                    <label>Số tiền đã thanh toán: </label>
+                                                                    <p>{paid} vnđ</p>
+                                                                </div>
+                                                                <div className="booking--container__block--content__bookingDetail--item">
+                                                                    <label>Số tiền còn lại: </label>
+                                                                    <p>{bookingDetail?.total_price ? bookingDetail.total_price.toLocaleString('vi-VN') : ''} vnđ</p>
+                                                                </div>
+                                                            </>
+                                                            
+                                                        )}
+                                                       
+                                                       
                                                         <div className="booking--container__block--content__bookingDetail--item">
                                                             <label>Tình trạng: </label>
-                                                            <p className='false'>Booking đã tự hủy do quá thời hạn thanh toán</p>
+                                                            {bookingDetail.status === "Chờ xác nhận" ? (
+                                                              <p className='false'>Chờ dulichviet xác nhận</p>
+                                                            ) : bookingDetail.status === "Chờ thanh toán" ? (
+                                                                <p className='false'>Đang chờ thanh toán</p>
+                                                            ) : bookingDetail.status === "Đã thanh toán" ? (
+                                                                <p className='false'>Thanh toán thành công</p>
+                                                            ) : bookingDetail.status === "Quá hạn thanh toán" ? (
+                                                                <p className='false'>Booking đã tự hủy do quá hạn thanh toán</p>
+                                                            ) : "" }
+                                                             
                                                         </div>
                                                         <div className="booking--container__block--content__bookingDetail--item">
                                                             <label>Thời hạn thanh toán: </label>
                                                             <p className='booking--container__block--content__bookingDetail--item__note'>
-                                                                <span>21/09/2024 15:36</span> - <small>(Theo giờ Việt Nam. Booking sẽ tự động hủy nếu quá thời hạn thanh toán trên)</small>
+                                                                <span>{formattedHour}</span> - <small>(Theo giờ Việt Nam. Booking sẽ tự động hủy nếu quá thời hạn thanh toán trên)</small>
                                                             </p>
                                                         </div>
                                                     </div>

@@ -19,7 +19,6 @@ import AccountPassword from './pages/Account/AccountPassword';
 import AccountList from './pages/Account/AccountList';
 import AccountReview from './pages/Account/AccountReview';
 import BookingDetails from './pages/Booking/BookingDetails';
-import Test from './pages/Booking/Test';
 const App = () =>  {
   return (
     <>
@@ -43,7 +42,6 @@ const App = () =>  {
                 <Route path='account-list' element={<AccountList />} />
                 <Route path='account-review' element={<AccountReview />} />
             </Route>
-            <Route path='/vnpay-payment/:bookingCode' element={<Test />} />
         </Routes>
         <Footer />
     </>

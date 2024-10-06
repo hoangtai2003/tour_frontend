@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react'
 import Breadcrumbs from '../../components/Breadcrumb/Breadcrumbs'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import vi from 'date-fns/locale/vi'
 import './tour.css'
 import axios from 'axios'
 import Select from 'react-select'
@@ -13,13 +12,13 @@ import { FcAlarmClock } from "react-icons/fc";
 import { BiBus } from "react-icons/bi";
 import { FaRegCalendarAlt } from "react-icons/fa"
 import DepartureDateSelector from './DepartureDateSelector'
-import { TbPlaneInflight } from "react-icons/tb";
+import { GiCommercialAirplane } from "react-icons/gi";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { NavLink } from 'react-router-dom'
+import notTour from '../../assets/images/tour/notour.png'
 const Tours = () => {
     const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0)
     const [tours, setTour] = useState([])
@@ -27,7 +26,8 @@ const Tours = () => {
     const [selectedStartLocation, setSelectedStartLocation] = useState(null);
     const [selectedEndLocation, setSelectedEndLocation] = useState(null);
     const [selectedSort, setSelectedSort] = useState(null);
-    const [activeFilter, setActiveFilter] = useState(null)
+    const [activeFilter, setActiveFilter] = useState(null);
+    const [activeTransportation, setActiveTransportation] = useState(null)
     const [countTour, setCountTour] = useState(0)
     const { url } = useContext(StoreContext)
 
@@ -92,7 +92,17 @@ const Tours = () => {
             console.error("Lỗi khi lọc tour theo giá:", error);
         }
     };
-
+    const fetchFilterAll = async (price, departure_city, name, start_date, transportation) => {
+        try {
+            const response = await axios.get(`${url}/tours/search/filter-tour`, {
+                params: {price, departure_city, name, start_date, transportation}
+            });
+            setTour(response.data.data)
+            setCountTour(response.data.count)
+        } catch (error) {
+            
+        }
+    }
     const fetchFilteredToursSort = async(sortPrice) => {
         try {
             const response = await axios.get(`${url}/tours/price/filter-sortPrice`, {
@@ -111,8 +121,26 @@ const Tours = () => {
     }
     const handleClearFilter = () => {
         setActiveFilter(null); 
+        setActiveTransportation(null)
         fetchTour()
     };
+    const handleClickButton = (transportation) => {
+        setActiveTransportation(transportation)
+    }
+    const handleDateChange = (date) => {
+        const adjustedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+        setStartDate(adjustedDate);
+      };
+    const applyFilters = () => {
+        const price = activeFilter; 
+        const departure_city = selectedStartLocation ? selectedStartLocation.label : null; 
+        const name = selectedEndLocation ? selectedEndLocation.label : null; 
+        const start_date = startDate ? startDate.toISOString().split('T')[0] : null; 
+        const transportation = activeTransportation; 
+        
+        fetchFilterAll(price, departure_city, name, start_date, transportation);
+    };
+    
     return (
         <>
             <Breadcrumbs pagename="Tours" />
@@ -188,12 +216,9 @@ const Tours = () => {
                                 </div>
                                 <div className="input-container">
                                     <DatePicker
-                                        selected={endDate}
-                                        onChange={(date) => setEndDate(date)}
-                                        startDate={startDate}
-                                        endDate={endDate}
-                                        dateFormat="eee, dd 'tháng' MM" 
-                                        locale={vi} 
+                                        selected={startDate}
+                                        onChange={handleDateChange}
+                                        dateFormat="yyyy-MM-dd" 
                                     />
                                 </div>
                             </div>
@@ -202,144 +227,177 @@ const Tours = () => {
                                     <div className="find-tour-content__filter--main-filter--label">
                                         Phương tiện:
                                     </div>
+                                    {activeTransportation ? (
+                                        <span className="pointer" onClick={handleClearFilter}>Xóa</span>
+                                    ) : null}
                                 </div>
                                 <div className="tag-container">
-                                    <button className='tag-container_item undefined'>Xe</button>
-                                    <button className='tag-container_item undefined'>Máy bay</button>
+                                    <button className={`tag-container_item undefined ${activeTransportation === "Xe" ? "active" : '' }`} onClick={() => handleClickButton("Xe")}>Xe</button>
+                                    <button className={`tag-container_item undefined  ${activeTransportation === "Máy bay" ? "active" : '' }`} onClick={() => handleClickButton("Máy bay")}>Máy bay</button>
                                 </div>
                             </div>
-                            <button className='btn btn-primary' style={{width: "100%"}}> Áp dụng</button>
+                            <button className='btn btn-primary' style={{width: "100%"}} onClick={applyFilters}> Áp dụng</button>
                         </div>
                     </div> 
                     <div className="find-tour-content__list">
-                        <div className="find-tour-content__list--header-result">
-
-                            <div className="left-filter">
-                                <p>Chúng tôi tìm thấy <span>{countTour}</span> chương trình tour cho quý khách</p>
-                            </div>
-                         
-                            <div className="right-sort">
-                                <span className="right-sort--label">Sắp xếp theo: </span>
-                                <div className="right-sort--select">
-                                    <Select
-                                        options={sort}
-                                        value={selectedSort}
-                                        onChange={(selectedOption) => {
-                                            handleSortChange(selectedOption); 
-                                            fetchFilteredToursSort(selectedOption.value);
-                                        }}
-                                        isClearable
-                                        classNamePrefix="react-select"
-                                    />
-
-                                </div>
-                            </div>
-                        </div>
-                        <div className="find-tour-content__list--main">
-                            {tours.map((tour, index) => (
-                                <div className="card-filter-desktop" key={index}>
-                                    <div className="card-filter-desktop__thumbnail">
-                                        <img src={tour.tourImage[0]?.image_url} alt={tour?.name} />
+                        {countTour === 0 ? (
+                            <>
+                                <div className="find-tour-content__list--header-result">
+                                    <div className="left-filter">
+                                        <p>Chúng tôi tìm thấy <span>{countTour}</span> chương trình tour cho quý khách</p>
                                     </div>
-                                    <div className="card-filter-desktop__content">
-                                        <div className="card-filter-desktop__content--info">
-                                            <div className="card-filter-desktop__content--info--item flex-col-start">
-                                                <div className="card-filter-desktop__content-header">
-                                                    <div className="card-filter-desktop__content-header-wrapper">
-                                                        <NavLink className="card-filter-desktop__content-header-title line-clamp line-clamp-2">
-                                                            {tour.name}
-                                                        </NavLink>
-                                                    
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="card-filter-desktop__content--info-tour">
-                                                <div className="card-filter-desktop__content--info-tour--row">
-                                                    <div className="card-filter-desktop__content--info-tour--item info-tour-tourCode">
-                                                        <div className="card-filter-desktop__content--info-tour--item-wrapper">
-                                                            <IoPricetagsOutline style={{marginTop: "3px"}}/>
-                                                            <label className='card-filter-desktop__content--info-tour--item-wrapper-title'>Mã chương trình: </label>
-                                                        </div>
-                                                        <p className="card-filter-desktop__content--info-tour--item-wrapper-content">
-                                                           {tour.program_code}
-                                                        </p>
-                                                    </div>
-                                                    <div className="card-filter-desktop__content--info-tour--item info-tour-departure">
-                                                        <div className="card-filter-desktop__content--info-tour--item-wrapper">
-                                                            <GoLocation  style={{marginTop: "3px"}}/>
-                                                            <label className='card-filter-desktop__content--info-tour--item-wrapper-title'>Khởi hành: </label>
-                                                        </div>
-                                                        <p className="card-filter-desktop__content--info-tour--item-wrapper-content">
-                                                            {tour.departure_city}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div className="card-filter-desktop__content--info-tour--row">
-                                                    <div className="card-filter-desktop__content--info-tour--item info-tour-dayStayText info-tour-dayStayText--time">
-                                                        <div className="card-filter-desktop__content--info-tour--item-wrapper">
-                                                            <FcAlarmClock  style={{marginTop: "3px"}}/>
-                                                            <label className='card-filter-desktop__content--info-tour--item-wrapper-title'>Thời gian: </label>
-                                                        </div>
-                                                        <p className="card-filter-desktop__content--info-tour--item-wrapper-content">
-                                                            {tour.duration}
-                                                        </p>
-                                                    </div>
-                                                    <div className="card-filter-desktop__content--info-tour--item info-tour-dayStayText info-tour-dayStayText--time">
-                                                        {tour.tourChildren[0]?.transportion_start === "Máy bay" ? (
-                                                            <>
-                                                                <div className="card-filter-desktop__content--info-tour--item-wrapper">
-                                                                    <TbPlaneInflight style={{marginTop: "3px"}}/>
-                                                                    <label className='card-filter-desktop__content--info-tour--item-wrapper-title'>Phương tiện: </label>
-                                                                </div>
-                                                                <p className="card-filter-desktop__content--info-tour--item-wrapper-content">
-                                                                    {tour.tourChildren[0]?.transportion_start}
-                                                                </p>
-                                                            </>
-                                                        ) : (
-                                                            <>
-                                                                <div className="card-filter-desktop__content--info-tour--item-wrapper">
-                                                                    <BiBus style={{marginTop: "3px"}}/>
-                                                                    <label className='card-filter-desktop__content--info-tour--item-wrapper-title'>Phương tiện: </label>
-                                                                </div>
-                                                                <p className="card-filter-desktop__content--info-tour--item-wrapper-content">
-                                                                    {tour.tourChildren[0]?.transportion_start}
-                                                                </p>
-                                                            </>
-                                                        )}
-                                                    
-                                                    </div>
-                                                </div>
-                                                <div className="card-filter-desktop__content--info--item info-tour-calendar">
-                                                    <div className="card-filter-desktop__content--info-tour--item info-tour-dayStayText info-tour-dayStayText--time">
-                                                        <div className="card-filter-desktop__content--info-tour--item-wrapper">
-                                                            <FaRegCalendarAlt   style={{marginTop: "3px"}}/>
-                                                            <label className='card-filter-desktop__content--info-tour--item-wrapper-title'>Ngày khởi hành: </label>
-                                                        </div>
-                                                        <div className="list-item__container">
-                                                            <DepartureDateSelector tour={tour}/>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="card-filter-desktop__content--price">
-                                            <div className="card-filter-desktop__content--price-wrapper">
-                                                <div className="card-filter-desktop__content--price-oldPrice">
-                                                    <label>Giá từ: </label>
-                                                </div>
-                                                <div className="card-filter-desktop__content--price-newPrice">
-                                                    <p>{(tour.price).toLocaleString("vi-VN")} vnđ</p>
-                                                </div>
-                                            </div>
-                                            <div className="card-filter-desktop__content--price-btn">
-                                                <NavLink className="button btn-md btn-primary">Xem chi tiết</NavLink>
-                                            </div>
+                                    <div className="right-sort">
+                                        <span className="right-sort--label">Sắp xếp theo: </span>
+                                        <div className="right-sort--select">
+                                            <Select
+                                                options={sort}
+                                                value={selectedSort}
+                                                onChange={(selectedOption) => {
+                                                    handleSortChange(selectedOption); 
+                                                    fetchFilteredToursSort(selectedOption.value);
+                                                }}
+                                                isClearable
+                                                classNamePrefix="react-select"
+                                            />
+
                                         </div>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
+                                <div className='filter-noTour'>
+                                    <img src={notTour} alt="" style={{width: "80%",marginLeft: '280px', background: "transparent"}}/>
+                                </div>
+                            </>
+                            
+                        ) : (
+                            <>
+                                <div className="find-tour-content__list--header-result">
+                                    <div className="left-filter">
+                                        <p>Chúng tôi tìm thấy <span>{countTour}</span> chương trình tour cho quý khách</p>
+                                    </div>
+                                    <div className="right-sort">
+                                        <span className="right-sort--label">Sắp xếp theo: </span>
+                                        <div className="right-sort--select">
+                                            <Select
+                                                options={sort}
+                                                value={selectedSort}
+                                                onChange={(selectedOption) => {
+                                                    handleSortChange(selectedOption); 
+                                                    fetchFilteredToursSort(selectedOption.value);
+                                                }}
+                                                isClearable
+                                                classNamePrefix="react-select"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="find-tour-content__list--main">
+                                    {tours.map((tour, index) => (
+                                        <div className="card-filter-desktop" key={index}>
+                                            <div className="card-filter-desktop__thumbnail">
+                                                <img src={tour.tourImage[0]?.image_url} alt={tour?.name} />
+                                            </div>
+                                            <div className="card-filter-desktop__content">
+                                                <div className="card-filter-desktop__content--info">
+                                                    <div className="card-filter-desktop__content--info--item flex-col-start">
+                                                        <div className="card-filter-desktop__content-header">
+                                                            <div className="card-filter-desktop__content-header-wrapper">
+                                                                <NavLink className="card-filter-desktop__content-header-title line-clamp line-clamp-2">
+                                                                    {tour.name}
+                                                                </NavLink>
+                                                            
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="card-filter-desktop__content--info-tour">
+                                                        <div className="card-filter-desktop__content--info-tour--row">
+                                                            <div className="card-filter-desktop__content--info-tour--item info-tour-tourCode">
+                                                                <div className="card-filter-desktop__content--info-tour--item-wrapper">
+                                                                    <IoPricetagsOutline style={{marginTop: "3px"}}/>
+                                                                    <label className='card-filter-desktop__content--info-tour--item-wrapper-title'>Mã chương trình: </label>
+                                                                </div>
+                                                                <p className="card-filter-desktop__content--info-tour--item-wrapper-content">
+                                                                {tour.program_code}
+                                                                </p>
+                                                            </div>
+                                                            <div className="card-filter-desktop__content--info-tour--item info-tour-departure">
+                                                                <div className="card-filter-desktop__content--info-tour--item-wrapper">
+                                                                    <GoLocation  style={{marginTop: "3px"}}/>
+                                                                    <label className='card-filter-desktop__content--info-tour--item-wrapper-title'>Khởi hành: </label>
+                                                                </div>
+                                                                <p className="card-filter-desktop__content--info-tour--item-wrapper-content">
+                                                                    {tour.departure_city}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="card-filter-desktop__content--info-tour--row">
+                                                            <div className="card-filter-desktop__content--info-tour--item info-tour-dayStayText info-tour-dayStayText--time">
+                                                                <div className="card-filter-desktop__content--info-tour--item-wrapper">
+                                                                    <FcAlarmClock  style={{marginTop: "3px"}}/>
+                                                                    <label className='card-filter-desktop__content--info-tour--item-wrapper-title'>Thời gian: </label>
+                                                                </div>
+                                                                <p className="card-filter-desktop__content--info-tour--item-wrapper-content">
+                                                                    {tour.duration}
+                                                                </p>
+                                                            </div>
+                                                            <div className="card-filter-desktop__content--info-tour--item info-tour-dayStayText info-tour-dayStayText--time">
+                                                                {tour.transportation=== "Máy bay" ? (
+                                                                    <>
+                                                                        <div className="card-filter-desktop__content--info-tour--item-wrapper">
+                                                                            <GiCommercialAirplane  style={{marginTop: "3px"}}/>
+                                                                            <label className='card-filter-desktop__content--info-tour--item-wrapper-title'>Phương tiện: </label>
+                                                                        </div>
+                                                                        <p className="card-filter-desktop__content--info-tour--item-wrapper-content">
+                                                                            {tour.transportation}
+                                                                        </p>
+                                                                    </>
+                                                                ) : tour.transportation=== "Xe" ? (
+                                                                    <>
+                                                                        <div className="card-filter-desktop__content--info-tour--item-wrapper">
+                                                                            <BiBus style={{marginTop: "3px"}}/>
+                                                                            <label className='card-filter-desktop__content--info-tour--item-wrapper-title'>Phương tiện: </label>
+                                                                        </div>
+                                                                        <p className="card-filter-desktop__content--info-tour--item-wrapper-content">
+                                                                            {tour.transportation}
+                                                                        </p>
+                                                                    </>
+                                                                ): ""}
+                                                            
+                                                            </div>
+                                                        </div>
+                                                        <div className="card-filter-desktop__content--info--item info-tour-calendar">
+                                                            <div className="card-filter-desktop__content--info-tour--item info-tour-dayStayText info-tour-dayStayText--time">
+                                                                <div className="card-filter-desktop__content--info-tour--item-wrapper">
+                                                                    <FaRegCalendarAlt   style={{marginTop: "3px"}}/>
+                                                                    <label className='card-filter-desktop__content--info-tour--item-wrapper-title'>Ngày khởi hành: </label>
+                                                                </div>
+                                                                <div className="list-item__container">
+                                                                    <DepartureDateSelector tour={tour}/>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="card-filter-desktop__content--price">
+                                                    <div className="card-filter-desktop__content--price-wrapper">
+                                                        <div className="card-filter-desktop__content--price-oldPrice">
+                                                            <label>Giá từ: </label>
+                                                        </div>
+                                                        <div className="card-filter-desktop__content--price-newPrice">
+                                                            <p>{(tour.price).toLocaleString("vi-VN")} vnđ</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="card-filter-desktop__content--price-btn">
+                                                        <NavLink className="button btn-md btn-primary">Xem chi tiết</NavLink>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </>
+                        )}
+
                         <div className='pagination'>
                             <button onClick={()=> onPageChange(currentPage - 1)} disabled={currentPage === 1}><FaArrowLeft /></button>
                             <span>{currentPage}</span>

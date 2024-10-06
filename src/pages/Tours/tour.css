@@ -533,6 +533,7 @@
     border: 1px solid #e5e5e5;
     border-radius: 5px;
 }
+
 .find-tour-content__filter--main-filter .btn-primary{
     background-color: #0b5da7;
     color: #fff !important;
@@ -846,16 +847,22 @@
     background-color: #09508f;
     border: 1px solid #09508f;
 }
-.budget-filter-list--item:hover {
+.budget-filter-list--item:hover,
+.tag-container_item:hover {
     cursor: pointer;
     color: #0b5da7;
     background: #daefff;
     border: 1px solid #0b5da7;
 }
-.budget-content__list--item.active {
+.budget-content__list--item.active,
+.tag-container .active {
     background-color: #0b5da7;
     border: 1px solid #0b5da7;
     color: #fff;
+}
+.filter-noTour {
+    width: 50%;
+    height: auto;
 }
 
 /* pagination */

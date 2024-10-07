@@ -264,7 +264,7 @@ const Tours = () => {
                                     </div>
                                 </div>
                                 <div className='filter-noTour'>
-                                    <img src={notTour} alt="" style={{width: "80%",marginLeft: '280px', background: "transparent"}}/>
+                                    <img src={notTour} alt="" style={{width: "80%",marginLeft: '300px', background: "transparent"}}/>
                                 </div>
                             </>
                             
@@ -395,14 +395,16 @@ const Tours = () => {
                                         </div>
                                     ))}
                                 </div>
+                            
+                                <div className='pagination'>
+                                    <button onClick={()=> onPageChange(currentPage - 1)} disabled={currentPage === 1}><FaArrowLeft /></button>
+                                    <span>{currentPage}</span>
+                                    <button onClick={()=> onPageChange(currentPage + 1)} disabled={currentPage === totalPage}><FaArrowRight /></button>
+                                </div>
                             </>
                         )}
 
-                        <div className='pagination'>
-                            <button onClick={()=> onPageChange(currentPage - 1)} disabled={currentPage === 1}><FaArrowLeft /></button>
-                            <span>{currentPage}</span>
-                            <button onClick={()=> onPageChange(currentPage + 1)} disabled={currentPage === totalPage}><FaArrowRight /></button>
-                        </div>
+                        
                     </div> 
                 </div>
             </section>

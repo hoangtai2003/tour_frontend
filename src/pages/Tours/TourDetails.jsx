@@ -25,7 +25,7 @@ moment.locale('vi');
 const TourDetails = () => {
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
-        // window.scroll(0,0)
+        window.scroll(0,0)
     }, [])
     const [selectedDate, setSelectedDate] = useState(null);
     const { url } = useContext(StoreContext)

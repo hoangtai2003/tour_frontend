@@ -17,6 +17,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import { NavLink } from 'react-router-dom'
 import notTour from '../../assets/images/tour/notour.png'
+import { vi } from 'date-fns/locale';
 const Tours = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [currentPage, setCurrentPage] = useState(1);
@@ -33,6 +34,7 @@ const Tours = () => {
 
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
+        window.scroll(0,0)
     }, [])
     const fetchTour = async() => {
         const response  = await axios.get(`${url}/tours?page=${currentPage}`)
@@ -218,7 +220,8 @@ const Tours = () => {
                                     <DatePicker
                                         selected={startDate}
                                         onChange={handleDateChange}
-                                        dateFormat="yyyy-MM-dd" 
+                                        dateFormat="eee, dd 'tháng' MM" 
+                                        locale={vi}
                                     />
                                 </div>
                             </div>
@@ -240,29 +243,29 @@ const Tours = () => {
                         </div>
                     </div> 
                     <div className="find-tour-content__list">
+                        <div className="find-tour-content__list--header-result">
+                            <div className="left-filter">
+                                <p>Chúng tôi tìm thấy <span>{countTour}</span> chương trình tour cho quý khách</p>
+                            </div>
+                            <div className="right-sort">
+                                <span className="right-sort--label">Sắp xếp theo: </span>
+                                <div className="right-sort--select">
+                                    <Select
+                                        options={sort}
+                                        value={selectedSort}
+                                        onChange={(selectedOption) => {
+                                            handleSortChange(selectedOption); 
+                                            fetchFilteredToursSort(selectedOption.value);
+                                        }}
+                                        isClearable
+                                        classNamePrefix="react-select"
+                                    />
+
+                                </div>
+                            </div>
+                        </div>
                         {countTour === 0 ? (
                             <>
-                                <div className="find-tour-content__list--header-result">
-                                    <div className="left-filter">
-                                        <p>Chúng tôi tìm thấy <span>{countTour}</span> chương trình tour cho quý khách</p>
-                                    </div>
-                                    <div className="right-sort">
-                                        <span className="right-sort--label">Sắp xếp theo: </span>
-                                        <div className="right-sort--select">
-                                            <Select
-                                                options={sort}
-                                                value={selectedSort}
-                                                onChange={(selectedOption) => {
-                                                    handleSortChange(selectedOption); 
-                                                    fetchFilteredToursSort(selectedOption.value);
-                                                }}
-                                                isClearable
-                                                classNamePrefix="react-select"
-                                            />
-
-                                        </div>
-                                    </div>
-                                </div>
                                 <div className='filter-noTour'>
                                     <img src={notTour} alt="" style={{width: "80%",marginLeft: '300px', background: "transparent"}}/>
                                 </div>
@@ -270,26 +273,6 @@ const Tours = () => {
                             
                         ) : (
                             <>
-                                <div className="find-tour-content__list--header-result">
-                                    <div className="left-filter">
-                                        <p>Chúng tôi tìm thấy <span>{countTour}</span> chương trình tour cho quý khách</p>
-                                    </div>
-                                    <div className="right-sort">
-                                        <span className="right-sort--label">Sắp xếp theo: </span>
-                                        <div className="right-sort--select">
-                                            <Select
-                                                options={sort}
-                                                value={selectedSort}
-                                                onChange={(selectedOption) => {
-                                                    handleSortChange(selectedOption); 
-                                                    fetchFilteredToursSort(selectedOption.value);
-                                                }}
-                                                isClearable
-                                                classNamePrefix="react-select"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
                                 <div className="find-tour-content__list--main">
                                     {tours.map((tour, index) => (
                                         <div className="card-filter-desktop" key={index}>
@@ -301,7 +284,7 @@ const Tours = () => {
                                                     <div className="card-filter-desktop__content--info--item flex-col-start">
                                                         <div className="card-filter-desktop__content-header">
                                                             <div className="card-filter-desktop__content-header-wrapper">
-                                                                <NavLink className="card-filter-desktop__content-header-title line-clamp line-clamp-2">
+                                                                <NavLink className="card-filter-desktop__content-header-title line-clamp line-clamp-2" to={`/tours/${tour.id}`}>
                                                                     {tour.name}
                                                                 </NavLink>
                                                             
@@ -388,7 +371,7 @@ const Tours = () => {
                                                         </div>
                                                     </div>
                                                     <div className="card-filter-desktop__content--price-btn">
-                                                        <NavLink className="button btn-md btn-primary">Xem chi tiết</NavLink>
+                                                        <NavLink className="button btn-md btn-primary" to={`/tours/${tour.id}`}>Xem chi tiết</NavLink>
                                                     </div>
                                                 </div>
                                             </div>

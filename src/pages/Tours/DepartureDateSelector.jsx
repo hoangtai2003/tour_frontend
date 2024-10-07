@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 const ScrollableDepartureDates = ({ tour }) => {
     const allDates = tour.tourChildren?.map((tourChild) => (
@@ -33,9 +34,9 @@ const ScrollableDepartureDates = ({ tour }) => {
             ): ""}
         </button>
         {visibleDates.map((date, index) => (
-          <div key={index} className="date-item">
+          <NavLink key={index} className="date-item" style={{textDecoration: "none"}} to={``}>
             {date}
-          </div>
+          </NavLink>
         ))}
         <button 
           className="nav-button" 

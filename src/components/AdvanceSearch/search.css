@@ -112,6 +112,20 @@
     background-color: var(--primaryClr);
 }
 
+.custom-select .react-select__control:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #ccc; 
+}
+.custom-select .react-select__control {
+    border: none;
+    box-shadow: none;
+    width: 98%;
+}
+.custom-select .react-select__indicators {
+    border-left: none;
+}
+
 @media (max-width : 1199px){
     .box-search-advance .box-search {
         flex-wrap: wrap;

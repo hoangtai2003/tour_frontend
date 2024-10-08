@@ -69,7 +69,7 @@ const AdvanceSearch = () => {
             }
         });
     };
-    
+    const isSearchButtonDisabled = !selectedPrice || !selectedEndLocation;
     return (
         <>
             <section className="box-search-advance">
@@ -97,6 +97,7 @@ const AdvanceSearch = () => {
                                         onChange={handleStartDateChange}
                                         dateFormat="eee, dd 'tháng' MM" 
                                         locale={vi}
+
                                     />
                                 </div>
                                 <div className="item-search item-search-2">
@@ -106,6 +107,7 @@ const AdvanceSearch = () => {
                                         onChange={handleEndDateChange}
                                         dateFormat="eee, dd 'tháng' MM" 
                                         locale={vi}
+
                                     />
                                 </div>
                                 <div className="item-search bd-none">
@@ -117,10 +119,15 @@ const AdvanceSearch = () => {
                                         isClearable 
                                         options={roundPrice}
                                         onChange={handlePriceChange}
+
                                     />
                                 </div>
                                 <div className="item-search bd-none">
-                                    <button className="primaryBtn flex-even d-flex justify-content-center" onClick={applyFilters}>
+                                    <button
+                                        className={`primaryBtn flex-even d-flex justify-content-center ${isSearchButtonDisabled ? 'disabled-btn' : ''}`}
+                                        onClick={applyFilters}
+                                        disabled={isSearchButtonDisabled}
+                                    >
                                         <i className="bi bi-search me-2"></i> Tìm kiếm
                                     </button>
                                 </div>

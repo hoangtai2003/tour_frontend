@@ -125,6 +125,10 @@
 .custom-select .react-select__indicators {
     border-left: none;
 }
+.disabled-btn {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 @media (max-width : 1199px){
     .box-search-advance .box-search {

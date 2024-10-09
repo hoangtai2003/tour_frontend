@@ -46,6 +46,7 @@ const Booking = () => {
         toddlers: 0,
         babies: 0
     })
+
     const handleUpdateCount = (name, value) => {
         setPassengerCount(prev => {
             const updatedPassengerCount = { ...prev, [name]: value };
@@ -77,11 +78,23 @@ const Booking = () => {
         const response = await axios.get(`${url}/tours/${tour_code}/booking`);
         setTourDetails(response.data.data)
     }
+    const discountPriceAdult = tourDetails && tourDetails.price_sale > 0
+    ? (tourDetails.price_adult * (100 - tourDetails.price_sale)) / 100
+    : tourDetails?.price_adult;  
+    const discountPriceChild = tourDetails && tourDetails.price_sale > 0
+    ? (tourDetails.price_child * (100 - tourDetails.price_sale)) / 100
+    : tourDetails?.price_child;
+    const discountPriceToddler = tourDetails && tourDetails.price_sale > 0
+    ? (tourDetails.price_toddler * (100 - tourDetails.price_sale)) / 100
+    : tourDetails?.price_todder;
+    const discountPriceBaby = tourDetails && tourDetails.price_sale > 0
+    ? (tourDetails.price_baby * (100 - tourDetails.price_sale)) / 100
+    : tourDetails?.price_baby;
     const calculateTotalPrice = () => {
-        const priceAdult = tourDetails?.price_adult || 0;
-        const priceChild = tourDetails?.price_child || 0;
-        const priceToddler = tourDetails?.price_toddler || 0;
-        const priceBaby = tourDetails?.price_baby || 0;
+        const priceAdult = discountPriceAdult || 0;
+        const priceChild = discountPriceChild || 0;
+        const priceToddler = discountPriceToddler|| 0;
+        const priceBaby = discountPriceBaby || 0;
 
 
         const totalAdultPrice = passengerCount.adults * priceAdult;
@@ -493,24 +506,24 @@ const Booking = () => {
                                         </ListGroup.Item>
                                         <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
                                             <span>Người lớn </span>
-                                            <strong className='booking_price'>{passengerCount.adults} x {tourDetails?.price_adult.toLocaleString('vi-VN')} vnđ</strong>
+                                            <strong className='booking_price'>{passengerCount.adults} x {discountPriceAdult ? discountPriceAdult.toLocaleString('vi-VN') : ""} vnđ</strong>
                                         </ListGroup.Item>
                                         {passengerCount.children > 0 && (
                                             <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
                                                 <span>Trẻ em </span>
-                                                <strong className='booking_price'>{passengerCount.children} x {tourDetails?.price_child.toLocaleString('vi-VN')} vnđ</strong>
+                                                <strong className='booking_price'>{passengerCount.children} x {discountPriceChild ? discountPriceChild.toLocaleString('vi-VN') : ""} vnđ</strong>
                                             </ListGroup.Item>
                                         )}
                                         {passengerCount.toddlers > 0 && (
                                             <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
                                                 <span>Trẻ nhỏ </span>
-                                                <strong className='booking_price'>{passengerCount.toddlers} x {tourDetails?.price_toddler.toLocaleString('vi-VN')} vnđ</strong>
+                                                <strong className='booking_price'>{passengerCount.toddlers} x {discountPriceToddler ? discountPriceToddler.toLocaleString('vi-VN') : ""} vnđ</strong>
                                             </ListGroup.Item>
                                         )}
                                         {passengerCount.babies > 0 && (
                                             <ListGroup.Item className='border-0 d-flex justify-content-between pt-0 list-group-item'>
                                                 <span>Em bé </span>
-                                                <strong className='booking_price'>{passengerCount.babies} x {tourDetails?.price_baby.toLocaleString('vi-VN')} vnđ</strong>
+                                                <strong className='booking_price'>{passengerCount.babies} x {discountPriceBaby ? discountPriceBaby.toLocaleString('vi-VN') : ""} vnđ</strong>
                                             </ListGroup.Item>
                                         )}
 

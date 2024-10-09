@@ -2,7 +2,7 @@ import React from 'react'
 import "./card.css"
 import { Card } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
-const  PopularCard = ({popular, countConfirmed}) => {
+const  PopularCard = ({popular}) => {
     const afterDiscount = popular.tourChildren[0]?.price_sale
     ? (popular.price * (100 - popular.tourChildren[0].price_sale)) / 100
     : "";

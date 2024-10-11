@@ -15,7 +15,7 @@ const Breadcrumbs = (props) => {
                 </Container>
             </div>
         </div>
-        <div className="navbar-link py-1">
+        {/* <div className="navbar-link py-1">
                 <Container>
                     <Row>
                         <Breadcrumb>
@@ -30,7 +30,7 @@ const Breadcrumbs = (props) => {
                         </Breadcrumb> 
                     </Row>
                 </Container>
-        </div>
+        </div> */}
 
 
     </>

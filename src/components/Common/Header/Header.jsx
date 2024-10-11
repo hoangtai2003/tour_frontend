@@ -115,7 +115,7 @@ const Header = () => {
                                         TOURS
                                     </NavLink>
 
-                                    <NavLink className="nav-link" to="/news" onClick={closeMenu}>
+                                    <NavLink className="nav-link" to="/tin-tuc/tin-tuc-du-lich" onClick={closeMenu}>
                                         Tin tức
                                     </NavLink>
                                     <NavLink className="nav-link" to="/test" onClick={closeMenu}>

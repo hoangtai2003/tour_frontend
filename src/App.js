@@ -20,6 +20,9 @@ import AccountList from './pages/Account/AccountList';
 import AccountReview from './pages/Account/AccountReview';
 import BookingDetails from './pages/Booking/BookingDetails';
 import SearchResult from './pages/Tours/SearchResult';
+import NewsDetailTravel from './pages/News/NewsDetailTravel'
+import NewsTravel from './pages/News/NewsTravel';
+import ExperienceTravel from './pages/News/ExperienceTravel';
 const App = () =>  {
   return (
     <>
@@ -29,7 +32,6 @@ const App = () =>  {
             <Route path='home' element={<Home />} />
             <Route path='tours' element={<Tours />} />
             <Route path='/tours/:id' element={<TourDetails />} />
-            <Route path='news' element={<News />} />
             <Route path='hotel' element={<Hotel />} />
             <Route path='contact-us' element={<Contact />} />
             <Route path='/booking/:tour_code' element={<Booking />} />
@@ -43,7 +45,13 @@ const App = () =>  {
                 <Route path='account-list' element={<AccountList />} />
                 <Route path='account-review' element={<AccountReview />} />
             </Route>
+            <Route path="tin-tuc" element={<News />}>
+                <Route path='tin-tuc-du-lich' element={<NewsTravel />} />
+                <Route path='kinh-nghiem-du-lich' element={<ExperienceTravel />} />
+            </Route>
             <Route path="/search-result" element={<SearchResult />}></Route>
+            <Route path='/tin-tuc/tin-tuc-du-lich/:slug' element={<NewsDetailTravel />} />
+            <Route path='/tin-tuc/kinh-nghiem-du-lich/:slug' element={<NewsDetailTravel />} />
         </Routes>
         <Footer />
     </>

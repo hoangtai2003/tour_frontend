@@ -1,4 +1,3 @@
-//  react-slick là thư viện tạo carousel (trình chiếu dạng trượt)
 import React from 'react' 
 import Slider from 'react-slick'
 import ava01 from '../../assets/images/ava/ava-1.jpg'
@@ -10,7 +9,7 @@ const Testimonials = () => {
         dots: true, 
         infinite: true, 
         autoplay: true, 
-        speed: 1000, 
+        speed: 3000, 
         swipeToSlide: true, 
         autoplaySpeed: 2000,
         slidesToShow: 3,

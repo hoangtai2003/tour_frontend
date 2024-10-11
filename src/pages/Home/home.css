@@ -16,6 +16,8 @@
     justify-content: center;
     color: #fff;
     text-align: center;
+    margin-top: 100px;
+    margin-bottom: 200px;
 }
 
 .video_introduct video {
@@ -104,10 +106,6 @@
         background-position: 0% 50%;
     }
 }
-
-
-
-
 @keyframes bounce {
     0%,
     20%,
@@ -155,9 +153,8 @@
     }
 }
 .gallery {
-    background-color: #fffaf9;
     overflow: hidden;
-    padding: 50px 0;
+    margin-top: 80px;
 }
   
 .gallery .styles_thumbpanel__1sa4E {
@@ -168,4 +165,7 @@
     position: fixed;
     overflow: hidden;
     z-index: 9999;
+}
+.newsletter{
+    margin-top: 100px;
 }

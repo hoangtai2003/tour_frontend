@@ -14,8 +14,8 @@ import Cards from '../../components/Cards/Cards'
 import PopularCard from '../../components/Cards/PopularCard'
 import axios from 'axios'
 import { StoreContext } from '../../components/Context/StoreContext'
+import Newsletter from '../../components/Newsletter/Newsletter'
 const Home = () => {
-    const [currentPage, setCurrentPage] = useState(1);
     const [tours, setTour] = useState([])
     const [countTourByLocation, setCountTourByLocation] = useState([])
     const { url } = useContext(StoreContext)
@@ -80,10 +80,12 @@ const Home = () => {
         const response = await axios.get(`${url}/tours/tourByLocation/countTour`)
         setCountTourByLocation(response.data.data)
     }
+    
     useEffect(() => {
         fetchTour();
         fetchCountLocation()
-    }, [currentPage])
+
+    }, [])
     return (
         <>
             <Banner />
@@ -155,9 +157,22 @@ const Home = () => {
                         </Col>
                     </Row>
                     <Row>
+                         <MasonryImageGallery />
+                    </Row>
+                </Container>
+            </section>
+
+            <section className='newsletter'>
+                <Container>
+                    <Row>
                         <Col md={12}>
-                            <MasonryImageGallery />
+                            <div className="main_heading">
+                                <h1>Bài đăng gần đây</h1>
+                            </div>
                         </Col>
+                    </Row>
+                    <Row>
+                        <Newsletter />
                     </Row>
                 </Container>
             </section>
@@ -168,19 +183,6 @@ const Home = () => {
                     <p className="description">Những hành trình kỳ diệu đang chờ đợi bạn, hãy sẵn sàng cho chuyến phiêu lưu tiếp theo!</p>
                     <button className="cta_button">Liên hệ qua Messager của chúng tôi</button>
                 </div>
-            </section>
-
-            <section className='gallery'>
-                <Container>
-                    <Row>
-                        <Col md={12}>
-                            <div className="main_heading">
-                                <h1>Bài đăng gần đây</h1>
-                            </div>
-                        </Col>
-                    </Row>
-                    
-                </Container>
             </section>
         </>
 

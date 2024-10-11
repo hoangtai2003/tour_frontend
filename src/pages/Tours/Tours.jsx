@@ -84,6 +84,10 @@ const Tours = () => {
         if (newPage >= 1 && newPage <= totalPage){
             setCurrentPage(newPage)
         }
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
     const maxDisplayedPages = 5; 
     let startPage, endPage;
@@ -402,7 +406,11 @@ const Tours = () => {
                                 </div>
                             
                                 <div className='pagination'>
-                                    <button onClick={()=> onPageChange(currentPage - 1)} disabled={currentPage === 1}><FaArrowLeft /></button>
+                                    <button 
+                                        onClick={()=> onPageChange(currentPage - 1)} 
+                                        disabled={currentPage === 1}>
+                                            <FaArrowLeft />
+                                    </button>
                                     {pageNumbers.map((page, index) => (
                                         <span 
                                             key={index} 

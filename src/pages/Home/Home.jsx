@@ -113,6 +113,20 @@ const Home = () => {
                     </Row>
                 </Container>
             </section>
+            <section className='newsletter'>
+                <Container>
+                    <Row>
+                        <Col md={12}>
+                            <div className="main_heading">
+                                <h1>Bài đăng gần đây</h1>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Newsletter />
+                    </Row>
+                </Container>
+            </section>
             <section className='tour_list'>
                 <Container>
                     <Row>
@@ -162,20 +176,7 @@ const Home = () => {
                 </Container>
             </section>
 
-            <section className='newsletter'>
-                <Container>
-                    <Row>
-                        <Col md={12}>
-                            <div className="main_heading">
-                                <h1>Bài đăng gần đây</h1>
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Newsletter />
-                    </Row>
-                </Container>
-            </section>
+           
             <section className="video_introduct">
                 <video src={video} muted autoPlay loop type="video/mp4"></video>
                 <div className="animated_text_container">

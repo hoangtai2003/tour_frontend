@@ -49,13 +49,6 @@ const Header = () => {
             setOpen(false);
         }
     };
-
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        setToken(""); 
-        navigate("/home");
-    };
-
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
@@ -66,14 +59,18 @@ const Header = () => {
                 });
                 setUserInfo(response.data.data);
             } catch (error) {
-                console.error("Lỗi khi lấy thông tin người dùng", error);
+                if (error.response){
+                    localStorage.removeItem("token");
+                    setToken(null)
+                    navigate('/home')
+                }
             }
         };
 
         if (token) {
             fetchUserInfo(); 
         }
-    }, [token, url]);
+    }, [token, url, navigate]);
 
     return (
         <header className="header-section">

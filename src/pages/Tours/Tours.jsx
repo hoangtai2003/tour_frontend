@@ -31,7 +31,7 @@ const Tours = () => {
     const [activeTransportation, setActiveTransportation] = useState(null)
     const [countTour, setCountTour] = useState(0)
     const { url } = useContext(StoreContext)
-
+    const pageNumbers = []
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
         window.scroll(0,0)
@@ -42,25 +42,27 @@ const Tours = () => {
         setTotalPage(response.data.totalPages)
         setCountTour(response.data.count)
     }
-    const fetchLocation = async () => {
-        try {
-            const response = await axios.get(`${url}/location/all/getAllLocation`);
-        
-            const filterLocations = response.data.data.filter(location => location.parent_id !== 0);
-            const formattedLocations = filterLocations.map(location => ({
-                value: location.id, 
-                label: location.name 
-            }));
-
-            setLocations(formattedLocations);
-        } catch (error) {
-            console.error('Lỗi khi lấy danh sách địa điểm:', error);
-        }
-    };
     useEffect(() => {
         fetchTour()
+    }, [url, currentPage])  
+    useEffect(() => {
+        const fetchLocation = async () => {
+            try {
+                const response = await axios.get(`${url}/location/all/getAllLocation`);
+            
+                const filterLocations = response.data.data.filter(location => location.parent_id !== 0);
+                const formattedLocations = filterLocations.map(location => ({
+                    value: location.id, 
+                    label: location.name 
+                }));
+    
+                setLocations(formattedLocations);
+            } catch (error) {
+                console.error('Lỗi khi lấy danh sách địa điểm:', error);
+            }
+        };
         fetchLocation()
-    }, [currentPage])
+    }, [url])
 
     const handleLocationStartChange = (selectedOption) => {
         setSelectedStartLocation(selectedOption);
@@ -77,11 +79,31 @@ const Tours = () => {
         {value: 'giatuthapdencao', label: 'Giá từ thấp đến cao'},
         {value: 'ngaykhoihanhgannhat', label: 'Ngày khởi hành gần nhất'},
     ]
+    // Phân trang
     const onPageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPage){
             setCurrentPage(newPage)
         }
     }
+    const maxDisplayedPages = 5; 
+    let startPage, endPage;
+
+    if (totalPage <= maxDisplayedPages) {
+        startPage = 1;
+        endPage = totalPage;
+    } else {
+        startPage = Math.max(1, currentPage - Math.floor(maxDisplayedPages / 2));
+        endPage = startPage + maxDisplayedPages - 1;
+        if (endPage > totalPage) {
+            endPage = totalPage;
+            startPage = Math.max(1, endPage - maxDisplayedPages + 1);
+        }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+        pageNumbers.push(i);
+    }
+
     const fetchFilteredTours = async (price) => {
         try {
             const response = await axios.get(`${url}/tours/price/filter-price`, {
@@ -381,7 +403,14 @@ const Tours = () => {
                             
                                 <div className='pagination'>
                                     <button onClick={()=> onPageChange(currentPage - 1)} disabled={currentPage === 1}><FaArrowLeft /></button>
-                                    <span>{currentPage}</span>
+                                    {pageNumbers.map((page, index) => (
+                                        <span 
+                                            key={index} 
+                                            className={page === currentPage ? 'active' : ''} 
+                                            onClick={() => onPageChange(page)}>
+                                            {page}
+                                        </span>
+                                    ))}
                                     <button onClick={()=> onPageChange(currentPage + 1)} disabled={currentPage === totalPage}><FaArrowRight /></button>
                                 </div>
                             </>

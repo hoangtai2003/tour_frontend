@@ -896,30 +896,3 @@
     width: 50%;
     height: auto;
 }
-
-/* pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-.pagination button {
-    background-color: #09508f;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    margin: 0 5px;
-    cursor: pointer;
-    border-radius: 20px;
-}
-.pagination button:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-}
-
-.pagination span {
-    margin: 0 10px;
-    font-size: 16px;
-    font-weight: 650;
-}

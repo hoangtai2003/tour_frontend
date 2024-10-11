@@ -13,9 +13,9 @@ import { BiBus } from "react-icons/bi";
 import { FaRegCalendarAlt } from "react-icons/fa"
 import DepartureDateSelector from './DepartureDateSelector'
 import { GiCommercialAirplane } from "react-icons/gi";
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import notTour from '../../assets/images/tour/notour.png'
-import { se, vi } from 'date-fns/locale';
+import { vi } from 'date-fns/locale';
 import { useLocation } from 'react-router-dom';
 const SearchResult = () => {
     const [startDate, setStartDate] = useState(new Date());

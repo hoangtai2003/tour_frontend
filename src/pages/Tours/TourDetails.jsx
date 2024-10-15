@@ -29,16 +29,16 @@ const TourDetails = () => {
     }, [])
     const [selectedDate, setSelectedDate] = useState(null);
     const { url } = useContext(StoreContext)
-    const { id } = useParams();
+    const { slug } = useParams();
     const [tourDetails, setTourDetails] = useState(null); 
     const [tourRelated, setTourRelated] = useState([])
     const fetchTourDetail = async () => {
-        const response = await axios.get(`${url}/tours/${id}`)
+        const response = await axios.get(`${url}/tours/slug-tour/${slug}`)
         setTourDetails(response.data.data)
     }
     const fetchTourRelated = async () => {
         try {
-            const response = await axios.get(`${url}/tours/${id}/related`);
+            const response = await axios.get(`${url}/tours/${slug}/related`);
             setTourRelated(response.data.data);
         } catch (error) {
             console.error('Error fetching related tours:', error);
@@ -53,7 +53,7 @@ const TourDetails = () => {
     useEffect(() => {
         fetchTourDetail()
         fetchTourRelated()
-    }, [id])
+    }, [slug])
 
     if (!tourDetails) {
         return <div>Loading...</div> 
@@ -102,11 +102,37 @@ const TourDetails = () => {
         next: 'Tháng sau',
         previous: 'Tháng trước'
     }
+    const locations = tourDetails.locations
+    const sortedLocations = locations.sort((a, b) => {
+        if (a.parent_id === 0) return -1; 
+        if (b.parent_id === 0) return 1;  
+        return 0; 
+    });
+
+    const renderBreadcrumb = () => {
+        return sortedLocations.map((location, index) => (
+            <span key={index}>
+                <NavLink to={`/du-lich-trong-nuoc/${location.loca_slug}`} className="normal-link">
+                    {location.name}
+                </NavLink>
+                {index !== sortedLocations.length - 1 && " / "}
+            </span>
+        ));
+    };
     return (
         <>
-            <Breadcrumbs childpagename={tourDetails.name} pagename={<NavLink to="tours">Tour</NavLink>} />
+            <Breadcrumbs/>
             <section className='tour_details py-5'>
                 <Container>
+                    <div className='breadcrumb-container'>
+                        <div>
+                            <NavLink className="normal-link" to="/home">Du lịch /</NavLink>
+                        </div>
+                        {renderBreadcrumb()} 
+                        <div className='active-link'>
+                            {tourDetails.name && `/ ${tourDetails.name}`}
+                        </div>
+                    </div>
                     <Row>
                         <h1 className='fs-2 font-bold mb-4'>{tourDetails.title}</h1>
                         <ImageGallery items={imageItems} showNav={false} showBullets={false} showPlayButton={false} />

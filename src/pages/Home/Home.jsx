@@ -27,7 +27,7 @@ const Home = () => {
         dots: false,
         infinite: true,
         autoplay: true,
-        slidesToShow: 4,
+        slidesToShow: 5,
         slidesToScroll: 1,
         
         responsive: [

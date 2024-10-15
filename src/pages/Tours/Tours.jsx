@@ -310,7 +310,7 @@ const Tours = () => {
                                                     <div className="card-filter-desktop__content--info--item flex-col-start">
                                                         <div className="card-filter-desktop__content-header">
                                                             <div className="card-filter-desktop__content-header-wrapper">
-                                                                <NavLink className="card-filter-desktop__content-header-title line-clamp line-clamp-2" to={`/tours/${tour.id}`}>
+                                                                <NavLink className="card-filter-desktop__content-header-title line-clamp line-clamp-2" to={`/chuong-trinh/${tour.tour_slug}`}>
                                                                     {tour.name}
                                                                 </NavLink>
                                                             

@@ -80,7 +80,6 @@ const Home = () => {
         const response = await axios.get(`${url}/tours/tourByLocation/countTour`)
         setCountTourByLocation(response.data.data)
     }
-    
     useEffect(() => {
         fetchTour();
         fetchCountLocation()
@@ -105,7 +104,7 @@ const Home = () => {
                             <Slider {... settings}>
                                 {countTourByLocation.map((destination, index) => {
                                         return (
-                                            <Cards destination={destination}  key={index}/>
+                                            <Cards destination={destination}  key={index} slug={destination.location.loca_slug}/>
                                         )
                                     })}
                             </Slider>

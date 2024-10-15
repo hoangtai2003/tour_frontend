@@ -434,6 +434,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin-top: 50px;
 }
 .find-tour-header__title {
     margin: 15px 15px 0px 15px;

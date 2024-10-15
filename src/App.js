@@ -23,6 +23,7 @@ import SearchResult from './pages/Tours/SearchResult';
 import NewsDetailTravel from './pages/News/NewsDetailTravel'
 import NewsTravel from './pages/News/NewsTravel';
 import ExperienceTravel from './pages/News/ExperienceTravel';
+import TourLocation from './pages/Tours/TourLocation';
 const App = () =>  {
   return (
     <>
@@ -52,6 +53,7 @@ const App = () =>  {
             <Route path="/search-result" element={<SearchResult />}></Route>
             <Route path='/tin-tuc/tin-tuc-du-lich/:slug' element={<NewsDetailTravel />} />
             <Route path='/tin-tuc/kinh-nghiem-du-lich/:slug' element={<NewsDetailTravel />} />
+            <Route path='/du-lich-trong-nuoc/:slug' element={<TourLocation/>} />
         </Routes>
         <Footer />
     </>

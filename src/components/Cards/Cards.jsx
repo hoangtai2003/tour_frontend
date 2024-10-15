@@ -2,11 +2,11 @@ import React from 'react'
 import { Card } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import "./card.css"
-const  Cards = ({destination}) => {
+const  Cards = ({ destination, slug }) => {
   return (
     <>
         <div className="img-box">
-        <NavLink className="body-text text-dark text-decoration-none" to="tour-details">
+        <NavLink className="body-text text-dark text-decoration-none" to={`/du-lich-trong-nuoc/${slug}`}>
             <Card>
                 <Card.Img
                     variant='top'

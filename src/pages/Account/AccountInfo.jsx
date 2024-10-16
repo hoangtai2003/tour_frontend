@@ -4,12 +4,15 @@ import { Form, FormGroup, FormLabel } from 'react-bootstrap';
 import { StoreContext } from '../../components/Context/StoreContext';
 import axios from 'axios';
 import Swal from 'sweetalert2'; 
+import { useOutletContext } from 'react-router-dom';
 const AccountInfo = () => {
     const [isEditingName, setIsEditingName] = useState(false)
     const [isEditingGender, setIsEditingGender] = useState(false)
     const [isEditingBirthday, setIsEditingBirthday] = useState(false)
     const [isEditingPhone, setIsEditingPhone] = useState(false)
     const [isEditingAddress, setIsEditingAddress] = useState(false)
+    const { user, userId, url, fetchUserInfo } = useContext(StoreContext)
+    const { listBooking } = useOutletContext()
     const [editName, setEditName] = useState({
         username: ''
     })
@@ -25,7 +28,7 @@ const AccountInfo = () => {
     const [editBirthday, setEditBirthday] = useState({
         dateBirtdday: ''
     })
-    const { user, userId, url, fetchUserInfo } = useContext(StoreContext)
+    
     const handleEditName = async(e) => {
         const name = e.target.name
         const value = e.target.value
@@ -135,8 +138,17 @@ const AccountInfo = () => {
             alert(error.response?.data?.message || error.message);
         }
     } 
+    const calculateTotalToursCompleted = () => {
+        const completedTours = listBooking.filter(booking => {
+            const endDate = new Date(booking.bookingTourChild.end_date);
+            const today = new Date();
     
-   
+            return  endDate <= today;
+        });
+    
+        // Trả về tổng số tour đã đi
+        return completedTours.length;
+    };
     return (
         <>
         <div className='account_right-sidebar'>
@@ -303,7 +315,7 @@ const AccountInfo = () => {
                     <div className='left'><span>Tổng số tour đã đi:</span></div>
                     <div className="right">
                         <div className='info-form'>
-                            <span>0</span>
+                            <span>{calculateTotalToursCompleted()}</span>
                         </div>
                     </div>
                 </div>

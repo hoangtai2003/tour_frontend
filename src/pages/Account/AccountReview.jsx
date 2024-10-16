@@ -1,12 +1,13 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StoreContext } from '../../components/Context/StoreContext';
 import Swal from 'sweetalert2'; 
+import { useOutletContext } from 'react-router-dom';
 const AccountReview = () => {
-    const [listBooking, setListBooking] = useState([]);
-    const { url, token, userId } = useContext(StoreContext);
+    const { url, userId } = useContext(StoreContext);
     const [tourRating, setTourRating] = useState(0);
     const [isReviewingTour, setIsReviewingTour] = useState(null);
+    const { listBooking } = useOutletContext()
     const [rate, setRate] = useState({
         user_id: '',
         tour_id: '',
@@ -14,24 +15,6 @@ const AccountReview = () => {
         review_rating: ''
     });
 
-    useEffect(() => {
-        const fetchListBooking = async () => {
-            try {
-                const response = await axios.get(`${url}/booking/userBooking/${userId}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                const filterStatus = response.data.data.filter(isPaid => isPaid.status === "Đã thanh toán");
-                setListBooking(filterStatus);
-            } catch (error) {
-                console.error("Lỗi khi lấy booking", error);
-            }
-        };
-        if (token) {
-            fetchListBooking();
-        }
-    }, [token, url, userId]);
 
     const canReview = (booking) => {
         const today = new Date();
@@ -84,7 +67,6 @@ const AccountReview = () => {
     const handleSetRating = (rating) => {
         setTourRating(rating);
     };
-
     return (
         <div className="account-page--main-content">
             <div className="account-wrapper">
@@ -114,8 +96,10 @@ const AccountReview = () => {
                                         <div className="account-card--wrapper-content--price time-overdue-booking">
                                             <span>{list.status}</span>
                                             <p>{list.total_price.toLocaleString('vi-VN')} vnđ</p>
-                                            {canReview(list) && (
-                                                <button onClick={() => setIsReviewingTour(list.bookingTourChild.tour.id)} className='btn-review'>
+                                            {canReview(list) && isReviewingTour !== list.bookingTourChild.tour.id && (
+                                                <button 
+                                                    onClick={() => setIsReviewingTour(list.bookingTourChild.tour.id)} 
+                                                    className='btn-review'>
                                                     Đánh giá
                                                 </button>
                                             )}
@@ -136,13 +120,13 @@ const AccountReview = () => {
                                                     type='text' 
                                                     name='review_comment' 
                                                     required 
-                                                    placeholder='Chia sẻ suy nghĩ của bạn '
+                                                    placeholder='Chia sẻ suy nghĩ của bạn'
                                                     onChange={handleChange} 
                                                 />
                                             </div>
                                             <div className='btn_action-review'>
                                                 <button className="btn-submit" type='submit'>Đánh giá</button>
-                                                <button className="btn-submit" type='submit' onClick={() => setIsReviewingTour(null)}>Hủy</button>
+                                                <button className="btn-submit" type='button' onClick={() => setIsReviewingTour(null)}>Hủy</button>
                                             </div>
                                         </form>
                                     )}

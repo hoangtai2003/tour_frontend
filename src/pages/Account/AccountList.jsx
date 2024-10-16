@@ -19,23 +19,23 @@ const AccountList = () => {
         'Hủy booking',
         'Quá hạn thanh toán'
     ];
-    const fetchListBooking = async () => {
-        try {
-            const response = await axios.get(`${url}/booking/userBooking/${userId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`  
-                }
-            });
-            setListBooking(Array.isArray(response.data.data) ? response.data.data : []);
-        } catch (error) {
-            console.error("Lỗi khi lấy booking", error);
-        }
-    }
     useEffect(() => {
+        const fetchListBooking = async () => {
+            try {
+                const response = await axios.get(`${url}/booking/userBooking/${userId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`  
+                    }
+                });
+                setListBooking(Array.isArray(response.data.data) ? response.data.data : []);
+            } catch (error) {
+                console.error("Lỗi khi lấy booking", error);
+            }
+        }
         if (token){
             fetchListBooking()
         }
-    }, [token])
+    }, [token, userId, url])
 
     const filteredBookings = listBooking.filter((list) => {
         if (status === "Tất cả") return true

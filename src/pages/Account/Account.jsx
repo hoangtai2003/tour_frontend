@@ -6,18 +6,39 @@ import { FaRegUser } from "react-icons/fa";
 import { StoreContext } from '../../components/Context/StoreContext';
 import { PiBooksThin } from "react-icons/pi";
 import { AiOutlineLike } from "react-icons/ai";
+import axios from 'axios';
+
 const Account = () => {
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
         window.scroll(0,0)
     }, [])
     const navigate = useNavigate()
-    const { setToken, user} = useContext(StoreContext);
+    const [listBooking, setListBooking] = useState([])
+    const { user, userId, url, token, setToken } = useContext(StoreContext)
     const handleLogout = () => {
         localStorage.removeItem("token");
         setToken(""); 
         navigate("/home");
     };
+    useEffect(() => {
+        const fetchListBooking = async () => {
+            try {
+                const response = await axios.get(`${url}/booking/userBooking/${userId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                const filterStatus = response.data.data.filter(isPaid => isPaid.status === "Đã thanh toán");
+                setListBooking(filterStatus);
+            } catch (error) {
+                console.error("Lỗi khi lấy booking", error);
+            }
+        };
+        if (token) {
+            fetchListBooking();
+        }
+    }, [token, url, userId]);
     return (
         <>
         <Breadcrumbs  pagename="Tài khoản" /> 
@@ -59,7 +80,7 @@ const Account = () => {
                         </ul>
                     </div>
                 </div>
-                <Outlet />
+                <Outlet context={{ listBooking }}/>
             </div>
         </div>
         </>

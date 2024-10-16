@@ -154,4 +154,14 @@ table {
   padding: 8px 17px;
   border-radius: 20px;
 }
+.line-clamp-2 {
+  -webkit-line-clamp: 3;
+  font-weight: 700;
+}
+.line-clamp {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
 

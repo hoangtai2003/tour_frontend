@@ -32,6 +32,7 @@ const TourDetails = () => {
     const { slug } = useParams();
     const [tourDetails, setTourDetails] = useState(null); 
     const [tourRelated, setTourRelated] = useState([])
+ 
     const fetchTourDetail = async () => {
         const response = await axios.get(`${url}/tours/slug-tour/${slug}`)
         setTourDetails(response.data.data)
@@ -119,6 +120,7 @@ const TourDetails = () => {
             </span>
         ));
     };
+
     return (
         <>
             <Breadcrumbs/>
@@ -148,7 +150,10 @@ const TourDetails = () => {
                                                 <Nav.Link eventKey="2">Lịch trình</Nav.Link>
                                             </Nav.Item>
                                             <Nav.Item>
-                                                <Nav.Link eventKey="3">Những thông tin cần lưu ý</Nav.Link>
+                                                <Nav.Link eventKey="3">Thông tin lưu ý</Nav.Link>
+                                            </Nav.Item>
+                                            <Nav.Item>
+                                                <Nav.Link eventKey="4">Đánh giá chuyến đi</Nav.Link>
                                             </Nav.Item>
                                         </Nav>
                                     </Col>
@@ -255,30 +260,30 @@ const TourDetails = () => {
                                             <div className='content-container' dangerouslySetInnerHTML={{ __html: tourDetails.description_itinerary }}></div>
                                         </Tab.Pane>
                                         <Tab.Pane eventKey="3">
-                                        <Accordion defaultActiveKey="0" className='mt-4 accordion-container' >
-                                            {InformationNote.itinerary.map((val, index) => {
-                                                return (
-                                                <Accordion.Item eventKey={index} className='mb-4' key={index}>
-                                                    <Accordion.Header className='accordion_header' >
-                                                        <h6 dangerouslySetInnerHTML={{ __html: val.title }}></h6>
-                                                    </Accordion.Header>
-                                                    <Accordion.Body>
-                                                    <div
-                                                        dangerouslySetInnerHTML={{
-                                                        __html: val.des.replace(/\n/g, '<br>')
-                                                        }}
-                                                        className='accordion_body'
-                                                    ></div>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                                );
-                                            })}
-                                        </Accordion>
-
+                                            <Accordion defaultActiveKey="0" className='mt-4 accordion-container' >
+                                                {InformationNote.itinerary.map((val, index) => {
+                                                    return (
+                                                    <Accordion.Item eventKey={index} className='mb-4' key={index}>
+                                                        <Accordion.Header className='accordion_header' >
+                                                            <h6 dangerouslySetInnerHTML={{ __html: val.title }}></h6>
+                                                        </Accordion.Header>
+                                                        <Accordion.Body>
+                                                        <div
+                                                            dangerouslySetInnerHTML={{
+                                                            __html: val.des.replace(/\n/g, '<br>')
+                                                            }}
+                                                            className='accordion_body'
+                                                        ></div>
+                                                        </Accordion.Body>
+                                                    </Accordion.Item>
+                                                    );
+                                                })}
+                                            </Accordion>
+                                        </Tab.Pane>
+                                        <Tab.Pane eventKey="4">
+                                            <Reviews />
                                         </Tab.Pane>
                                     </Tab.Content>
-                                    <hr/>
-                                    <Reviews />
                                 </Col>
                                 <Col md={4}>
                                     <aside>

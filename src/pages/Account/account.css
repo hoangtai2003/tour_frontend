@@ -321,16 +321,6 @@
 .account-card--wrapper-content--info label {
     font-size: 15px;
 }
-.line-clamp-2 {
-    -webkit-line-clamp: 2;
-    font-weight: 700;
-}
-.line-clamp {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-}
 .account-card--wrapper-content--tourCode{
     display: flex;
     flex-direction: row;
@@ -376,4 +366,11 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: 1rem;
+}
+.btn-review{
+    border-radius: 10px;
+    background: var(--primaryClr);
+    border: 1px solid var(--primaryClr);
+    color: #fff;
+    padding: 10px;
 }

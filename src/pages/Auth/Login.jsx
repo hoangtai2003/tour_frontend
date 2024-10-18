@@ -34,7 +34,7 @@ const Login = () => {
             const response = await axios.post(`${url}/auth/login`, formData)
             if (response.data.success){
                 setToken(response.data.token)
-                localStorage.setItem("token", response.data.token)
+                localStorage.setItem("token_customer", response.data.token)
                 navigate("/home")
             } else {
                 Swal.fire({

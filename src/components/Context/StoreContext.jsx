@@ -19,7 +19,7 @@ const StoreContextProvider = (props) => {
         }
     }
     useEffect(() => {
-        const storedToken = localStorage.getItem("token");
+        const storedToken = localStorage.getItem("token_customer");
         if (storedToken) {
             setToken(storedToken);
         }

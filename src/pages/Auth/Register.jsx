@@ -13,7 +13,7 @@ const Register = () => {
         window.scroll(0,0)
     }, [])
     const [passwordVisible, setPasswordVisible] = useState(false);
-    const { url, setToken } = useContext(StoreContext)
+    const { url } = useContext(StoreContext)
     const navigate = useNavigate()
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
@@ -25,7 +25,7 @@ const Register = () => {
         address: "",
         password: "",
         confirmPassword: "",
-        role: 2
+        role: 'Khách hàng'
     })
     const handleChange = (e) => {
         const name = e.target.name

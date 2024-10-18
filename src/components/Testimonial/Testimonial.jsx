@@ -46,17 +46,20 @@ const Testimonials = () => {
   return ( 
     <Slider { ... settings}>
         {review.slice(0,8).map((rate, index) => (
-            <div className="testimonial py-4 px-3">
-                <p>
-                    {rate.review_comment}
-                </p>
-            <div className="d-flex align-items-center gap-4 mt-3">
-                <img src={ava01} alt='' className='w-25 h-25 rounded-2'></img>
-                    <div>
-                        <h5 className="mb-0 mt-3">{rate.reviewsUser.username}</h5>
+            <div key={index}>
+                <div className="testimonial py-4 px-3">
+                    <p>
+                        {rate.review_comment}
+                    </p>
+                <div className="d-flex align-items-center gap-4 mt-3">
+                    <img src={ava01} alt='' className='w-25 h-25 rounded-2'></img>
+                        <div>
+                            <h5 className="mb-0 mt-3">{rate.reviewsUser.username}</h5>
+                        </div>
                     </div>
                 </div>
             </div>
+           
         ))}
        
     </Slider>

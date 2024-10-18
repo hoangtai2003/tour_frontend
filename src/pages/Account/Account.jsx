@@ -17,7 +17,7 @@ const Account = () => {
     const [listBooking, setListBooking] = useState([])
     const { user, userId, url, token, setToken } = useContext(StoreContext)
     const handleLogout = () => {
-        localStorage.removeItem("token");
+        localStorage.removeItem("token_customer");
         setToken(""); 
         navigate("/home");
     };

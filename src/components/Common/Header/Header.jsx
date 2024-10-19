@@ -60,7 +60,7 @@ const Header = () => {
                 setUserInfo(response.data.data);
             } catch (error) {
                 if (error.response){
-                    localStorage.removeItem("token");
+                    localStorage.removeItem("token_customer");
                     setToken(null)
                     navigate('/home')
                 }

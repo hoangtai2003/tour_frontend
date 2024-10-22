@@ -11,3 +11,7 @@
         line-height: 34px;
     }
 }
+.about-image-content h3{
+    text-transform: uppercase;
+    font-size: 30px;
+}

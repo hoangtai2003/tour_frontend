@@ -79,6 +79,7 @@ table {
 	font-size: var(--bodyText);
 	color: var(--textclr);
 	line-height: 24px;
+  text-align: justify;
 }
 
 .font-bold{

@@ -24,6 +24,7 @@ import { MdEmojiTransportation } from "react-icons/md";
 const Booking = () => {
     useEffect(() => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
+        window.scroll(0, 0);
     }, [])
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(''); 
     const { url, token, user} = useContext(StoreContext)
@@ -150,7 +151,7 @@ const Booking = () => {
         }
         const formData = new FormData();
         formData.append('tour_child_id', tourDetails.id)
-        formData.append('user_id', user.id)
+        formData.append('user_id', user && user.id ? user.id : "");
         formData.append('full_name', booking.full_name || user.username);
         formData.append('email', booking.email || user.email);
         formData.append('address', booking.address || user.address);

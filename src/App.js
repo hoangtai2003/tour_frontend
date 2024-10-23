@@ -33,8 +33,8 @@ const App = () =>  {
             <Route path='home' element={<Home />} />
             <Route path='tours' element={<Tours />} />
             <Route path='/chuong-trinh/:slug' element={<TourDetails />} />
-            <Route path='hotel' element={<Hotel />} />
-            <Route path='contact-us' element={<Contact />} />
+            <Route path='khach-san' element={<Hotel />} />
+            <Route path='lien-he' element={<Contact />} />
             <Route path='/booking/:tour_code' element={<Booking />} />
             <Route path='/payment-booking/:bookingCode' element={<BookingDetails />} />
             <Route path='about-us' element={<About />} />

@@ -30,6 +30,7 @@ const InformationCustomer = ({index, handlePassengerChange}) => {
                     className="input-field" 
                     name='passenger_gender' 
                     onChange={(e) => handlePassengerChange(index, e)}
+                    style={{width: "90%"}}
                 >
                     <option value="Nam">Nam</option>
                     <option value="Nữ">Nữ</option>

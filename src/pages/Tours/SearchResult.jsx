@@ -133,7 +133,7 @@ const SearchResult = () => {
                 setStartDate(parsedDate);
             }
         }
-    }, [price, name, locations, startDate]);
+    }, [price, name, locations, start_date]);
     const handleFilterClick = (filterPrice) => {
         fetchFilteredTours(filterPrice);
         setActiveFilter(filterPrice);

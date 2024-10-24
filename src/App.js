@@ -24,6 +24,7 @@ import NewsDetailTravel from './pages/News/NewsDetailTravel'
 import NewsTravel from './pages/News/NewsTravel';
 import ExperienceTravel from './pages/News/ExperienceTravel';
 import TourLocation from './pages/Tours/TourLocation';
+import TourSale from './pages/Tours/TourSale';
 const App = () =>  {
   return (
     <>
@@ -54,6 +55,7 @@ const App = () =>  {
             <Route path='/tin-tuc/tin-tuc-du-lich/:slug' element={<NewsDetailTravel />} />
             <Route path='/tin-tuc/kinh-nghiem-du-lich/:slug' element={<NewsDetailTravel />} />
             <Route path='/du-lich-trong-nuoc/:slug' element={<TourLocation/>} />
+            <Route path='/du-lich-gio-chot' element={<TourSale/>} />
         </Routes>
         <Footer />
     </>

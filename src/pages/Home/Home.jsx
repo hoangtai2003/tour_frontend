@@ -15,6 +15,7 @@ import PopularCard from '../../components/Cards/PopularCard'
 import axios from 'axios'
 import { StoreContext } from '../../components/Context/StoreContext'
 import Newsletter from '../../components/Newsletter/Newsletter'
+import { NavLink } from 'react-router-dom'
 const Home = () => {
     const [tours, setTour] = useState([])
     const [countTourByLocation, setCountTourByLocation] = useState([])
@@ -72,19 +73,23 @@ const Home = () => {
         ],
     };
     
-    const fetchTour = async() => {
-        const response  = await axios.get(`${url}/tours`)
-        setTour(response.data.data)
-    }
-    const fetchCountLocation = async() => {
-        const response = await axios.get(`${url}/tours/tourByLocation/countTour`)
-        setCountTourByLocation(response.data.data)
-    }
-    useEffect(() => {
-        fetchTour();
-        fetchCountLocation()
 
-    }, [])
+
+    useEffect(() => {
+        const fetchTour = async() => {
+            const response  = await axios.get(`${url}/tours/price-sale/tourBySale`)
+            setTour(response.data.data)
+        }
+        fetchTour();
+    }, [url])
+
+    useEffect(() => {
+        const fetchCountLocation = async() => {
+            const response = await axios.get(`${url}/tours/tourByLocation/countTour`)
+            setCountTourByLocation(response.data.data)
+        }
+        fetchCountLocation()
+    }, [url])
     return (
         <>
             <Banner />
@@ -118,6 +123,7 @@ const Home = () => {
                         <Col md={12}>
                             <div className="main_heading">
                                 <h1>Bài đăng gần đây</h1>
+                                
                             </div>
                         </Col>
                     </Row>
@@ -131,17 +137,25 @@ const Home = () => {
                     <Row>
                         <Col md={12}>
                             <div className="main_heading">
-                                <h1>Tour du lịch mới nhất của chúng tôi</h1>
+                                <h1>Ưu đãi giờ chót</h1>
+                                <div className="horizontal-divider"></div>
+                                <p>Nhanh tay nắm bắt cơ hội giảm giá cuối cùng. Đặt ngay để không bỏ lỡ!</p>
                             </div>
                         </Col>
                     </Row>
                     <Row>
-                        {tours.slice(0,8).map((popular, index) => (
+                        {tours.slice(0,4).map((popular, index) => (
                             <Col md={3} sm={6} xs={12} className='mb-5' key={index}>
                                 <PopularCard popular={popular} />
                             </Col>
                         ))}
                     </Row>
+                    <Row>
+                        <div className="home-lastHour-section__paginate">
+                            <NavLink to='/du-lich-gio-chot' className='button button--viewAll'>Xem tất cả</NavLink>
+                        </div>
+                    </Row>
+                    
                 </Container>
             </section>
             <section className='testimonials'>

@@ -913,3 +913,60 @@
     width: 50%;
     height: auto;
 }
+
+/* tour giờ chót */
+.find-tour-content__list .combo-item-list {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr);
+}
+.find-tour-content__list--main {
+    width: 100%;
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.tour-card-list, .tour-card-list-flashsale {
+    max-height: 55rem;
+    min-height: 49rem;
+    height: auto;
+}
+.page-main-header .page-main-header__container--header {
+    width: 88%;
+    display: flex;
+    align-items: flex-start;
+}
+.search-flights-header__back-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #171717;
+}
+.search-flights-header__back-button:hover{
+    color: #0b5da7;
+}
+.search-flights-header__back-button span:hover{
+    border-bottom: 1px solid #0b5da7;
+}
+.card-filter-mobile__content--header {
+    width: 100%;
+    max-height: 20%;
+}
+.card-filter-mobile__content--header-wrapper a{
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #171717;
+    line-height: 2.5rem;
+}
+.main .tour_list{
+    background-color: #fff !important;
+    margin-top: -15px;
+}

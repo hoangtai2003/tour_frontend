@@ -33,28 +33,33 @@ const TourDetails = () => {
     const [tourDetails, setTourDetails] = useState(null); 
     const [tourRelated, setTourRelated] = useState([])
  
-    const fetchTourDetail = async () => {
-        const response = await axios.get(`${url}/tours/slug-tour/${slug}`)
-        setTourDetails(response.data.data)
-    }
-    const fetchTourRelated = async () => {
-        try {
-            const response = await axios.get(`${url}/tours/${slug}/related`);
-            setTourRelated(response.data.data);
-        } catch (error) {
-            console.error('Error fetching related tours:', error);
+
+    useEffect(() => {
+        const fetchTourDetail = async () => {
+            const response = await axios.get(`${url}/tours/slug-tour/${slug}`)
+            setTourDetails(response.data.data)
         }
-    };
+        fetchTourDetail()
+    }, [slug, url])
+
+    useEffect(() => {
+        const fetchTourRelated = async () => {
+            try {
+                const response = await axios.get(`${url}/tours/${slug}/related`);
+                setTourRelated(response.data.data);
+            } catch (error) {
+                console.error('Error fetching related tours:', error);
+            }
+        };
+        fetchTourRelated()
+    }, [slug, url])
     
     const imageItems = tourDetails?.tourImage.map(image => ({
         original: image.image_url,
         thumbnail: image.image_url,
       })) || [];
 
-    useEffect(() => {
-        fetchTourDetail()
-        fetchTourRelated()
-    }, [slug])
+
 
     if (!tourDetails) {
         return <div>Loading...</div> 

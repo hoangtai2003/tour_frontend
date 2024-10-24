@@ -154,7 +154,7 @@
 }
 .gallery {
     overflow: hidden;
-    margin-top: 80px;
+    margin-top: 120px;
 }
   
 .gallery .styles_thumbpanel__1sa4E {
@@ -170,5 +170,31 @@
     margin-top: 100px;
 }
 .testimonials {
-    margin-top: -80px;
+    margin-top: 70px;
+}
+.home-lastHour-section__paginate {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1rem;
+
+}
+.button--viewAll {
+    background-color: transparent;
+    color: #eb5c43;
+    padding: 10px 15px;
+    border-radius: .5rem;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: none;
+    cursor: pointer;
+    transition: all .3s ease;
+    border: 1px solid #eb5c43 !important;
+    text-decoration: none;
+}
+.button--viewAll:hover {
+    background-color: #eb5c43;
+    color: #fff;
 }

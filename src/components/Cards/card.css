@@ -54,7 +54,9 @@
     transform: translateX(0);
 }
 .tour_list {
-    padding: 100px 0;
+    padding: 40px 0;
+    background-color: #daefff;
+    margin-top: 100px;
 }
 
 .tour_list .tour-card {
@@ -185,5 +187,25 @@
     color: white;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+}
+.btn-sale{
+    position: relative;
+    background-color: #fff;
+    color: #e01600;
+    border-radius: .375rem;
+    border: 1px solid #e01600;
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+    width: 38%;   
+    float: right;
+}
+.btn-sale:hover{
+    background: #e01600;
+    color: #fff;
 }
 

@@ -48,7 +48,7 @@ const SearchResult = () => {
             }
         }
         fetchSearchReult(price, name, start_date, end_date);
-    }, [price, name, start_date, end_date]);
+    }, [price, name, start_date, end_date, url]);
     useEffect(() => {
         const fetchLocation = async () => {
             try {
@@ -66,7 +66,7 @@ const SearchResult = () => {
             }
         };
         fetchLocation()
-    }, [])
+    }, [url])
     const fetchFilteredTours = async (price) => {
         try {
             const response = await axios.get(`${url}/tours/price/filter-price`, {
@@ -161,7 +161,7 @@ const SearchResult = () => {
     
     return (
         <>
-            <Breadcrumbs pagename="Tours" />
+            <Breadcrumbs  />
             <section className='find-tour-header section'>
                 <div className='find-tour-header__container section-container'>
                 {searchTour.slice(0,1).map((search, index) => (

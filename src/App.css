@@ -17,16 +17,32 @@
 	transform: translateY(-3px);
 }
   
-.main_heading{
-	margin-bottom: 30px;
+.main_heading {
+    margin-bottom: 30px;
+    text-align: center; 
 }
 
 .main_heading h1 {
-	font-size: var(--heading);
-	color:var(--black);
-	font-weight: bold;
-	font-family: var(--fontFamily1);
+    font-size: var(--heading);
+    color: var(--primaryClr);
+    font-weight: bold;
+    font-family: var(--fontFamily1);
+    margin-bottom: 10px;
+}
 
+.horizontal-divider {
+    width: 200px; 
+    height: 3.5px;
+    border-radius: 2.5px;
+    background-color: var(--primaryClr);
+    margin: 0 auto 15px auto; 
+}
+
+.main_heading p {
+    color: var(--black);
+    font-size: 1rem; 
+    margin: 0; 
+	text-align: center;
 }
 
 .slick_slider .slick-arrow  {

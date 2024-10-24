@@ -75,10 +75,7 @@ const Booking = () => {
             return updatedPassengerCount;
         });
     };
-    const fetchTourDetail = async () => {
-        const response = await axios.get(`${url}/tours/${tour_code}/booking`);
-        setTourDetails(response.data.data)
-    }
+
     const discountPriceAdult = tourDetails && tourDetails.price_sale > 0
     ? (tourDetails.price_adult * (100 - tourDetails.price_sale)) / 100
     : tourDetails?.price_adult;  
@@ -110,8 +107,12 @@ const Booking = () => {
 
     const totalPrice = calculateTotalPrice();
     useEffect(() => {
+        const fetchTourDetail = async () => {
+            const response = await axios.get(`${url}/tours/${tour_code}/booking`);
+            setTourDetails(response.data.data)
+        }
         fetchTourDetail()
-    }, [tour_code])
+    }, [tour_code, url])
 
 
     const handleChange = async(e) => {

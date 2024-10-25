@@ -178,7 +178,7 @@
 }
 .tour_list .tour-card .book-button {
     margin-top: 15px;
-    width: 100%; /* Make the button span the full width of the card */
+    width: 100%; 
     padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;

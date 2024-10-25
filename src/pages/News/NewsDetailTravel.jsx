@@ -43,22 +43,22 @@ const NewsDetailTravel = () => {
                     <Row>
                         <div className="left main-content">
                             <div className="main-content--title">
-                            <div className="breadcrumb-container">
-                                <div>
-                                    <NavLink className="normal-link" to="/home">Trang chủ / </NavLink>
+                                <div className="breadcrumb-container">
+                                    <div>
+                                        <NavLink className="normal-link" to="/home">Trang chủ / </NavLink>
+                                    </div>
+                                    <div>
+                                        {isTinTucDuLich && (
+                                            <NavLink className='normal-link' to="/tin-tuc/tin-tuc-du-lich">Tin tức du lịch /  </NavLink>
+                                        )}
+                                        {isKinhNghiemDuLich && (
+                                            <NavLink className='normal-link' to="/tin-tuc/kinh-nghiem-du-lich">Kinh nghiệm du lịch /  </NavLink>
+                                        )}
+                                    </div>
+                                    <div>
+                                        <NavLink className='active-link'> {newsletter.news_name}</NavLink>
+                                    </div>
                                 </div>
-                                <div>
-                                    {isTinTucDuLich && (
-                                        <NavLink className='normal-link' to="/tin-tuc/tin-tuc-du-lich">Tin tức du lịch /  </NavLink>
-                                    )}
-                                    {isKinhNghiemDuLich && (
-                                         <NavLink className='normal-link' to="/tin-tuc/kinh-nghiem-du-lich">Kinh nghiệm du lịch /  </NavLink>
-                                    )}
-                                </div>
-                                <div>
-                                    <NavLink className='active-link'> {newsletter.news_name}</NavLink>
-                                </div>
-                            </div>
 
                                 <h2 className='main-title'>{newsletter.news_name}</h2>
                             </div>

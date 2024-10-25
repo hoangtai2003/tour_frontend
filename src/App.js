@@ -25,6 +25,7 @@ import NewsTravel from './pages/News/NewsTravel';
 import ExperienceTravel from './pages/News/ExperienceTravel';
 import TourLocation from './pages/Tours/TourLocation';
 import TourSale from './pages/Tours/TourSale';
+import DetailHotel from './pages/Hotel/DetailHotel';
 const App = () =>  {
   return (
     <>
@@ -56,6 +57,7 @@ const App = () =>  {
             <Route path='/tin-tuc/kinh-nghiem-du-lich/:slug' element={<NewsDetailTravel />} />
             <Route path='/du-lich-trong-nuoc/:slug' element={<TourLocation/>} />
             <Route path='/du-lich-gio-chot' element={<TourSale/>} />
+            <Route path='/khach-san/:slug' element={<DetailHotel/>} />
         </Routes>
         <Footer />
     </>

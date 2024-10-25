@@ -40,7 +40,7 @@ const TourSale = () => {
                         </div>
                     </div>
                 </div>
-                <section className='tour_list price_sale'>
+                <section className='tour_list'>
                     <Container>
                         <Row>
                             {tours.map((popular, index) => (

@@ -10,6 +10,7 @@ const DetailHotel = () => {
     const { url } = useContext(StoreContext)
     const [hotel, setHotel] = useState([])
     const [hotelRelated, setHotelRelated] = useState([])
+    const [hotelRandom, setHotelRandom] = useState([])
     useEffect(() => {
         const fetchHotel = async() => {
             const response = await axios.get(`${url}/hotel/${slug}`)
@@ -18,10 +19,15 @@ const DetailHotel = () => {
         const fetchHotelRelated = async() => {
             const response = await axios.get(`${url}/hotel/related/${slug}`)
             setHotelRelated(response.data.data)
-            console.log(response.data.data)
+        }
+        const fetchHotelRandom = async() => {
+            const response = await axios.get(`${url}/hotel/related/${slug}`)
+            const randomHotel = response.data.data.sort(() => Math.random() - 0.5)
+            setHotelRandom(randomHotel)
         }
         fetchHotel()
         fetchHotelRelated()
+        fetchHotelRandom()
     }, [url, slug])
     return (
         <>
@@ -64,8 +70,8 @@ const DetailHotel = () => {
                         </div>
                         <div className='right sidebar'>
                             <div className="tour_list">
-                                {hotelRelated.length > 0 ? (
-                                    hotelRelated.slice(0,2).map((hotel, index) => {
+                                {hotelRandom.length > 0 ? (
+                                    hotelRandom.slice(0,2).map((hotel, index) => {
                                         return (
                                             <Card key={index} className='tour-card rounded-2 shadow-sm'>
                                                 <div className="price-section">

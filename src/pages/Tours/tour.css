@@ -970,3 +970,7 @@
     background-color: #fff !important;
     margin-top: -15px;
 }
+.right-sidebar .tour_list {
+    background-color: #fff;
+    margin-top: 0 !important;
+}

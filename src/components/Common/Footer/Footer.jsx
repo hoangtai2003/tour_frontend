@@ -1,114 +1,113 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, ListGroup, NavLink } from 'react-bootstrap';
+import React, { useContext, useEffect, useState } from 'react';
 import "./footer.css";
-import { FaFacebook, FaInstagram } from "react-icons/fa";
+import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import { StoreContext } from '../../Context/StoreContext';
+import { FaInstagram } from "react-icons/fa6";
+import { CiFacebook } from "react-icons/ci";
+import { TbMessageCircleBolt } from "react-icons/tb";
+import { FaTiktok } from "react-icons/fa";
+import { FaTelegram } from "react-icons/fa6";
+import { FaPhone } from "react-icons/fa6";
 const Footer = () => {
-  const [visible, setVisible] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const [location, setLocation] = useState([])
+    const { url } = useContext(StoreContext)
+    const toggleVisible = () => {
+        const scrolled = document.documentElement.scrollTop;
+        if (scrolled > 300) {
+        setVisible(true);
+        } else if (scrolled <= 300) {
+        setVisible(false);
+        }
+    };
+    const scrollTop = () => {
+        window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+        });
+    };
 
-  const toggleVisible = () => {
-    const scrolled = document.documentElement.scrollTop;
-    if (scrolled > 300) {
-      setVisible(true);
-    } else if (scrolled <= 300) {
-      setVisible(false);
+    if (typeof window !== "undefined") {
+        window.addEventListener("scroll", toggleVisible);
     }
-  };
+    useEffect(() => {
+        const fetchLocation = async () => {
+            try {
+                const response = await axios.get(`${url}/location/all/getAllLocation`);
+                const filterLocations = response.data.data.filter(location => location.parent_id !== 0);
+                setLocation(filterLocations);
+            } catch (error) {
+                console.error('Lỗi khi lấy danh sách địa điểm:', error);
+            }
+        };
+        fetchLocation()
+    }, [url])
+    
+    return (
+        <>
+            <footer className="footer--container">
+                <div className="footer--container__content section-container">
+                    <div className="footer--container__more--info">
+                        <div className="footer--container__more--info__contact footer-second-part">
+                            <div className="footer--container__more--info__search--ipt">
+                                <div className='input__footer'>
+                                    <label>Tra cứu booking</label>
+                                    <input type='text' required placeholder='Nhập mã booking của quý khách' className='input__footer input__noBorder' />
+                                </div>
+                                <div className="footer--container__more--info__search--ipt-button">
+                                    <button className='button__footer  btn-outline-primary button'>Tra cứu</button>
+                                </div>
+                            </div>
+                            <div className="footer--container__more--info__contact--div__domestic">
+                                <label className="footer--container__more--info--label">Du lịch trong nước</label>
+                                <div className="footer-divider"></div>
+                                <div className="footer--container__more--info__contact--div__tours">
+                                    {location.slice(0,16).map((loca, index) => (
+                                        <div className="tourItem" key={index}>
+                                            <NavLink to={`/du-lich-trong-nuoc/${loca.loca_slug}`}>{loca.name}</NavLink>
+                                        </div>
+                                    ))}
 
-  const scrollTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  if (typeof window !== "undefined") {
-    window.addEventListener("scroll", toggleVisible);
-  }
-
-  return (
-    <>
-        <footer className="footer-container">
-            <Container>
-                <Row>
-                    <Col md="3" sm="12" className="quick_link mt-3 mt-md-0">
-                    <h4>Giới thiệu</h4>
-                    <ListGroup variant='flush'>
-                        <ListGroup.Item>
-                            <NavLink to="/">About Us</NavLink>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <NavLink to="/">News</NavLink>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <NavLink to="/">Faq</NavLink>
-                        </ListGroup.Item>
-                    </ListGroup>
-                    </Col>
-                    <Col md="3" sm="12" className="quick_link mt-3 mt-md-0">
-                    <h4>Explore</h4>
-                    <ListGroup variant='flush'>
-                        <ListGroup.Item>
-                            <NavLink to="/">Faq</NavLink>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <NavLink to="/">Tour Listings</NavLink>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <NavLink to="/">Destination</NavLink>
-                        </ListGroup.Item>
-                    </ListGroup>
-                    </Col>
-                    <Col md="3" sm="12" className="quick_link mt-3 mt-md-0">
-                    <h4>Quick Link</h4>
-                    <ListGroup variant='flush'>
-                        <ListGroup.Item>
-                            <NavLink to="/">Home</NavLink>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <NavLink to="/">About us</NavLink>
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <NavLink to="/">Contact Us</NavLink>
-                        </ListGroup.Item>
-                    </ListGroup>
-                    </Col>
-                    <Col md="3" sm="12" className="location mt-3 mt-md-0">
-                    <h4>Contact Info</h4>
-                    <div className="d-flex align-items-center">
-                        <p className="pb-2">Dehradun, Uttarakhand, India</p>
+                                </div>
+                            </div>
+                            <div className="footer--container__more--info__contact--div__contact">
+                                <label className="footer--container__more--info--label">Liên hệ</label>
+                                <div className="footer-divider"></div>
+                                <div className="footer--container__more--info__contact--div__content">
+                                    <p>190 Pasteur, Phường Võ Thị Sáu, Quận 3, TP.HCM</p>
+                                    <p>(+84 28) 3822 8898</p>
+                                    <p>(+84 28) 3829 9142</p>
+                                    <p style={{cursor: "pointer"}}>dulichviet@contact.com</p>
+                                    <div className="footer--container__more--info__contact--div--icons">
+                                        <FaInstagram />
+                                        <CiFacebook />
+                                        <TbMessageCircleBolt />
+                                        <FaTiktok />
+                                        <FaTelegram />
+                                    </div>
+                                    <div className="footer--container__more--info__contact--div--hotline">
+                                        <div className="footer--container__more--info__contact--div--hotline__phone">
+                                            <FaPhone />
+                                            <p>1900 1839</p>
+                                        </div>
+                                        <p>Từ 8:00 - 23:00 hằng ngày</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="d-flex align-items-top my-2">
-                        <i className="bi bi-geo-alt me-3"></i>
-                        <a href="mailto:rawatcoder@gmail.com" className="d-block">rawatcoder@gmail.com</a>
-                    </div>
-                    <div className="d-flex align-items-top">
-                        <i className="bi bi-telephone me-3"></i>
-                        <a href="tel:9876543210" className="d-block">9876543210</a>
-                    </div>
-                    <div className="social-icons mt-3">
-                        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-                            <FaFacebook />
-                        </a>
-                        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-                            <FaInstagram />
-                        </a>
-                    </div>
-                    </Col>
-                </Row>
-                <Row className="py-2 bdr mt-3">
-                    <Col className="col copyright text-center">
-                    <p>Hoàng Đức Tài</p>
-                    </Col>
-                </Row>
-            </Container>
-        </footer>
-        <div id="back-top"
-            onClick={scrollTop}
-            className={visible ? "active" : ""}>
-            <i className="bi bi-arrow-up"></i>
-        </div>
-    </>
-  );
+                    <hr></hr>
+                    <div className='copy-right'>Develop by Hoàng Đức Tài</div>
+                </div>
+            </footer>
+            <div id="back-top"
+                onClick={scrollTop}
+                className={visible ? "active" : ""}>
+                <i className="bi bi-arrow-up"></i>
+            </div>
+        </>
+    );
 };
 
 export default Footer;

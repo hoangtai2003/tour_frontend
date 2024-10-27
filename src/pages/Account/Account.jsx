@@ -80,7 +80,7 @@ const Account = () => {
                         </ul>
                     </div>
                 </div>
-                <Outlet context={{ listBooking }}/>
+                <Outlet context={{ listBooking, setListBooking }}/>
             </div>
         </div>
         </>

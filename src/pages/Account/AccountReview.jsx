@@ -6,27 +6,30 @@ import { useOutletContext } from 'react-router-dom';
 const AccountReview = () => {
     const { url, userId } = useContext(StoreContext);
     const [tourRating, setTourRating] = useState(0);
-    const [isReviewingTour, setIsReviewingTour] = useState(null);
-    const { listBooking } = useOutletContext()
+    const { listBooking, setListBooking } = useOutletContext();
+    const [reviewingTourId, setReviewingTourId] = useState(null);
+    const [reviewingBookingId, setReviewingBookingId] = useState(null);
     const [rate, setRate] = useState({
         user_id: '',
         tour_id: '',
+        booking_id: '',
         review_comment: '',
         review_rating: ''
     });
-
+    
 
     const canReview = (booking) => {
         const today = new Date();
         const endDate = new Date(booking.bookingTourChild.end_date);
-        return today > endDate && booking.status === "Đã thanh toán" && booking.review_status !== "reviewed"; 
+        return today > endDate && booking.status === "Đã thanh toán" && booking.review_status !== "reviewed";
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const rateForm = new FormData();
         rateForm.append("user_id", userId);
-        rateForm.append("tour_id", isReviewingTour);
+        rateForm.append("tour_id", reviewingTourId);
+        rateForm.append("booking_id", rate.booking_id);
         rateForm.append("review_comment", rate.review_comment);
         rateForm.append("review_rating", tourRating);
 
@@ -39,15 +42,31 @@ const AccountReview = () => {
             Swal.fire({
                 text: "Cập nhật thông tin thành công",
                 icon: "success"
-              });
+            });
 
-            if (response.data.success){
+            if (response.data.success) {
                 Swal.fire({
-                    text: "Đánh giá thành công !",
+                    text: "Đánh giá thành công!",
                     icon: "success"
                 });
+                setListBooking(prevBookings => 
+                    prevBookings.map(booking => {
+                        if (booking.id === reviewingBookingId) {
+                            return {
+                                ...booking,
+                                review_status: "reviewed", 
+                                bookingReview: {
+                                    review_comment: rate.review_comment,
+                                    review_rating: tourRating,
+                                    review_status: "reviewed",
+                                }
+                            };
+                        }
+                        return booking;
+                    })
+                );
                 setTourRating(0);
-                setIsReviewingTour(null);
+                setReviewingBookingId(null);
             }
 
         } catch (error) {
@@ -59,14 +78,24 @@ const AccountReview = () => {
     };
 
     const handleChange = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
+        const { name, value } = e.target;
         setRate(prev => ({ ...prev, [name]: value }));
     };
 
     const handleSetRating = (rating) => {
         setTourRating(rating);
     };
+    
+    const handleReviewClick = (booking) => {
+        setReviewingBookingId(booking.id)
+        setReviewingTourId(booking.bookingTourChild.tour.id)
+        setRate(prev => ({
+            ...prev,
+            user_id: userId,
+            tour_id: booking.bookingTourChild.tour.id,
+            booking_id: booking.id
+        }))
+    }
     return (
         <div className="account-page--main-content">
             <div className="account-wrapper">
@@ -96,17 +125,21 @@ const AccountReview = () => {
                                         <div className="account-card--wrapper-content--price time-overdue-booking">
                                             <span>{list.status}</span>
                                             <p>{list.total_price.toLocaleString('vi-VN')} vnđ</p>
-                                            {canReview(list) && isReviewingTour !== list.bookingTourChild.tour.id && (
-                                                <button 
-                                                    onClick={() => setIsReviewingTour(list.bookingTourChild.tour.id)} 
-                                                    className='btn-review'>
-                                                    Đánh giá
-                                                </button>
-                                            )}
+                                            {list.bookingReview?.review_status === "reviewed" ? (
+                                                <button className='btn-review'>Đã đánh giá</button>
+                                            ) : (
+                                                canReview(list) && reviewingBookingId !== list.id && (
+                                                    <button
+                                                        onClick={() => handleReviewClick(list)}
+                                                        className='btn-review'>
+                                                        Đánh giá
+                                                    </button>
+                                                )
+                                            )} 
                                         </div>
                                     </div>
                                     
-                                    {isReviewingTour === list.bookingTourChild.tour.id && (
+                                    {reviewingBookingId === list.id && (
                                         <form onSubmit={handleSubmit} style={{marginTop: "20px"}}>
                                             <div className="rating__group d-flex align-items-center gap-3 mb-4">
                                                 {[1, 2, 3, 4, 5].map((star) => (
@@ -126,7 +159,7 @@ const AccountReview = () => {
                                             </div>
                                             <div className='btn_action-review'>
                                                 <button className="btn-submit" type='submit'>Đánh giá</button>
-                                                <button className="btn-submit" type='button' onClick={() => setIsReviewingTour(null)}>Hủy</button>
+                                                <button className="btn-submit" type='button' onClick={() => setReviewingTourId(null)}>Hủy</button>
                                             </div>
                                         </form>
                                     )}

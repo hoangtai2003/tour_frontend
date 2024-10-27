@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./search.css";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { StoreContext } from "../Context/StoreContext"
 import Select from 'react-select'
 import axios from "axios";
@@ -23,21 +23,7 @@ const AdvanceSearch = () => {
     const handlePriceChange = (selectedOption) => {
         setSelectedPrice(selectedOption);
     };
-    const fetchLocation = async () => {
-        try {
-            const response = await axios.get(`${url}/location/all/getAllLocation`);
-        
-            const filterLocations = response.data.data.filter(location => location.parent_id !== 0);
-            const formattedLocations = filterLocations.map(location => ({
-                value: location.id, 
-                label: location.name 
-            }));
 
-            setLocations(formattedLocations);
-        } catch (error) {
-            console.error('Lỗi khi lấy danh sách địa điểm:', error);
-        }
-    };
     const handleStartDateChange = (start_date) => {
         const adjustedDate = new Date(start_date.getTime() - start_date.getTimezoneOffset() * 60000);
         setStartDate(adjustedDate);
@@ -53,8 +39,23 @@ const AdvanceSearch = () => {
         {value: "bigger20", label: "Trên 20 triệu"},
     ]
     useEffect(() => {
+        const fetchLocation = async () => {
+            try {
+                const response = await axios.get(`${url}/location/all/getAllLocation`);
+            
+                const filterLocations = response.data.data.filter(location => location.parent_id !== 0);
+                const formattedLocations = filterLocations.map(location => ({
+                    value: location.id, 
+                    label: location.name 
+                }));
+    
+                setLocations(formattedLocations);
+            } catch (error) {
+                console.error('Lỗi khi lấy danh sách địa điểm:', error);
+            }
+        };
         fetchLocation()
-    }, [])
+    }, [url])
     const applyFilters = () => {
         const price = selectedPrice.value; 
         const name = selectedEndLocation ? selectedEndLocation.label : null; 

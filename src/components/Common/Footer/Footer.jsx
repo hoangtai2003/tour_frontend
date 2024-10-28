@@ -75,9 +75,9 @@ const Footer = () => {
                                 <label className="footer--container__more--info--label">Liên hệ</label>
                                 <div className="footer-divider"></div>
                                 <div className="footer--container__more--info__contact--div__content">
-                                    <p>190 Pasteur, Phường Võ Thị Sáu, Quận 3, TP.HCM</p>
-                                    <p>(+84 28) 3822 8898</p>
-                                    <p>(+84 28) 3829 9142</p>
+                                    <p>Hà Nội</p>
+                                    <p>(+84 37) 1234 5678</p>
+                                    <p>(+84 28) 5678 1234</p>
                                     <p style={{cursor: "pointer"}}>dulichviet@contact.com</p>
                                     <div className="footer--container__more--info__contact--div--icons">
                                         <FaInstagram />
@@ -89,7 +89,7 @@ const Footer = () => {
                                     <div className="footer--container__more--info__contact--div--hotline">
                                         <div className="footer--container__more--info__contact--div--hotline__phone">
                                             <FaPhone />
-                                            <p>1900 1839</p>
+                                            <p>1900 3354</p>
                                         </div>
                                         <p>Từ 8:00 - 23:00 hằng ngày</p>
                                     </div>

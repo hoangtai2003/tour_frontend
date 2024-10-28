@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 
-const ScrollableDepartureDates = ({ tour }) => {
+const DepartureDateSelector = ({ tour }) => {
     const allDates = tour.tourChildren?.map((tourChild) => (
         new Date(tourChild.start_date).toLocaleDateString('vi-VN', {
           day: '2-digit',
@@ -52,4 +52,4 @@ const ScrollableDepartureDates = ({ tour }) => {
   );
 };
 
-export default ScrollableDepartureDates;
+export default DepartureDateSelector;

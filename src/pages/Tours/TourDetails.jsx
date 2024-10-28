@@ -19,6 +19,7 @@ import { LuCalendarDays } from "react-icons/lu";
 import { FcAlarmClock } from "react-icons/fc";
 import Reviews from './Reviews'
 import { MdAirlineSeatReclineNormal } from "react-icons/md";
+import { FaGift } from "react-icons/fa6";
 
 const localizer = momentLocalizer(moment);
 moment.locale('vi');
@@ -60,11 +61,10 @@ const TourDetails = () => {
       })) || [];
 
 
-
     if (!tourDetails) {
         return <div>Loading...</div> 
     } 
-    // Tìm TourChild tương ứng với ngày đã chọn
+    // <------ Xử lý dữ liệu liên quan tới Calender ------>
     const selectedTourChild = tourDetails?.tourChildren?.find(tourChild => {
         const startDate = new Date(tourChild.start_date);
         return moment(startDate).isSame(selectedDate, 'day');
@@ -73,7 +73,7 @@ const TourDetails = () => {
     ? (selectedTourChild.price_adult * (100 - selectedTourChild.price_sale)) / 100
     : "";
     const handleBackToCalendar = () => {
-        setSelectedDate(null); // Hiển thị lại lịch khi ấn vào nút
+        setSelectedDate(null); 
     };
 
     let availableDates = [];
@@ -88,18 +88,35 @@ const TourDetails = () => {
 
             return {
                 date: new Date(year, month - 1, day),
-                price: tourChild.price_adult
+                price: tourChild.price_adult,
+                price_sale: tourChild.price_sale
             };
         });
     }
     const today = new Date();
-    const filteredDates = availableDates.filter(({date}) => date > today)
-    const events = filteredDates.map(({ date, price }) => ({
+    today.setHours(0, 0, 0, 0);
+
+    const filteredDates = availableDates.filter(({ date }) => {
+        const tourDate = new Date(date);
+        tourDate.setHours(0, 0, 0, 0);
+        return tourDate >= today;
+    });
+    
+    const events = filteredDates.map(({ date, price, price_sale }) => ({
         start: date,
         end: date,
         title: `${price.toLocaleString('vi-VN')}đ`,
+        text: price_sale !== 0 ? `${price_sale}` : '0',
     }));
-
+    const CustomEvent = ({ event }) => (
+        <div style={{ textAlign: 'center', color: 'red' }}>
+            <div style={{ fontSize: '16px' }}>{event.title}</div>
+            {event.text !== '0' && (
+                 <small style={{ fontSize: '12px', color: 'red', fontWeight: "650" }}><FaGift  style={{fontSize: "15px", marginBottom: "5px"}}/> Giảm {event.text}%</small>
+            )}
+        </div>
+    );
+    
     const handleSelectEvent = (event) => {
         setSelectedDate(event.start);
     };
@@ -108,6 +125,8 @@ const TourDetails = () => {
         next: 'Tháng sau',
         previous: 'Tháng trước'
     }
+    // <------ Kết thúc xử lý dữ liệu liên quan tới Calender ------>
+
     const locations = tourDetails.locations
     const sortedLocations = locations.sort((a, b) => {
         if (a.parent_id === 0) return -1; 
@@ -170,24 +189,27 @@ const TourDetails = () => {
                                                     {!selectedDate ? (
                                                         <>
                                                             <div style={{ height: 500 }}>
-                                                                <Calendar
-                                                                    localizer={localizer}
-                                                                    events={events}
-                                                                    startAccessor="start"
-                                                                    endAccessor="end"
-                                                                    style={{ height: '100%' }}
-                                                                    views={['month']}
-                                                                    onSelectEvent={handleSelectEvent}
-                                                                    messages={messages}
-                                                                    eventPropGetter={(event) => ({
-                                                                        style: {
-                                                                            backgroundColor: '#f0f0f0',
-                                                                            color: 'red',
-                                                                            border: 'none',
-                                                                            borderRadius: '0',
-                                                                        },
-                                                                    })}
-                                                                />
+                                                            <Calendar
+                                                                localizer={localizer}
+                                                                events={events}
+                                                                startAccessor="start"
+                                                                endAccessor="end"
+                                                                style={{ height: '100%' }}
+                                                                views={['month']}
+                                                                onSelectEvent={handleSelectEvent}
+                                                                messages={messages}
+                                                                components={{
+                                                                    event: CustomEvent, 
+                                                                }}
+                                                                eventPropGetter={(event) => ({
+                                                                    style: {
+                                                                        backgroundColor: '#f0f0f0',
+                                                                        color: 'red',
+                                                                        border: 'none',
+                                                                        borderRadius: '0',
+                                                                    },
+                                                                })}
+                                                            />
                                                             </div>
                                                         </>
                                                     ) : (
@@ -225,28 +247,28 @@ const TourDetails = () => {
                                                                                         <label>Người lớn </label>
                                                                                         <span>(Từ 12 tuổi trở lên)</span>
                                                                                     </div>
-                                                                                    <p className="price">{selectedTourChild.price_adult.toLocaleString('vi-VN')} vnđ</p>
+                                                                                    <p className="price">{((selectedTourChild.price_adult * (100 - selectedTourChild.price_sale)) / 100).toLocaleString('vi-VN')} vnđ</p>
                                                                                 </div>
                                                                                 <div className="price-item">
                                                                                     <div>
                                                                                         <label>Trẻ em </label>
                                                                                         <span>(Từ 5 - 11 tuổi)</span>
                                                                                     </div>
-                                                                                    <p className="price">{selectedTourChild.price_child.toLocaleString('vi-VN')} vnđ</p>
+                                                                                    <p className="price">{((selectedTourChild.price_child * (100 - selectedTourChild.price_sale)) / 100).toLocaleString('vi-VN')} vnđ</p>
                                                                                 </div>
                                                                                 <div className="price-item">
                                                                                     <div>
                                                                                         <label>Trẻ nhỏ </label>
                                                                                         <span>(Từ 2 - 4 tuổi)</span>
                                                                                     </div>
-                                                                                    <p className="price">{selectedTourChild.price_toddler.toLocaleString('vi-VN')} vnđ</p>
+                                                                                    <p className="price">{((selectedTourChild.price_toddler * (100 - selectedTourChild.price_sale)) / 100).toLocaleString('vi-VN')} vnđ</p>
                                                                                 </div>
                                                                                 <div className="price-item">
                                                                                     <div>
                                                                                         <label>Em bé </label>
                                                                                         <span>(Dưới 2 tuổi)</span>
                                                                                     </div>
-                                                                                    <p className="price">{selectedTourChild.price_baby.toLocaleString('vi-VN')} vnđ</p>
+                                                                                    <p className="price">{((selectedTourChild.price_baby * (100 - selectedTourChild.price_sale)) / 100).toLocaleString('vi-VN')} vnđ</p>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

@@ -25,7 +25,7 @@ const Register = () => {
         address: "",
         password: "",
         confirmPassword: "",
-        role: 'Khách hàng'
+        role_id: 3
     })
     const handleChange = (e) => {
         const name = e.target.name

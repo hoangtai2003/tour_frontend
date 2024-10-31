@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { StoreContext } from '../../components/Context/StoreContext';
+import { NavLink } from 'react-router-dom';
 
 const AccountList = () => {
     const [status, setStatus] = useState('Tất cả');
@@ -71,7 +72,7 @@ const AccountList = () => {
                                     </div>
                                     <div className="account-card--wrapper-content">
                                         <div className="account-card--wrapper-content--info">
-                                            <label className='line-clamp line-clamp-2'>{list?.bookingTourChild.tour.name}</label>
+                                            <NavLink style={{textDecoration: "none", color: "#171717"}} to={`/payment-booking/${list.booking_code}`} className='line-clamp line-clamp-2'>{list?.bookingTourChild.tour.name}</NavLink>
                                             <div className="account-card--wrapper-content--tourCode">
                                                 <p>Số booking: <span>{list.booking_code}</span></p>
                                             </div>

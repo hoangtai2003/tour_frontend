@@ -9,21 +9,26 @@ import { StoreContext } from "../../components/Context/StoreContext"
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 const BookingDetails = () => {
+    useEffect(() => {
+        document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt";
+        window.scroll(0, 0);
+    }, []);
     const [bookingDetail, setBookingDetail] = useState([])
     const { url } = useContext(StoreContext)
     const { bookingCode } = useParams()
     const [paid, setPaid] = useState(0)
-    const bookingByBookingCode = async() => {
-        try {
-            const response = await axios.get(`${url}/booking/bookingDetail/${bookingCode}`)
-            setBookingDetail(response.data.data)
-        } catch (error) {
-            alert(error)
-        }
-    }
+
     useEffect(() => {
+        const bookingByBookingCode = async() => {
+            try {
+                const response = await axios.get(`${url}/booking/bookingDetail/${bookingCode}`)
+                setBookingDetail(response.data.data)
+            } catch (error) {
+                alert(error)
+            }
+        }
         bookingByBookingCode()
-    }, [bookingCode])
+    }, [bookingCode, url])
     const calculateAge = (birthDate) => {
         const birthYear = new Date(birthDate).getFullYear(); 
         const currentYear = new Date().getFullYear(); 

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import "./footer.css";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { StoreContext } from '../../Context/StoreContext';
 import { FaInstagram } from "react-icons/fa6";
@@ -13,24 +13,36 @@ const Footer = () => {
     const [visible, setVisible] = useState(false);
     const [location, setLocation] = useState([])
     const { url } = useContext(StoreContext)
+    const [ bookingCode, setBookingCode ] = useState('')
+
+    const navigate = useNavigate()
     const toggleVisible = () => {
         const scrolled = document.documentElement.scrollTop;
         if (scrolled > 300) {
-        setVisible(true);
+            setVisible(true);
         } else if (scrolled <= 300) {
-        setVisible(false);
+            setVisible(false);
         }
     };
     const scrollTop = () => {
-        window.scrollTo({
-        top: 0,
-        behavior: "smooth",
+            window.scrollTo({
+            top: 0,
+            behavior: "smooth",
         });
     };
 
     if (typeof window !== "undefined") {
         window.addEventListener("scroll", toggleVisible);
     }
+    const handleInputChange = (e) => {
+        setBookingCode(e.target.value);
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (bookingCode) {
+            navigate(`/payment-booking/${bookingCode}`);
+        }
+    };
     useEffect(() => {
         const fetchLocation = async () => {
             try {
@@ -50,15 +62,22 @@ const Footer = () => {
                 <div className="footer--container__content section-container">
                     <div className="footer--container__more--info">
                         <div className="footer--container__more--info__contact footer-second-part">
-                            <div className="footer--container__more--info__search--ipt">
-                                <div className='input__footer'>
-                                    <label>Tra cứu booking</label>
-                                    <input type='text' required placeholder='Nhập mã booking của quý khách' className='input__footer input__noBorder' />
-                                </div>
-                                <div className="footer--container__more--info__search--ipt-button">
-                                    <button className='button__footer  btn-outline-primary button'>Tra cứu</button>
-                                </div>
+                        <form className="footer--container__more--info__search--ipt" onSubmit={handleSubmit}>
+                            <div className='input__footer'>
+                                <label>Tra cứu booking</label>
+                                <input
+                                    type='text'
+                                    required
+                                    placeholder='Nhập mã booking của quý khách'
+                                    className='input__footer input__noBorder'
+                                    value={bookingCode}
+                                    onChange={handleInputChange}
+                                />
                             </div>
+                            <div className="footer--container__more--info__search--ipt-button">
+                                <button type="submit" className='button__footer btn-outline-primary button'>Tra cứu</button>
+                            </div>
+                        </form>
                             <div className="footer--container__more--info__contact--div__domestic">
                                 <label className="footer--container__more--info--label">Du lịch trong nước</label>
                                 <div className="footer-divider"></div>

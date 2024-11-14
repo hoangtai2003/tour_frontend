@@ -19,6 +19,7 @@ import { LuCalendarDays } from "react-icons/lu";
 import { FcAlarmClock } from "react-icons/fc";
 import Reviews from './Reviews'
 import { MdAirlineSeatReclineNormal } from "react-icons/md";
+import { IoTicketOutline } from "react-icons/io5";
 import { FaGift } from "react-icons/fa6";
 
 const localizer = momentLocalizer(moment);
@@ -101,7 +102,7 @@ const TourDetails = () => {
         tourDate.setHours(0, 0, 0, 0);
         return tourDate >= today;
     });
-    
+
     const events = filteredDates.map(({ date, price, price_sale }) => ({
         start: date,
         end: date,
@@ -374,25 +375,8 @@ const TourDetails = () => {
                                         <div className="tour_list">
                                             {tourRelated.length > 0 ? (                                                
                                                 tourRelated.slice(0,2).map((tour, index) => {
-                                                    const discount = tour.tourChildren[0]?.price_sale
-                                                        ? (tour.price * (100 - tour.tourChildren[0].price_sale)) / 100
-                                                        : "";
-
                                                     return (
                                                         <Card key={index} className='tour-card rounded-2 shadow-sm mb-4'>
-                                                            {discount ? (
-                                                                <div className="price-section">
-                                                                    <div className="sale-tag">Sale {tour.tourChildren[0].price_sale}%</div>
-                                                                    <div className="price-info">
-                                                                        <span className="discounted-price">
-                                                                            {discount?.toLocaleString('vi-VN')} vnđ/người
-                                                                        </span>
-                                                                        <span className="original-price">
-                                                                            {tour?.price.toLocaleString('vi-VN')} vnđ/người
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            ) : (
                                                                 <div className="price-section">
                                                                     <div className="price-info">
                                                                         <span className="only-price">
@@ -400,7 +384,6 @@ const TourDetails = () => {
                                                                         </span>
                                                                     </div>
                                                                 </div>
-                                                            )}
                                                             <Card.Img
                                                                 variant='top'
                                                                 src={tour?.tourImage[0]?.image_url}
@@ -408,27 +391,18 @@ const TourDetails = () => {
                                                                 alt={tour?.name}
                                                             />
                                                             <Card.Body>
-                                                                <h5 className="days">{tour?.duration}</h5>
                                                                 <Card.Title>
-                                                                    <NavLink className="body-text text-dark text-decoration-none" to={`/tours/${tour?.id}`}>
+                                                                    <NavLink className="body-text text-dark text-decoration-none" to={`/chuong-trinh/${tour?.tour_slug}`}>
                                                                         {tour?.name}
                                                                     </NavLink>
                                                                 </Card.Title>
                                                                 <Card.Text>
-                                                                    <i className="bi bi-geo-alt"></i>
-                                                                    <span className="text">Từ : {tour?.departure_city}</span>
+                                                                    <SlLocationPin style={{marginRight: "10px"}}/>
+                                                                    Khởi hành : <span className="font-bold" style={{ color: "#0b5da7"}}>{tour?.departure_city}</span>
                                                                 </Card.Text>
                                                                 <Card.Text>
-                                                                    <i className="bi bi-calendar"></i>
-                                                                    Khởi hành : {tour?.tourChildren[0].start_date}
-                                                                </Card.Text>
-                                                                <Card.Text>
-                                                                    <i className="bi bi-people-fill"></i>
-                                                                    Số chỗ : {tour?.tourChildren[0].total_seats} - Còn trống : {tour?.availableSeats}
-                                                                </Card.Text>
-                                                                <Card.Text>
-                                                                    <i className="bi bi-check-circle-fill"></i>
-                                                                    Đã xác nhận : {tour?.confirmed}
+                                                                    <IoTicketOutline style={{fontSize: "15px", marginRight: "10px"}} />
+                                                                    Mã chương trình :<span className='font-bold' style={{marginLeft: "10px", color: "#171717"}}>{tour?.program_code} ({tour?.duration})</span>
                                                                 </Card.Text>
                                                             </Card.Body>
                                                         </Card>

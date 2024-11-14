@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Breadcrumbs from '../../components/Breadcrumb/Breadcrumbs'
-import { Card, Col, Container, Row } from 'react-bootstrap'
+import { Card, Row } from 'react-bootstrap'
 import { NavLink, useParams } from 'react-router-dom'
 import { StoreContext } from '../../components/Context/StoreContext'
 import { SlLocationPin } from "react-icons/sl";

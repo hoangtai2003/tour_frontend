@@ -18,7 +18,7 @@ const AccountPassword = () => {
     const editPasswordSubmit = async(e) => {
         e.preventDefault()
         try {
-            const response = await axios.put(`${url}/users/${userId}`, editPassword)
+            const response = await axios.put(`${url}/users/updatePassword/${userId}`, editPassword)
             if (response.data.success){
                 Swal.fire({
                     text: "Cập nhật thông tin thành công",
@@ -29,15 +29,12 @@ const AccountPassword = () => {
                     newPassword: '',
                     confirmPassword: ''
                 }) 
-            } else {
-                Swal.fire({
-                    text: response.data.message,
-                    icon: "error"
-                });
             }
-
         } catch (error) {
-            alert(error.response?.data?.message || error.message);
+            Swal.fire({
+                text: error.response?.data?.message || error.message,
+                icon: "error"
+            });
         }
         
     }
@@ -55,7 +52,7 @@ const AccountPassword = () => {
                         <FormLabel>Mật khẩu cũ: </FormLabel>
                     </div>
                     <div className="right">
-                        <input placeholder="Nhập mật khẩu cũ" type="password" name="currentPassword" value={editPassword.currentPassword} onChange={handleChange}/>
+                        <input required placeholder="Nhập mật khẩu cũ" type="password" name="currentPassword" value={editPassword.currentPassword} onChange={handleChange}/>
                     </div>
                 </div>
                 <div className="row">
@@ -63,7 +60,7 @@ const AccountPassword = () => {
                         <FormLabel>Mật khẩu mới: </FormLabel>
                     </div>
                     <div className="right">
-                        <input placeholder="Nhập mật khẩu mới" type="password" name="newPassword" value={editPassword.newPassword} onChange={handleChange}/>
+                        <input required placeholder="Nhập mật khẩu mới" type="password" name="newPassword" value={editPassword.newPassword} onChange={handleChange}/>
                     </div>
                 </div>
                 <div className="row">
@@ -71,7 +68,7 @@ const AccountPassword = () => {
                         <FormLabel>Nhập lại mật khẩu mới: </FormLabel>
                     </div>
                     <div className="right">
-                        <input placeholder="Nhập lại mật khẩu mới" type="password" name="confirmPassword" value={editPassword.confirmPassword} onChange={handleChange}/>
+                        <input required placeholder="Nhập lại mật khẩu mới" type="password" name="confirmPassword" value={editPassword.confirmPassword} onChange={handleChange}/>
                     </div>
                 </div>
                 <button className="btn-blue btn-change-password" aria-label="Đổi mật khẩu">Đổi mật khẩu</button>

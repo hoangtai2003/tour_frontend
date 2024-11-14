@@ -21,10 +21,10 @@ const Header = () => {
     };
 
     useEffect(() => {
-        // Lấy token từ localStorage khi component mount
+        
         const storedToken = localStorage.getItem("token");
         if (storedToken) {
-            setToken(storedToken); // Cập nhật token vào context nếu tồn tại
+            setToken(storedToken);
         }
     }, [setToken]);
 
@@ -70,7 +70,7 @@ const Header = () => {
         if (token) {
             fetchUserInfo(); 
         }
-    }, [token, url, navigate]);
+    }, [token, url, navigate, setToken]);
 
     return (
         <header className="header-section">
@@ -104,9 +104,6 @@ const Header = () => {
                                 <div className="header-title">
                                     <NavLink className="nav-link" to="/home" onClick={closeMenu}>
                                         Trang chủ
-                                    </NavLink>
-                                    <NavLink className="nav-link" to="/about-us" onClick={closeMenu}>
-                                        Giới thiệu
                                     </NavLink>
                                     <NavLink className="nav-link" to="/tours" onClick={closeMenu}>
                                         TOURS

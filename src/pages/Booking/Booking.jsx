@@ -84,7 +84,7 @@ const Booking = () => {
     : tourDetails?.price_child;
     const discountPriceToddler = tourDetails && tourDetails.price_sale > 0
     ? (tourDetails.price_toddler * (100 - tourDetails.price_sale)) / 100
-    : tourDetails?.price_todder;
+    : tourDetails?.price_toddler;
     const discountPriceBaby = tourDetails && tourDetails.price_sale > 0
     ? (tourDetails.price_baby * (100 - tourDetails.price_sale)) / 100
     : tourDetails?.price_baby;

@@ -26,6 +26,8 @@ import ExperienceTravel from './pages/News/ExperienceTravel';
 import TourLocation from './pages/Tours/TourLocation';
 import TourSale from './pages/Tours/TourSale';
 import DetailHotel from './pages/Hotel/DetailHotel';
+import RegisterGuide from './pages/Auth/RegisterGuide';
+import RegisterHotel from './pages/Auth/RegisterHotel';
 const App = () =>  {
   return (
     <>
@@ -39,9 +41,10 @@ const App = () =>  {
             <Route path='lien-he' element={<Contact />} />
             <Route path='/booking/:tour_code' element={<Booking />} />
             <Route path='/payment-booking/:bookingCode' element={<BookingDetails />} />
-            <Route path='about-us' element={<About />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+            <Route path="register-guide" element={<RegisterGuide />} />
+            <Route path="register-hotel" element={<RegisterHotel />} />
             <Route path="account" element={<Account />}>
                 <Route path="account-info" element={<AccountInfo />} />
                 <Route path="account-password" element={<AccountPassword />} />

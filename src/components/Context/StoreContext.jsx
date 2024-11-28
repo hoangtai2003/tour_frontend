@@ -1,23 +1,13 @@
 import axios from "axios";
 import { createContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 export const StoreContext = createContext(null)
 const StoreContextProvider = (props) => {
     const [token, setToken] = useState("")
-    const [ user, setUser ] = useState(null)
+    const [ user, setUser ] = useState([])
     const url = "http://localhost:4000/api/v1"
     const userId = user?.id
-    const fetchUserInfo = async() => {
-        try {
-            const response = await axios.get(`${url}/auth/users`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-            setUser(response.data.data)
-        } catch(error){
-            console.error("Lỗi khi lấy thông tin người dùng", error);
-        }
-    }
+    const navigate = useNavigate();
     useEffect(() => {
         const storedToken = localStorage.getItem("token_customer");
         if (storedToken) {
@@ -26,18 +16,30 @@ const StoreContextProvider = (props) => {
     }, []); 
     
     useEffect(() => {
-        async function loadData() {
-            if (token) {
-                fetchUserInfo();
+        const fetchUserInfo = async() => {
+            try {
+                const response = await axios.get(`${url}/auth/users`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                setUser(response.data.data)
+            } catch(error){
+                 if (error.response){
+                    localStorage.removeItem("token_customer");
+                    setToken(null)
+                    navigate('/home')
+                }
             }
         }
-        loadData();
-    }, [token]); 
+        if (token) {
+            fetchUserInfo();
+        }
+    }, [token, navigate]); 
     const contextValue = {
         url,
         token,
         setToken,
-        fetchUserInfo,
         user,
         setUser,
         userId

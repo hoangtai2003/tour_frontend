@@ -448,12 +448,6 @@ const Booking = () => {
                                                 <IoQrCode className='vnpay-icon' />
                                             </div>
                                         </Form.Group>
-                                        <Form.Group className="mt-4 mb-4" md="6">
-                                            <h3 className='font-bold pb-2 mt-3'>Điều khoản bắt buộc khi đăng ký Online</h3>
-                                            <div className='booking-clause'>
-
-                                            </div>
-                                        </Form.Group>
                                     </Row>
                                 </div>
                             </div>

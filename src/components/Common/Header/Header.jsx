@@ -1,20 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Container,
-  Navbar,
-  Offcanvas,
-  Nav,
-} from "react-bootstrap";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Container, Navbar, Offcanvas, Nav} from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import "./header.css";
 import { StoreContext } from "../../Context/StoreContext";
-import axios from "axios";
 import userImg from "../../../assets/images/ava/user.png"
 const Header = () => {
     const [open, setOpen] = useState(false);
-    const { token, setToken, url } = useContext(StoreContext);
-    const navigate = useNavigate();
-    const [userInfo, setUserInfo] = useState(null);
+    const { token, setToken, user } = useContext(StoreContext);
 
     const toggleMenu = () => {
         setOpen(!open);
@@ -49,29 +41,6 @@ const Header = () => {
             setOpen(false);
         }
     };
-    useEffect(() => {
-        const fetchUserInfo = async () => {
-            try {
-                const response = await axios.get(`${url}/auth/users`, {
-                    headers: {
-                        Authorization: `Bearer ${token}` 
-                    }
-                });
-                setUserInfo(response.data.data);
-            } catch (error) {
-                if (error.response){
-                    localStorage.removeItem("token_customer");
-                    setToken(null)
-                    navigate('/home')
-                }
-            }
-        };
-
-        if (token) {
-            fetchUserInfo(); 
-        }
-    }, [token, url, navigate, setToken]);
-
     return (
         <header className="header-section">
             <Container>
@@ -82,8 +51,6 @@ const Header = () => {
                             Du lịch Việt
                         </NavLink>
                     </Navbar.Brand>
-
-
                     <Navbar.Offcanvas
                         id="offcanvasNavbar-expand-lg"
                         aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
@@ -97,8 +64,6 @@ const Header = () => {
                                 <i className="bi bi-x-lg"></i>
                             </span>
                         </Offcanvas.Header>
- 
-
                         <Offcanvas.Body>
                             <Nav>
                                 <div className="header-title">
@@ -108,7 +73,6 @@ const Header = () => {
                                     <NavLink className="nav-link" to="/tours" onClick={closeMenu}>
                                         TOURS
                                     </NavLink>
-
                                     <NavLink className="nav-link" to="/tin-tuc/tin-tuc-du-lich" onClick={closeMenu}>
                                         Tin tức
                                     </NavLink>
@@ -129,7 +93,7 @@ const Header = () => {
                                     ) : (
                                         <>
                                             <NavLink className="account" to="/account/account-info">
-                                                <img src={userImg} alt="" />
+                                                <img src={user.user_image} alt="" style={{borderRadius: "50%", width: "25px"}} />
                                             </NavLink>
                                         </>
 

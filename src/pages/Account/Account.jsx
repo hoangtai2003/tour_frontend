@@ -50,7 +50,7 @@ const Account = () => {
                 <div className="account_left-sidebar">
                     <div className="account_left-sidebar-top" style={{overflow: "clip"}}>
                         <div className="account-main">
-                            <img src="https://lh3.googleusercontent.com/a/ACg8ocKxnDOhdc--JE_qm_My7Jy8SGACD3hS9IggyqmAtnkFwfhr2Q=s96-c" alt="" className="account-img" style={{borderRadius: "50%", width: "50px"}} />
+                            <img src={user.user_image} alt="" className="account-img" style={{borderRadius: "50%", width: "50px"}} />
                             <div className="account-main-info">
                                 <div className="account-id">{user?.username}</div>
                                 <div className="account-email">{user?.email}</div>

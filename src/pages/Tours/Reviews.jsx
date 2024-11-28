@@ -37,7 +37,7 @@ const Reviews = () => {
                 <ListGroup className="user__review">
                     {review.tourReviews?.map((rate, index) => (
                         <div className='review__item' key={index}>
-                            <img src="" alt=''/>
+                            <img src={rate.reviewsUser.user_image} alt=''/>
                             <div className='w-100'>
                                 <div className="d-flex align-items-center justify-content-between">
                                     <div>

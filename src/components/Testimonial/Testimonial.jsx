@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react' 
 import Slider from 'react-slick'
-import ava01 from '../../assets/images/ava/ava-1.jpg'
 import axios from 'axios'
 import { StoreContext } from '../Context/StoreContext'
 const Testimonials = () => {
@@ -52,7 +51,7 @@ const Testimonials = () => {
                         {rate.review_comment}
                     </p>
                 <div className="d-flex align-items-center gap-4 mt-3">
-                    <img src={ava01} alt='' className='w-25 h-25 rounded-2'></img>
+                    <img src={rate.reviewsUser.user_image} alt='' className='w-25 h-25 rounded-2'></img>
                         <div>
                             <h5 className="mb-0 mt-3">{rate.reviewsUser.username}</h5>
                         </div>

@@ -10,7 +10,6 @@ import News from './pages/News/News';
 import Hotel from './pages/Hotel/Hotel';
 import Contact from './pages/Contact/Contact';
 import Booking from './pages/Booking/Booking';
-import About from './pages/About/About';
 import TourDetails from './pages/Tours/TourDetails';
 import Register from './pages/Auth/Register';
 import Account from './pages/Account/Account';

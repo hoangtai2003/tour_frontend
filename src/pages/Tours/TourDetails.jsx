@@ -134,7 +134,7 @@ const TourDetails = () => {
         if (b.parent_id === 0) return 1;  
         return 0; 
     });
-
+    const totalSeat = selectedTourChild?.total_seats - selectedTourChild?.confirmedBookingCount
     const renderBreadcrumb = () => {
         return sortedLocations.map((location, index) => (
             <span key={index}>
@@ -346,7 +346,11 @@ const TourDetails = () => {
                                                                     <h6><SlLocationPin className='icon' style={{marginRight: "5px"}}/>Khởi hành: <span className='font-bold'>{tourDetails.departure_city}</span></h6>
                                                                     <h6><LuCalendarDays className='icon' style={{marginRight: "5px"}}/>Ngày khởi hành: <span className='font-bold'>{moment(selectedTourChild.start_date).format('DD-MM-YYYY')}</span></h6>
                                                                     <h6><FcAlarmClock className='icon' style={{marginRight: "5px"}}/>Thời gian: <span className='font-bold'>{tourDetails.duration}</span></h6>
-                                                                    <h6><MdAirlineSeatReclineNormal   className='icon' style={{marginRight: "5px"}}/>Số chỗ còn: <span className='font-bold'>{selectedTourChild.total_seats - selectedTourChild.confirmedBookingCount}</span></h6>
+                                                                    {totalSeat > 0 ? (
+                                                                         <h6><MdAirlineSeatReclineNormal   className='icon' style={{marginRight: "5px"}}/>Số chỗ còn: <span className='font-bold'>{totalSeat}</span></h6>
+                                                                    ): (
+                                                                        <p style={{color: "#e01600", fontWeight: "650"}}>Tour đã hết chỗ. Vui lòng chọn ngày khác !</p>
+                                                                    )}
                                                                 </div>
                                                             ) : (
                                                                 <div className="price-container">
@@ -358,13 +362,26 @@ const TourDetails = () => {
                                                                     <h6><SlLocationPin className='icon' style={{marginRight: "5px"}}/>Khởi hành: <span className='font-bold'>{tourDetails.departure_city}</span></h6>
                                                                     <h6><LuCalendarDays className='icon' style={{marginRight: "5px"}}/>Ngày khởi hành: <span className='font-bold'>{moment(selectedTourChild.start_date).format('DD-MM-YYYY')}</span></h6>
                                                                     <h6><FcAlarmClock className='icon' style={{marginRight: "5px"}}/>Thời gian: <span className='font-bold'>{tourDetails.duration}</span></h6>
-                                                                    <h6><MdAirlineSeatReclineNormal   className='icon' style={{marginRight: "5px"}}/>Số chỗ còn: <span className='font-bold'>{selectedTourChild.total_seats - selectedTourChild.confirmedBookingCount}</span></h6>
+                                                                    {totalSeat > 0 ? (
+                                                                         <h6><MdAirlineSeatReclineNormal   className='icon' style={{marginRight: "5px"}}/>Số chỗ còn: <span className='font-bold'>{totalSeat}</span></h6>
+                                                                    ): (
+                                                                        <p style={{color: "#e01600", fontWeight: "650"}}>Tour đã hết chỗ. Vui lòng chọn ngày khác !</p>
+                                                                    )}
+                                                                   
                                                                 </div>
                                                             )}
                                                         </Stack>
                                                         <div className="button-selection">
-                                                            <button className="secondaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" onClick={handleBackToCalendar}>Ngày khác</button>
-                                                            <NavLink className="primaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" to={`/booking/${selectedTourChild.tour_code}`}>Đặt ngay</NavLink>
+                                                            
+                                                            {totalSeat > 0 ? (
+                                                                <>
+                                                                    <button className="secondaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" onClick={handleBackToCalendar}>Ngày khác</button>
+                                                                    <NavLink className="primaryBtn w-50 d-flex justify-content-center fw-bold p-3 mt-3" to={`/booking/${selectedTourChild.tour_code}`}>Đặt ngay</NavLink>
+                                                                </>
+                                                            ) : (
+                                                                <button className="secondaryBtn w-100 d-flex justify-content-center fw-bold p-3 mt-3" onClick={handleBackToCalendar}>Ngày khác</button>
+                                                            )}
+                                                           
                                                         </div>
                                                     </>
                                                 )}

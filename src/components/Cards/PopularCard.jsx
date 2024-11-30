@@ -57,7 +57,7 @@ const  PopularCard = ({popular}) => {
                         Số chỗ : {popular.total_seats} - Số chỗ còn nhận : <span className='font-bold' style={{color: "#e01600"}}>{popular.total_seats - popular.confirmedBookingCount}</span>
                     </Card.Text>
                     
-                    <NavLink type='button' className="btn-sale">Đặt ngay</NavLink>
+                    <NavLink type='button' to={`/chuong-trinh/${popular.tour.tour_slug}?tourCode=${popular.tour_code}`} className="btn-sale">Đặt ngay</NavLink>
                 </Card.Body>
             </Card> 
         </>

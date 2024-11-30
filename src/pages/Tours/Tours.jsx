@@ -79,7 +79,7 @@ const Tours = () => {
         {value: 'giatuthapdencao', label: 'Giá từ thấp đến cao'},
         {value: 'ngaykhoihanhgannhat', label: 'Ngày khởi hành gần nhất'},
     ]
-    // Phân trang
+    // ========== Xử lý phân trang ===========
     const onPageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPage){
             setCurrentPage(newPage)
@@ -107,7 +107,7 @@ const Tours = () => {
     for (let i = startPage; i <= endPage; i++) {
         pageNumbers.push(i);
     }
-
+    // ======= Kết thúc xử lý phân trang ===========
     const fetchFilteredTours = async (price) => {
         try {
             const response = await axios.get(`${url}/tours/price/filter-price`, {

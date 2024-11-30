@@ -99,9 +99,6 @@ const Login = () => {
                                 <p className="login-footer">
                                     Bạn là hướng dẫn viên? <Link to="/register-guide" className="register-link"><i>Đăng ký ngay</i></Link> 
                                 </p>
-                                <p className="login-footer">
-                                    Bạn là đại diện dịch vụ khách sạn? <Link to="/register-hotel" className="register-link"><i>Đăng ký ngay</i></Link> 
-                                </p>
                                 <div className="login-card-body">
                                     <button className="login-btn font-bold" type="submit">Đăng nhập</button>
                                 </div>

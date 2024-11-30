@@ -26,7 +26,6 @@ import TourLocation from './pages/Tours/TourLocation';
 import TourSale from './pages/Tours/TourSale';
 import DetailHotel from './pages/Hotel/DetailHotel';
 import RegisterGuide from './pages/Auth/RegisterGuide';
-import RegisterHotel from './pages/Auth/RegisterHotel';
 const App = () =>  {
   return (
     <>
@@ -43,7 +42,6 @@ const App = () =>  {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="register-guide" element={<RegisterGuide />} />
-            <Route path="register-hotel" element={<RegisterHotel />} />
             <Route path="account" element={<Account />}>
                 <Route path="account-info" element={<AccountInfo />} />
                 <Route path="account-password" element={<AccountPassword />} />

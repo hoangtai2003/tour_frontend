@@ -397,7 +397,7 @@ const SearchResult = () => {
                                                         </div>
                                                     </div>
                                                     <div className="card-filter-desktop__content--price-btn">
-                                                        <NavLink className="button btn-md btn-primary" to={`/tours/${tour.id}`}>Xem chi tiết</NavLink>
+                                                        <NavLink className="button btn-md btn-primary" to={`/chuong-trinh/${tour.tour_slug}`}>Xem chi tiết</NavLink>
                                                     </div>
                                                 </div>
                                             </div>

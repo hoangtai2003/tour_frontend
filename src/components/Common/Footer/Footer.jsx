@@ -9,6 +9,7 @@ import { TbMessageCircleBolt } from "react-icons/tb";
 import { FaTiktok } from "react-icons/fa";
 import { FaTelegram } from "react-icons/fa6";
 import { FaPhone } from "react-icons/fa6";
+import Swal from 'sweetalert2'; 
 const Footer = () => {
     const [visible, setVisible] = useState(false);
     const [location, setLocation] = useState([])
@@ -37,10 +38,32 @@ const Footer = () => {
     const handleInputChange = (e) => {
         setBookingCode(e.target.value);
     }
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (bookingCode) {
-            navigate(`/payment-booking/${bookingCode}`);
+    
+        if (!bookingCode) {
+            Swal.fire({
+                text: `Vui lòng nhập mã booking.`,
+                icon: "warning"
+            });
+            return;
+        }
+    
+        try {
+            const response = await axios.get(`${url}/booking/bookingDetail/${bookingCode}`);
+            if (response.data.success) {
+                navigate(`/payment-booking/${bookingCode}`);
+            } else {
+                Swal.fire({
+                    text: `Không tìm thấy booking: ${bookingCode}`,
+                    icon: "warning"
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                text: `Không tìm thấy booking: ${bookingCode}`,
+                icon: "warning"
+            });
         }
     };
     useEffect(() => {
@@ -67,7 +90,6 @@ const Footer = () => {
                                 <label>Tra cứu booking</label>
                                 <input
                                     type='text'
-                                    required
                                     placeholder='Nhập mã booking của quý khách'
                                     className='input__footer input__noBorder'
                                     value={bookingCode}

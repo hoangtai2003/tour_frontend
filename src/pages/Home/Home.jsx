@@ -107,7 +107,7 @@ const Home = () => {
                     <Row>
                         <Col md={12}>
                             <Slider {... settings}>
-                                {countTourByLocation.map((destination, index) => {
+                                {countTourByLocation.slice(0,5).map((destination, index) => {
                                         return (
                                             <Cards destination={destination}  key={index} slug={destination.location.loca_slug}/>
                                         )

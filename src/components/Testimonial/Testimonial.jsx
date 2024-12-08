@@ -13,7 +13,7 @@ const Testimonials = () => {
         speed: 2000, 
         swipeToSlide: true, 
         autoplaySpeed: 2000,
-        slidesToShow: 4,
+        slidesToShow: 2,
 
         responsive: [
             {

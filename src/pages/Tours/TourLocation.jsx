@@ -113,7 +113,6 @@ const TourLocation = () => {
         {value: 'tatca', label: 'Tất cả'},
         {value: 'giatucaodenthap', label: 'Giá từ cao đến thấp'},
         {value: 'giatuthapdencao', label: 'Giá từ thấp đến cao'},
-        {value: 'ngaykhoihanhgannhat', label: 'Ngày khởi hành gần nhất'},
     ]
     const handleFilterClick = (filterPrice) => {
         fetchFilteredTours(filterPrice);

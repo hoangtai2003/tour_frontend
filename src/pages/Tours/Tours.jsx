@@ -76,8 +76,7 @@ const Tours = () => {
     const sort = [
         {value: 'tatca', label: 'Tất cả'},
         {value: 'giatucaodenthap', label: 'Giá từ cao đến thấp'},
-        {value: 'giatuthapdencao', label: 'Giá từ thấp đến cao'},
-        {value: 'ngaykhoihanhgannhat', label: 'Ngày khởi hành gần nhất'},
+        {value: 'giatuthapdencao', label: 'Giá từ thấp đến cao'}
     ]
     // ========== Xử lý phân trang ===========
     const onPageChange = (newPage) => {

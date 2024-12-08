@@ -32,7 +32,6 @@ const QuantityCounter = ({ label, description, initialValue = 0, min = 0, max = 
                         role="button"
                         tabIndex={0}
                         aria-label="Giảm"
-                        onKeyPress={(e) => e.key === 'Enter' && decrement()}
                     >
                         -
                     </div>
@@ -43,7 +42,6 @@ const QuantityCounter = ({ label, description, initialValue = 0, min = 0, max = 
                         role="button"
                         tabIndex={0}
                         aria-label="Tăng"
-                        onKeyPress={(e) => e.key === 'Enter' && increment()}
                     >
                         +
                     </div>

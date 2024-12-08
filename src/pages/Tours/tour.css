@@ -661,6 +661,8 @@
     line-height: 1.7rem;
     text-decoration: none;
     color: #171717;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
 }
 
 .find-tour-content__list--header-result .right-sort--label {

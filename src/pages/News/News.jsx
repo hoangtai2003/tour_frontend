@@ -22,35 +22,34 @@ const News = () => {
     const isKinhNghiemDuLich = location.pathname === '/tin-tuc/kinh-nghiem-du-lich';
     const isTinTucDuLich = location.pathname === '/tin-tuc/tin-tuc-du-lich';
     
-    const fetchNews = async (cate_name) => {
-        try {
-            const response = await axios.get(`${url}/news/pagination/newsletter`, {
-                params: { cate_name, page: currentPage }
-            });
-            const formattedNews  = response.data.data.map(news => {
-                const localDate = new Date(news.news_date);  
-                const year = localDate.getFullYear();
-                const month = String(localDate.getMonth() + 1).padStart(2, '0'); 
-                const day = String(localDate.getDate()).padStart(2, '0');
-                const hours = String(localDate.getHours()).padStart(2, '0');  
-                const minutes = String(localDate.getMinutes()).padStart(2, '0');
-                const formattedDate = `${day}/${month}/${year} ${hours }:${minutes}`;
-                return {...news, news_date: formattedDate}
-            })
-            setNewsletter(formattedNews);
-            setTotalPage(response.data.totalPages);
-        } catch (error) {
-            console.error("Error fetching news:", error);
-        }
-    };
-    
     useEffect(() => {
+        const fetchNews = async (cate_name) => {
+            try {
+                const response = await axios.get(`${url}/news/pagination/newsletter`, {
+                    params: { cate_name, page: currentPage }
+                });
+                const formattedNews  = response.data.data.map(news => {
+                    const localDate = new Date(news.news_date);  
+                    const year = localDate.getFullYear();
+                    const month = String(localDate.getMonth() + 1).padStart(2, '0'); 
+                    const day = String(localDate.getDate()).padStart(2, '0');
+                    const hours = String(localDate.getHours()).padStart(2, '0');  
+                    const minutes = String(localDate.getMinutes()).padStart(2, '0');
+                    const formattedDate = `${day}/${month}/${year} ${hours }:${minutes}`;
+                    return {...news, news_date: formattedDate}
+                })
+                setNewsletter(formattedNews);
+                setTotalPage(response.data.totalPages);
+            } catch (error) {
+                console.error("Error fetching news:", error);
+            }
+        };    
         if (isTinTucDuLich) {
             fetchNews('Tin tức du lịch');
         } else if (isKinhNghiemDuLich) {
             fetchNews('Kinh nghiệm du lịch');
         }
-    }, [url, currentPage, location.pathname]);
+    }, [url, currentPage, isKinhNghiemDuLich, isTinTucDuLich]);
     
     const onPageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPage) {

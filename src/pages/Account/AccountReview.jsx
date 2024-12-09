@@ -39,11 +39,6 @@ const AccountReview = () => {
                     'Content-Type': 'application/json'
                 }
             });
-            Swal.fire({
-                text: "Cập nhật thông tin thành công",
-                icon: "success"
-            });
-
             if (response.data.success) {
                 Swal.fire({
                     text: "Đánh giá thành công!",

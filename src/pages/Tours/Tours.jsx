@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useCallback } from 'react'
 import Breadcrumbs from '../../components/Breadcrumb/Breadcrumbs'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -36,15 +36,15 @@ const Tours = () => {
         document.title = "Hệ thống bán tour trực tuyến | Du lịch Việt"
         window.scroll(0,0)
     }, [])
-    const fetchTour = async() => {
+    const fetchTour = useCallback(async() => {
         const response  = await axios.get(`${url}/tours?page=${currentPage}`)
         setTour(response.data.data)
         setTotalPage(response.data.totalPages)
         setCountTour(response.data.count)
-    }
+    }, [currentPage, url]) 
     useEffect(() => {
         fetchTour()
-    }, [url, currentPage])  
+    }, [fetchTour])  
     useEffect(() => {
         const fetchLocation = async () => {
             try {

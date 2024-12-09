@@ -314,7 +314,7 @@ const TourDetails = () => {
                                     </Tab.Content>
                                 </Col>
                                 <Col md={4}>
-                                    <aside className='right-sidebar'>
+                                    <aside className='right-sidebar' style={{position: "sticky", top: "90px"}}>
                                         <Card className='rounded-3 p-2 shadow-sm mb-4 price-info'>
                                             <Card.Body>
                                                 {!selectedDate ? (

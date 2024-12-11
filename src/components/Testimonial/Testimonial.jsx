@@ -36,7 +36,7 @@ const Testimonials = () => {
     }
     useEffect(() => {
         const fetchReview = async() => {
-            const response = await axios.get(`${url}/review`)
+            const response = await axios.get(`${url}/review/reviewStatus/status`)
             setReview(response.data.data)
         }
         fetchReview()

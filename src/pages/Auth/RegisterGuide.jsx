@@ -41,7 +41,7 @@ const RegisterGuide = () => {
         if (selectedFile){
             data.append("user_profile", selectedFile)
         }
-        const response = await axios.post(`${url}/auth/register`, data, {
+        const response = await axios.post(`${url}/auth/registerGuide`, data, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
         if (response.data.success) {

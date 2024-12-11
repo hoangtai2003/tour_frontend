@@ -25,7 +25,8 @@ const Register = () => {
         address: "",
         password: "",
         confirmPassword: "",
-        role_id: 3
+        role_id: 3,
+        location_id: 2
     })
     const handleChange = (e) => {
         const name = e.target.name
@@ -34,20 +35,23 @@ const Register = () => {
     } 
     const onSubmit = async(e) => {
         e.preventDefault(e)
-        const response = await axios.post(`${url}/auth/register`, formData)
-        if (response.data.success){
-            Swal.fire({
-                icon: 'success',
-                title: 'Đăng ký thành công',
-            });
-            navigate("/login")
-        } else {
+        try {
+            const response = await axios.post(`${url}/auth/registerClient`, formData)
+            if (response.data.success){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Đăng ký thành công',
+                });
+                navigate("/login")
+            } 
+        } catch (error) {
             Swal.fire({
                 icon: 'error',
                 title: 'Đăng ký thất bại',
-                text: response.data.message,
+                text: error.response?.data?.message || error.message
             });
         }
+        
 
     } 
     return (

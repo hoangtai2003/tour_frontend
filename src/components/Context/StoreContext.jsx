@@ -5,7 +5,7 @@ export const StoreContext = createContext(null)
 const StoreContextProvider = (props) => {
     const [token, setToken] = useState("")
     const [ user, setUser ] = useState([])
-    const url = "https://backend-tour-kasf.onrender.com/api/v1"
+    const url = "backendtour-production.up.railway.app/api/v1"
     const userId = user?.id
     const navigate = useNavigate();
     useEffect(() => {
